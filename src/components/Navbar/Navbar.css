@@ -1,0 +1,117 @@
+:root{
+    --altura-nav: 75px;
+}
+
+.navBar{
+    position: fixed; /* Cambio importante: fijar la posición */
+    top: 0; /* Colocar en la parte superior */
+    background-color: #001A29;
+    height: var(--altura-nav);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ocupar el ancho completo */
+    z-index: 2; 
+}
+
+.navBar.scrolled {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: #001a29a7;
+
+}
+
+
+.items a{
+    margin: 15px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.items a:hover{
+    color: #939393;
+}
+
+.toggle{
+    display: none;
+}
+
+.toggle:hover{
+    cursor: pointer;
+}
+
+.noMostrar{
+    display: none;
+}
+
+@media (max-width: 968px) {
+    
+    .navBar.open{
+        background-color: #001A29;
+        transition: 0.3s ease all;
+
+    }
+
+    .items{
+        position: absolute;
+        top: 60px;
+        left: 0;
+        font-size: 25px;
+        background-color: #001A29;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: calc(100vh - var(--altura-nav));
+        transform: translateX(-100%);
+        transition: 0.3s ease all;
+        z-index: 1;
+
+    }
+    
+    .items a{
+        color: rgb(255, 255, 255);
+        width: 100px;
+    }
+
+    .items a:hover{
+        color: #939393;
+    }
+
+    .items.open{
+        transform: translateX(0) !important;
+    }
+
+    .toggle{
+        display: flex !important;
+        flex-direction: column;
+        margin: 15px;
+    }
+
+    .toggle span{
+        width: 30px;
+        height: 4px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+        border-radius: 2px;
+        transform-origin: 5px 0px;
+        transition: all 0.2s linear;
+    }
+
+    .toggle.open > span{
+        transform: rotate(45deg) translate(0px, 0px);
+        background-color: rgb(255, 255, 255);
+
+    }
+
+    .toggle.open > span:nth-child(2){
+        display: none;
+    }
+
+    .toggle.open > span:nth-child(3){
+        transform: rotate(-45deg) translate(-5px, 1px);
+        background-color: rgb(255, 255, 255);
+
+    }
+}
