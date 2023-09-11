@@ -1,9 +1,21 @@
 import  {useState, useEffect} from "react";
 import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
+import flecha from '../../assets/flecha-abajo.png';
 import './Navbar.css';
 
 function Navbar() {
+
+  const containerStyle = {
+    display: 'flex',
+    alignItems: 'center', // Alinea verticalmente al centro
+  };
+
+  const iconStyle = {
+    width: '16px', // Ajusta el ancho deseado
+    height: '16px', // Ajusta la altura deseada
+    marginLeft: '6px',
+  };
 
     const [Open, setOpen] = useState(false);
 
@@ -36,7 +48,12 @@ function Navbar() {
 
         <div className={`items ${Open && "open"} gap-12 justify-start text-center items-center flex`}>
         <Link >Inicio</Link>
-        <Link >Categoria</Link>
+        <Link >
+          <div style={containerStyle}>
+            Categoria
+            <img src={flecha} alt="Flecha hacia abajo " style={iconStyle}/>
+          </div>
+        </Link>
         <Link  >Contacto </Link>
 
         {window.innerWidth < 968 && Open && (

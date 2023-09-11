@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar/Navbar"
 import SeccionPortada from "../components/Inicio/seccionPortada/SeccionPortada"
+import SeccionPresentacion from "../components/Inicio/seccionPresentacion/SeccionPresentacion"
 function Inicio() {
   return (
     <>
@@ -9,7 +10,7 @@ function Inicio() {
       <SeccionPortada/>
 
       {/* SECCION PRESENTACION  */}
-
+      <SeccionPresentacion/>
 
       {/* SECCION RECOMENDACIONES  */}
 
