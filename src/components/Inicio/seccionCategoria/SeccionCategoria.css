@@ -1,0 +1,12 @@
+.subtitulo{
+    color: black;
+    font-weight: 700;
+    font-size: 24px;
+}
+.sub_categoria{
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 1rem;
+}

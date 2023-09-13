@@ -1,0 +1,10 @@
+Abogado
+Albañil
+Arquitectura
+Belleza
+Carpinteria
+Cocinero
+Cuidador
+Electricista
+Herreria
+Plomeria
