@@ -15,7 +15,7 @@ export default function SeccionCategoria() {
       <>
         <div class="flex justify-center items-center h-40">
           <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
-            <h3 className=" subtitulo text-center">Descubri todas las categorias: </h3>
+            <h3 className=" subtitulo text-center">Descubri todas las categorias</h3>
           </div>
         </div>
         <div class="flex justify-center items-center h-90">
