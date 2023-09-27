@@ -11,9 +11,6 @@ export default function SeccionPresentacion() {
                 Facilitamos tu vida en casa conectándote con profesionales de servicios domésticos cercanos y confiables. Desde limpieza hasta reparaciones, tenemos todo lo que necesitas en un solo lugar. Encuentra ayuda para tu hogar con facilidad en ServiAr. ¡Simplifica tu vida hoy!
             </p>
             </div>
-            <div>
-                <button className="btn-servicio">SERVICIOS</button>
-            </div>
         </div>
         <div className="container_imagen">
                 <img src={fotoPresentacion} alt=""  className="imagen1"/>

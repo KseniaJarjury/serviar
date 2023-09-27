@@ -1,6 +1,8 @@
 import  {useState, useEffect} from "react";
 import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
+// import { UserAuth } from '../context/AuthContext';
+// import { auth } from '../../firebase';
 import flecha from '../../assets/flecha-abajo.png';
 import './Navbar.css';
 
@@ -58,7 +60,7 @@ function Navbar() {
 
         {window.innerWidth < 968 && Open && (
               <div className="mt-10">
-                  <Link>Registrarse</Link>
+                  <Link >Registrarse</Link>
                   <Link>Ingresar</Link>
               </div>
         )}
@@ -66,7 +68,7 @@ function Navbar() {
         </div>
       
         <div className={`items justify-center gap-5 text-center items-center flex`}>
-        <Link  >Registrarse</Link>
+        <Link to="/registrar" >Registrarse</Link>
         <Link  >Ingresar </Link>
         </div>
 

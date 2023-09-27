@@ -1,0 +1,60 @@
+.titulo-registrar{
+    color: #001A29;
+    text-align: center;
+    font-size: 45px;
+    font-weight: 800;
+    margin-top: 6rem;
+    padding: 3rem;
+}
+.formulario{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 14rem;
+}
+/* Estilos para los campos de entrada */
+.formulario input[type="email"],
+.formulario input[type="password"] {
+  width: 28rem;
+  padding: 0.8rem;
+  margin: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Agrega bordes redondeados */
+  outline: none;
+}
+.link-olvidar{
+    margin-top: 1rem;
+    font-size: 18px;
+    font-weight: 500;
+    color: #0A66C2;
+}
+
+/* Estilos para el botón de registro */
+.btn-registrar{
+    width: 24rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #001A29;
+    opacity: 85%;
+    color: white;
+    font-weight: 700;
+    font-size: 22px;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 25px; /* Agrega bordes redondeados */
+    cursor: pointer;
+}
+
+/* Estilo para el botón de registro al pasar el mouse */
+.formulario button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.btn-google{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
