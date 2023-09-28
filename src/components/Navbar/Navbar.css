@@ -115,3 +115,14 @@
 
     }
 }
+.btn-login{
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    margin-right: 2rem;
+    padding: 1rem;
+    cursor: pointer;
+}

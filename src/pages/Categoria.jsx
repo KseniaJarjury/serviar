@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import SeccionFiltro from "../components/Categoria/seccionFiltro/seccionFiltro";
+import Mapa from "../components/Mapa/Mapa";
 function Categoria() {
     return (
       <>
@@ -11,9 +12,9 @@ function Categoria() {
         <SeccionFiltro/>
   
         {/* SECCION MAPA  */}
-        
+        <Mapa/>
   
-        {/* SECCION SERVICIOS  */}
+        {/* SECCION LISTA SERVICIOS  */}
         
   
         {/* FOOTER  */}

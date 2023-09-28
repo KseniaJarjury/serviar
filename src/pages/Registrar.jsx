@@ -1,18 +1,8 @@
 import React from 'react';
-import { GoogleButton} from 'react-google-button'
-import { UserAuth } from '../context/AuthContext';
+import { GoogleButton, handleGoogleSignIn} from 'react-google-button'
 import Footer from "../components/Footer/Footer"
 import '../styles/Registrar.css';
 function Registrar() {
-  const { googleSignIn} = UserAuth();
-
-  const handleGoogleSignIn = async () => {
-    try{
-      await googleSignIn();
-    }catch (error) {
-      console.log(error);
-    }
-  };
   
   return (
         <>
@@ -48,7 +38,7 @@ function Registrar() {
           </div>
 
           {/* FOOTER  */}
-          <Footer style={{ position: "fixed", bottom: "0", left: "0", right: "0" }}/>
+          <Footer />
 
         </>
       )

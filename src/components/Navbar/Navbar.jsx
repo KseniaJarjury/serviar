@@ -1,8 +1,7 @@
-import  {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
-// import { UserAuth } from '../context/AuthContext';
-// import { auth } from '../../firebase';
+import { GoogleButton, handleGoogleSignIn } from 'react-google-button'
 import flecha from '../../assets/flecha-abajo.png';
 import './Navbar.css';
 
@@ -19,71 +18,72 @@ function Navbar() {
     marginLeft: '6px',
   };
 
-    const [Open, setOpen] = useState(false);
+  const [Open, setOpen] = useState(false);
 
-    const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 0) {
-                setScrolling(true);
-            } else {
-                setScrolling(false);
-            }
-        };
+  const [isopen, setIsopen] = useState(false)
 
-        window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
   return (
     <>
-    <nav className={`navBar ${Open && "open"} ${scrolling && "scrolled"}`}>
+      <nav className={`navBar ${Open && "open"} ${scrolling && "scrolled"}`}>
 
-      <div>
-      <img src={logoPrincipal} alt="logo" className="w-36"/>
-      </div>
+        <div>
+          <img src={logoPrincipal} alt="logo" className="w-36" />
+        </div>
 
         <div className={`items ${Open && "open"} gap-12 justify-start text-center items-center flex`}>
-        <Link >Inicio</Link>
-        <Link >
-          <div style={containerStyle}>
-            Categoria
-            <img src={flecha} alt="Flecha hacia abajo " style={iconStyle}/>
-          </div>
-        </Link>
-        <Link  >Contacto </Link>
+          <Link >Inicio</Link>
+          <Link >
+            <div style={containerStyle}>
+              Categoria
+              <img src={flecha} alt="Flecha hacia abajo " style={iconStyle} />
+            </div>
+          </Link>
+          <Link  >Contacto </Link>
 
-        {window.innerWidth < 968 && Open && (
-              <div className="mt-10">
-                  <Link >Registrarse</Link>
-                  <Link>Ingresar</Link>
-              </div>
-        )}
+          {window.innerWidth < 968 && Open && (
+            <div className="mt-10">
+              <Link >Registrarse</Link>
+              <Link>Ingresar</Link>
+            </div>
+          )}
 
         </div>
-      
+
         <div className={`items justify-center gap-5 text-center items-center flex`}>
-        <Link to="/registrar" >Registrarse</Link>
-        <Link  >Ingresar </Link>
+          <Link to="/registrar" >Registrarse</Link>
+          <button className="btn-login" onClick={() => setIsopen(true)}>Ingresar</button>
+        </div>
+
+        <div
+          className={`toggle ${Open && "open"}`}
+          onClick={() => setOpen(!Open)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
 
-      <div
-        className={`toggle ${Open && "open"}`}
-        onClick={() => setOpen(!Open)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-
-    </nav>
+      </nav>
     </>
   );
 }
