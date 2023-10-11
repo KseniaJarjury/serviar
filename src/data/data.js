@@ -1,9 +1,9 @@
-import foto1 from "../assets/comentarios/Foto1.jpg"
-import foto2 from "../assets/comentarios/Foto2.jpg"
-import foto3 from "../assets/comentarios/Foto3.jpg"
-import foto4 from "../assets/comentarios/Foto4.jpg"
-import foto5 from "../assets/comentarios/Foto5.jpg"
-import foto6 from "../assets/comentarios/Foto6.jpg"
+import foto1 from "../assets/comentarios/Foto1.png"
+import foto2 from "../assets/comentarios/Foto2.png"
+import foto3 from "../assets/comentarios/Foto3.png"
+import foto4 from "../assets/comentarios/Foto4.png"
+import foto5 from "../assets/comentarios/Foto5.png"
+import foto6 from "../assets/comentarios/Foto6.png"
 
 const datosComentarios = [
     {

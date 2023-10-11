@@ -3,9 +3,10 @@ import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
 import { GoogleButton, handleGoogleSignIn } from 'react-google-button'
 import flecha from '../../assets/flecha-abajo.png';
+import avatar from '../../assets/avatar.png'
 import './Navbar.css';
 
-function Navbar() {
+function Navbar({user}) {
 
   const containerStyle = {
     display: 'flex',
@@ -44,20 +45,21 @@ function Navbar() {
   return (
     <>
       <nav className={`navBar ${Open && "open"} ${scrolling && "scrolled"}`}>
-
+        <Link to = "/">
         <div>
           <img src={logoPrincipal} alt="logo" className="w-36" />
         </div>
+        </Link>
 
         <div className={`items ${Open && "open"} gap-12 justify-start text-center items-center flex`}>
-          <Link >Inicio</Link>
+          <Link to = "/">Inicio</Link>
           <Link >
             <div style={containerStyle}>
               Categoria
               <img src={flecha} alt="Flecha hacia abajo " style={iconStyle} />
             </div>
           </Link>
-          <Link  >Contacto </Link>
+          <Link  >Contacto </Link> 
 
           {window.innerWidth < 968 && Open && (
             <div className="mt-10">
@@ -68,7 +70,8 @@ function Navbar() {
 
         </div>
 
-        <div className={`items justify-center gap-5 text-center items-center flex`}>
+        <div className={`items justify-center gap-3 text-center items-center flex`}>
+          <img src={avatar} alt="" className="avatar" />
           <Link to="/registrar" >Registrarse</Link>
           <button className="btn-login" onClick={() => setIsopen(true)}>Ingresar</button>
         </div>

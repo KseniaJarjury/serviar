@@ -9,34 +9,34 @@ import "./SeccionCategoria.css"
 export default function SeccionCategoria() {
     return (
       <>
-        <div class="flex justify-center items-center h-40">
+        <div className="flex justify-center items-center h-40">
           <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
             <h3 className=" subtitulo text-center">Categorias mas solicitadas</h3>
           </div>
         </div>
-        <div class="flex justify-center items-center h-90">
-          <div class="m-3">
+        <div className="flex justify-center items-center h-90">
+          <div className="m-3">
             <div className="container-grid">
               {/* Primera Fila */}
               <div className="text-center bg-gray-200 p-2 rounded-md">
-                <img src={albañil} alt="Imagen 2" class="w-auto h-auto"/>
-                <a href="" class="sub_categoria">Albañil</a>
+                <img src={albañil} alt="Imagen 2" className="w-25 h-auto"/>
+                <a href="" className="sub_categoria">Albañil</a>
               </div>
               <div className="text-center bg-gray-200 p-2 rounded-md">
-                <img src={architect} alt="Imagen 3" class="w-25 h-auto"/>
-                <a href="" class="sub_categoria">Arquitecto</a>
+                <img src={architect} alt="Imagen 3" className="w-25 h-auto"/>
+                <a href="" className="sub_categoria">Arquitecto</a>
               </div>
               <div className="text-center bg-gray-200 p-2 rounded-md">
-                <img src={carpintero} alt="Imagen 4" class="w-25 h-auto"/>
-                <a href="" class="sub_categoria">Carpintero</a>
+                <img src={carpintero} alt="Imagen 4" className="w-25 h-auto"/>
+                <a href="" className="sub_categoria">Carpintero</a>
               </div>
               <div className="text-center bg-gray-200 p-2 rounded-md">
-                <img src={electricista} alt="Imagen 8" class="w-25 h-auto" />
-                <a href="" class="sub_categoria">Electricista</a>
+                <img src={electricista} alt="Imagen 8" className="w-25 h-auto" />
+                <a href="" className="sub_categoria">Electricista</a>
               </div>
               <div className="text-center bg-gray-200 p-2 rounded-md">
-                <img src={plomeria} alt="Imagen 10" class="w-25 h-auto" />
-                <a href="" class="sub_categoria">Plomeria</a>
+                <img src={plomeria} alt="Imagen 10" className="w-25 h-auto" />
+                <a href="" className="sub_categoria">Plomeria</a>
               </div>
             </div>
             <div className="container-btn">
