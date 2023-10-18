@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar/Navbar';
 import '../styles/Registrar.css';
 import SeccionFoto from '../components/Perfil/seccionFoto/SeccionFoto';
 import SeccionDescripcion from '../components/Perfil/seccionDescripcion/SeccionDescripcion';
+import SeccionGaleria from '../components/Perfil/seccionGaleria/SeccionGaleria';
 
 function Perfil() {
   return (
@@ -19,6 +20,7 @@ function Perfil() {
       <SeccionDescripcion/>
 
       {/* SECCION GALERIA */}
+      <SeccionGaleria/>
 
       {/* SECCION UBICACION*/}
 

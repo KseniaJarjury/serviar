@@ -12,7 +12,7 @@ function SeccionDescripcion() {
                     <div class="contenedor-descrip-perfil">
                         <div>
                             <p class="descrip-perfil">
-                                The printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever sinceLorem Ipsum is simply dummy ext of the printing. Lorem Ipsum has been the industry's standard dummy text ever since.
+                            Soy un electricista con experiencia dedicado a brindar soluciones eléctricas seguras y eficientes para satisfacer las necesidades de mis clientes. Mi objetivo es garantizar que sus instalaciones eléctricas funcionen de manera óptima y cumplan con los más altos estándares de calidad y seguridad.
                             </p>
                         </div>
                         <div>
