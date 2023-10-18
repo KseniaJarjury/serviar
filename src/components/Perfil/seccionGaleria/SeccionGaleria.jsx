@@ -18,7 +18,7 @@ function SeccionGaleria() {
                     <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
                         <h3 className="subtitulo text-left">Galeria: </h3>
                     </div>
-                    <div className="m-6">
+                    <div className="m-16">
                         <Swiper
                             spaceBetween={50}
                             slidesPerView={3}
