@@ -2,7 +2,8 @@ import React from 'react';
 import Footer from "../components/Footer/Footer"
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/Registrar.css';
-import SeccionPerfil from '../components/Perfil/SeccionPerfil';
+import SeccionFoto from '../components/Perfil/seccionFoto/SeccionFoto';
+import SeccionDescripcion from '../components/Perfil/seccionDescripcion/SeccionDescripcion';
 
 function Perfil() {
   return (
@@ -11,8 +12,15 @@ function Perfil() {
       {/* NAVBAR  */}
       <Navbar />
 
-      {/* SECCION PERFIL */}
-      <SeccionPerfil/>
+      {/* SECCION FOTO */}
+      <SeccionFoto/>
+
+      {/* SECCION DESCRIPCION */}
+      <SeccionDescripcion/>
+
+      {/* SECCION GALERIA */}
+
+      {/* SECCION UBICACION*/}
 
 
       {/* FOOTER  */}

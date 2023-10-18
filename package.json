@@ -16,6 +16,7 @@
     "@babel/plugin-transform-object-rest-spread": "^7.22.15",
     "@react-google-maps/api": "^2.19.2",
     "autoprefixer": "^10.4.15",
+    "axios": "^1.5.1",
     "connect-flash": "^0.1.1",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",

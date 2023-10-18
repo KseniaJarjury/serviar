@@ -16,8 +16,9 @@ function AppRoutes() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/user" element={<Perfil />} />
                         <Route path="/categoria" element={user ? <Categoria to="/categoria" /> : <Registrar />} />
-                        {/* <Route path="/visitante" element={<Visitante/>}/>
-                    <Route path="/oferente" element={<Oferente/>}/>   */}
+                        <Route path="/perfil" element={<Perfil/>}/>  
+                        {/* {/* <Route path="/visitante" element={<Visitante/>}/> */}
+                
                     </Routes>
             </Router>
         </>
