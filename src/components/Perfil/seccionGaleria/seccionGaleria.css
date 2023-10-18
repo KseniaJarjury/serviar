@@ -13,7 +13,7 @@
   
   .swiper-button-prev,
   .swiper-button-next {
-    font-size: 20px; /* Tamaño de fuente de los botones de navegación */
+    font-size: 15px; /* Tamaño de fuente de los botones de navegación */
     color: #001A29; /* Color de los botones de navegación */
     margin-top: 10px;
   }
@@ -35,7 +35,7 @@
 .icon-imagen {
     width: 65%; /* Ajusta el ancho de las imágenes según tu diseño */
     height: auto; /* Mantén la relación de aspecto */
-    margin: 0 10px; /* Ajusta la separación entre las imágenes */
+    margin: 0 70px; /* Ajusta la separación entre las imágenes */
   }
   
   .swiper-pagination {
