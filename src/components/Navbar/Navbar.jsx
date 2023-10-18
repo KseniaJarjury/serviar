@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
-import { GoogleButton, handleGoogleSignIn } from 'react-google-button'
 import flecha from '../../assets/flecha-abajo.png';
 import avatar from '../../assets/avatar.png'
 import './Navbar.css';
+import Footer from "../Footer/Footer";
 
 function Navbar({user}) {
 
@@ -59,7 +59,7 @@ function Navbar({user}) {
               <img src={flecha} alt="Flecha hacia abajo " style={iconStyle} />
             </div>
           </Link>
-          <Link  >Contacto </Link> 
+          <a href="#footer">Contacto</a> 
 
           {window.innerWidth < 968 && Open && (
             <div className="mt-10">
@@ -72,8 +72,8 @@ function Navbar({user}) {
 
         <div className={`items justify-center gap-3 text-center items-center flex`}>
           <img src={avatar} alt="" className="avatar" />
-          <Link to="/registrar" >Registrarse</Link>
-          <button className="btn-login" onClick={() => setIsopen(true)}>Ingresar</button>
+          <Link to="/registrar" >Registrate</Link>
+          <Link to="/login" >Inicia Sesion</Link>
         </div>
 
         <div

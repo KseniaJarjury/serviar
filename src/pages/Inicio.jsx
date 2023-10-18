@@ -22,7 +22,7 @@ function Inicio() {
       <SeccionComentario/>
 
       {/* FOOTER  */}
-      <Footer/>
+      <Footer />
 
     </>
   )
