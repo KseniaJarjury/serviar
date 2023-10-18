@@ -5,6 +5,7 @@ import '../styles/Registrar.css';
 import SeccionFoto from '../components/Perfil/seccionFoto/SeccionFoto';
 import SeccionDescripcion from '../components/Perfil/seccionDescripcion/SeccionDescripcion';
 import SeccionGaleria from '../components/Perfil/seccionGaleria/SeccionGaleria';
+import SeccionUbicacion from '../components/Perfil/seccionUbicacion/SeccionUbicacion';
 
 function Perfil() {
   return (
@@ -23,7 +24,7 @@ function Perfil() {
       <SeccionGaleria/>
 
       {/* SECCION UBICACION*/}
-
+      <SeccionUbicacion/>
 
       {/* FOOTER  */}
       <Footer />
