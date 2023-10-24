@@ -20,12 +20,16 @@ function Registrar() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setErrors(Validation(values));
-        if(errors.email === "" && errors.password === ""){
+        //if(errors.email === "" && errors.password === ""){
+            if(true){
             axios.post('http://localhost:3001/registrar', values)
             .then(res => {
                 navigate('/');
             })
             .catch(err => console.log(err));
+        }
+        else{
+            console.log(errors);
         }
     }
     return (

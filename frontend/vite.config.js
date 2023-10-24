@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      input: 'src/server.js' // Aquí debes especificar tu punto de entrada
+      input: 'src/index.jsx' // Aquí debes especificar tu punto de entrada
     }
   }
 })
