@@ -29,6 +29,7 @@ app.post('/registrar', (req, res) => {
             console.log(err);
         }
     );
+    
 });
 
 app.get("/api", (req, res) => {
