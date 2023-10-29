@@ -1,59 +1,23 @@
-const express = require("express");
-const mysql = require('mysql');
-const path = require ('path')
-const cors = require('cors');
-
-const PORT = process.env.PORT || 3001;
+import express from "express";
+import cors from 'cors';
+//Importamos la conexion de DB
+import db from "./database/db.js"
+//Importamos nuestro enrutador
+import AppRoutes from './routes/Approutes.js';
 const app = express();
-app.use(express.json());
-app.use(cors());
+app.use(cors())
+app.use(express.json())
+app.use('/usuario', AppRoutes)
+try {
+    await db.authenticate()
+    console.log('Conexion exitosa a la DB')
+} catch (error) {
+    console.log(`El error de conexion es: ${error}`)
+}
+app.get('/', (req, res) => {
+    res.send('HOLA MUNDO')
+})
 
-// Hacer que node sirva los archivos de nuestro app React
-app.use(express.static(path.resolve(__dirname, '../frontend')));
-
-const db = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "",
-    database: "serviar"
-});
-
-app.post('/registrar', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    db.query(
-        "INSERT INTO Usuario (email, password) VALUES (?, ?)",
-        [email, password],
-        (err, result) => {
-            console.log(err);
-        }
-    );
-    
-});
-
-app.get("/api", (req, res) => {
-    res.json({ message: "Hola desde el servidor!" });
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend', 'index.html'));
-});
-
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
-
-
-
-
-// const ViteExpress = require("vite-express");
-
-// const app = express();
-
-
-// const server = app.listen(3000, () => {
-//     console.log("Server is listening...");
-// });
-
-// ViteExpress.bind(app, server);
+app.listen(3000, () => {
+    console.log('Server UP running in http://localhost:3000/')
+})

@@ -1,10 +1,13 @@
 //Importamos la conexion a la DB
-import db from "../database/db";
+import db from "../database/db.js";
 //Importamos sequelize
 import { DataTypes } from "sequelize";
 
-const Usuario = db.define('usuario',{
-    Id_Usuario: {type: DataTypes.INTEGER},
+const Usuario = db.define('Usuario',{
+    Id_Usuario: {
+        type: DataTypes.INTEGER,
+        primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
+    },
     Descripcion: {type: DataTypes.STRING},
     Foto_Perfil: {type: DataTypes.BLOB},
     Foto_Portada: {type: DataTypes.BLOB},
@@ -15,6 +18,9 @@ const Usuario = db.define('usuario',{
     password: {type: DataTypes.DATEONLY},
     Id_Localidad: {type: DataTypes.INTEGER},
     Id_Servicio: {type: DataTypes.INTEGER},
-})
+}, {
+    timestamps: false,
+    tableName: 'usuario'
+});
 
 export default Usuario;
