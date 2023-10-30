@@ -107,6 +107,57 @@ INSERT INTO Localidad (Localidad, CP, Id_Provincia) VALUES
   ('San Miguel de Tucumán', 4000, 5),
   ('Tafí Viejo', 4103, 5),
   ('Yerba Buena', 4107, 5);
+  
+
+  INSERT INTO usuario (
+  Descripcion,
+  Foto_Perfil , 
+  Foto_Portada , 
+  CUIT,
+  NombreApellido,
+  Telefono,
+  email,
+  password,
+  Id_Localidad ,
+  Id_Servicio  ) values
+  (
+  'Plomero de confianza, más de 20 años en el rubro',
+  null,
+  null,
+  2112345437,
+ 'Marcelo Gallardo',
+ 1123243223,
+ 'marcegall@gmail.com',
+ 'mg123456',
+ 1, 
+ 3
+  );
+
+INSERT INTO usuario (
+  Descripcion,
+  Foto_Perfil , 
+  Foto_Portada , 
+  CUIT,
+  NombreApellido,
+  Telefono,
+  email,
+  password,
+  Id_Localidad ,
+  Id_Servicio  ) values
+  (
+  'Manicura. Hago esculpidas en gel',
+  null,
+  null,
+  242356787,
+ 'Belen Dara',
+ 1143526473,
+ 'bd1997@gmail.com',
+ 'dara1234',
+ 3, 
+ 5
+  );
+
+select * from usuario;
 
 
 SELECT * FROM Localidad
