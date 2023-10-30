@@ -7,16 +7,13 @@ import AppRoutes from './routes/Approutes.js';
 const app = express();
 app.use(cors())
 app.use(express.json())
-app.use('/usuario', AppRoutes)
+app.use('/api', AppRoutes)
 try {
     await db.authenticate()
     console.log('Conexion exitosa a la DB')
 } catch (error) {
     console.log(`El error de conexion es: ${error}`)
 }
-app.get('/', (req, res) => {
-    res.send('HOLA MUNDO')
-})
 
 app.listen(3000, () => {
     console.log('Server UP running in http://localhost:3000/')

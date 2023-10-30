@@ -4,6 +4,7 @@ import Registrar from "../pages/Registrar";
 import Login from "../pages/Login";
 import Perfil from "../pages/Perfil"
 import Categoria from "../pages/Categoria";
+import React from "react";
 
 function AppRoutes() {
     const user = true;
@@ -15,7 +16,7 @@ function AppRoutes() {
                         <Route path="/registrar" element={<Registrar />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/user" element={<Perfil />} />
-                        <Route path="/categoria" element={user ? <Categoria to="/categoria" /> : <Registrar />} />
+                        <Route path="/categoria" element={<Categoria/> } />
                         <Route path="/perfil" element={<Perfil/>}/>  
                         {/* {/* <Route path="/visitante" element={<Visitante/>}/> */}
                 
