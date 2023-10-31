@@ -1,0 +1,68 @@
+.cont-foto{
+    height: 500px;
+}
+.contenedor-perfil{
+    height: 300px;
+}
+.contenedor-foto-perfil {
+    position: relative; /* Permite superponer elementos dentro del contenedor */
+    margin-left: 50px; /* Ajusta el margen izquierdo según tus necesidades */
+  }
+.fondo-perfil {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen al contenedor sin distorsionarla */
+  }
+.foto-perfil {
+    width: 200px; /* Establece el ancho deseado */
+    height: 200px; /* Establece la altura deseada */
+    border-radius: 50%; /* Crea una forma circular */
+    position: absolute; /* Permite superponer la imagen */
+    top: -90px; /* Mueve la imagen hacia arriba (ajusta según el tamaño de la foto) */
+    left: 0; /* Coloca la imagen en el lado izquierdo */
+    box-shadow: 30px 0 20px #001A29;
+}
+.contenedor-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 80px; /* Ajusta el margen izquierdo según tus necesidades */
+}
+.contenedor-info p {
+    margin: 5px 0;
+}
+.contenedor-info img {
+    width: 20px; /* Ajusta el ancho deseado para las imágenes de reputación */
+    height: 20px; /* Ajusta la altura deseada para las imágenes de reputación */
+    margin-right: 5px; /* Ajusta el margen derecho entre las imágenes y el texto */
+}
+.contenedor-nombre h3 {
+    font-size: 40px;
+}
+  
+.contenedor-nombre p {
+    margin: 5px 0; /* Ajusta el espaciado superior e inferior */
+    text-shadow: 2px 2px 4px #d5d5d5c4; /* Aplica una sombra gris al párrafo */
+}
+.contenedor-nombre {
+    text-align:left; /* Centra el texto horizontalmente */
+    margin-top: 90px; /* Ajusta el espaciado superior según tus necesidades */
+    margin-left: 60px; 
+    color: #001A29;
+    
+  }
+  
+.contenedor-nombre h3 {
+    font-size: 28px;
+    font-weight: 700;
+}
+.contenedor-nombre p {
+    font-size: 12px;
+  }
+  
+ 
+  
+  
+  
+  

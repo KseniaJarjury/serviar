@@ -3,6 +3,7 @@ import Inicio from "../pages/Inicio";
 import Registrar from "../pages/Registrar";
 import Login from "../pages/Login";
 import Perfil from "../pages/Perfil"
+import Oferente from "../pages/Oferente"
 import Categoria from "../pages/Categoria";
 import React from "react";
 
@@ -18,6 +19,7 @@ function AppRoutes() {
                         <Route path="/user" element={<Perfil />} />
                         <Route path="/categoria" element={<Categoria/> } />
                         <Route path="/perfil" element={<Perfil/>}/>  
+                        <Route path="/oferente" element={<Oferente/>}/> 
                         {/* {/* <Route path="/visitante" element={<Visitante/>}/> */}
                 
                     </Routes>
