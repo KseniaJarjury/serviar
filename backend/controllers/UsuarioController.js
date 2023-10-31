@@ -24,6 +24,21 @@ export const getUsuario = async (req, res) => {
         res.json( {message: error.message} )
     }
 }
+// Mostrar imagenes usuario
+export const getImg = async (req, res) => {
+    try {
+        const usuario = await Usuario.findByPk(req.params.id); // Encuentra el usuario por ID o el identificador de imagen
+        if (!usuario || !usuario.Foto_Perfil) {
+            return res.status(404).json({ message: 'Imagen no encontrada' });
+        }
+        // Enviar la imagen al cliente
+        res.setHeader('Content-Type', 'image/jpeg'); // Establecer el tipo de contenido como imagen JPEG
+        res.end(usuario.Foto_Perfil); // Envía la imagen JPEG al cliente
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al servir la imagen' });
+    }
+}
 
 //Crear un Usuario
 export const createUsuario = async (resq, res) => {
@@ -59,6 +74,20 @@ export const deleteUsuario = async (req, res) => {
         res.json({
             "message": "Usuario eliminado correctamente!"
         })
+    } catch (error) {
+        res.json( {message: error.message} )
+    }
+}
+
+export const filterUsuario = async (req, res) => {
+    try {
+        const usuario = await Usuario.findAll({
+            where: { 
+                Id_Servicio:req.params.Id_Servicio,
+                Id_Localidad: req.params.Id_Localidad
+            }
+        })
+        res.json(usuario[0])
     } catch (error) {
         res.json( {message: error.message} )
     }

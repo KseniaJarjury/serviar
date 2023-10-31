@@ -4,26 +4,11 @@ import { Link } from "react-router-dom";
 import flecha from '../../assets/flecha-abajo.png';
 import avatar from '../../assets/avatar.png';
 import './Navbar.css';
-import Footer from "../Footer/Footer";
-
 function Navbar({ user }) {
-
-  const containerStyle = {
-    display: 'flex',
-    alignItems: 'center', // Alinea verticalmente al centro
-  };
-
-  const iconStyle = {
-    width: '16px', // Ajusta el ancho deseado
-    height: '16px', // Ajusta la altura deseada
-    marginLeft: '6px',
-  };
 
   const [Open, setOpen] = useState(false);
 
   const [scrolling, setScrolling] = useState(false);
-
-  const [isopen, setIsopen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,13 +37,8 @@ function Navbar({ user }) {
         </Link>
 
         <div className={`items ${Open && "open"} gap-12 justify-start text-center items-center flex`}>
-          <Link to="/">Inicio</Link>
-          <Link >
-            <div style={containerStyle}>
-              Categoria
-              <img src={flecha} alt="Flecha hacia abajo " style={iconStyle} />
-            </div>
-          </Link>
+          <Link to={'/'}>Inicio</Link>
+          <Link to= {'/categoria'}>Servicios</Link>
           <a href="#footer">Contacto</a> 
 
 

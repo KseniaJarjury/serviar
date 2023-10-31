@@ -9,8 +9,8 @@ const Usuario = db.define('Usuario',{
         primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
     },
     Descripcion: {type: DataTypes.STRING},
-    Foto_Perfil: {type: DataTypes.BLOB},
-    Foto_Portada: {type: DataTypes.BLOB},
+    Foto_Perfil: {type: DataTypes.BLOB('long')},
+    Foto_Portada: {type: DataTypes.BLOB('long')},
     CUIT: {type: DataTypes.NUMBER},
     NombreApellido: {type: DataTypes.STRING},
     Telefono: {type: DataTypes.NUMBER},
