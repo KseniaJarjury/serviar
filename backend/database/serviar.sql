@@ -161,3 +161,7 @@ select * from usuario;
 
 
 SELECT * FROM Localidad
+
+-- Usuarios
+INSERT INTO `usuario` (`Id_Usuario`, `Descripcion`, `Foto_Perfil`, `Foto_Portada`, `CUIT`, `NombreApellido`, `Telefono`, `email`, `password`, `Id_Localidad`, `Id_Servicio`) VALUES
+(1, 'Soy un electricista con experiencia dedicado a brindar soluciones eléctricas seguras y eficientes para satisfacer las necesidades de mis clientes. Mi objetivo es garantizar que sus instalaciones eléctricas funcionen de manera óptima y cumplan con los más ', NULL, NULL, 0, 'Martin Romero', 13998709, 'martinromero@gmail.com', 'Invalid ', 3, 1);

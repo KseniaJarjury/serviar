@@ -5,10 +5,10 @@ import Login from "../pages/Login";
 import Perfil from "../pages/Perfil"
 import Oferente from "../pages/Oferente"
 import Categoria from "../pages/Categoria";
+import Error from "../pages/Error";
 import React from "react";
 
 function AppRoutes() {
-    const user = true;
     return (
         <>
             <Router>
@@ -18,10 +18,9 @@ function AppRoutes() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/user" element={<Perfil />} />
                         <Route path="/categoria" element={<Categoria/> } />
-                        <Route path="/perfil" element={<Perfil/>}/>  
+                        <Route path="/perfil/:Id_Usuario" element={<Perfil/>}/>  
                         <Route path="/oferente" element={<Oferente/>}/> 
-                        {/* {/* <Route path="/visitante" element={<Visitante/>}/> */}
-                
+                        <Route path="*" element={<Error/>}/>
                     </Routes>
             </Router>
         </>

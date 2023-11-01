@@ -1,17 +1,20 @@
-:root{
+:root {
     --altura-nav: 75px;
 }
 
-.navBar{
-    position: fixed; /* Cambio importante: fijar la posición */
-    top: 0; /* Colocar en la parte superior */
+.navBar {
+    position: fixed;
+    /* Cambio importante: fijar la posición */
+    top: 0;
+    /* Colocar en la parte superior */
     background-color: #001A29;
     height: var(--altura-nav);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ocupar el ancho completo */
-    z-index: 2; 
+    width: 100%;
+    /* Ocupar el ancho completo */
+    z-index: 2;
 }
 
 .navBar.scrolled {
@@ -21,38 +24,78 @@
 
 }
 
+/* Agrega estilos al botón "Categoria" y la flecha */
+.items button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+}
 
-.items a{
+/* Estilos para la flecha hacia abajo */
+.items button img {
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    transition: transform 0.2s;
+    /* Agregamos una transición */
+}
+
+/* Rotamos la flecha cuando los servicios están visibles */
+.items.active button img {
+    transform: rotate(180deg);
+}
+
+/* Estilos para mostrar la lista de servicios */
+.servicios {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.servicios.active {
+    max-height: 600px;
+    /* Ajusta la altura máxima que desees */
+    opacity: 1;
+    overflow: visible;
+}
+
+
+.items a {
     margin: 15px;
     color: #ffffff;
     text-decoration: none;
 }
 
-.items a:hover{
+.items a:hover {
     color: #939393;
 }
 
-.toggle{
+.toggle {
     display: none;
 }
 
-.toggle:hover{
+.toggle:hover {
     cursor: pointer;
 }
 
-.noMostrar{
+.noMostrar {
     display: none;
 }
 
 @media (max-width: 968px) {
-    
-    .navBar.open{
+
+    .navBar.open {
         background-color: #001A29;
         transition: 0.3s ease all;
 
     }
 
-    .items{
+    .items {
         position: absolute;
         top: 60px;
         left: 0;
@@ -69,27 +112,27 @@
         z-index: 1;
 
     }
-    
-    .items a{
+
+    .items a {
         color: rgb(255, 255, 255);
         width: 100px;
     }
 
-    .items a:hover{
+    .items a:hover {
         color: #939393;
     }
 
-    .items.open{
+    .items.open {
         transform: translateX(0) !important;
     }
 
-    .toggle{
+    .toggle {
         display: flex !important;
         flex-direction: column;
         margin: 15px;
     }
 
-    .toggle span{
+    .toggle span {
         width: 30px;
         height: 4px;
         background-color: #ffffff;
@@ -99,23 +142,24 @@
         transition: all 0.2s linear;
     }
 
-    .toggle.open > span{
+    .toggle.open>span {
         transform: rotate(45deg) translate(0px, 0px);
         background-color: rgb(255, 255, 255);
 
     }
 
-    .toggle.open > span:nth-child(2){
+    .toggle.open>span:nth-child(2) {
         display: none;
     }
 
-    .toggle.open > span:nth-child(3){
+    .toggle.open>span:nth-child(3) {
         transform: rotate(-45deg) translate(-5px, 1px);
         background-color: rgb(255, 255, 255);
 
     }
 }
-.btn-login{
+
+.btn-login {
     width: 4rem;
     display: flex;
     align-items: center;
@@ -126,7 +170,8 @@
     padding: 1rem;
     cursor: pointer;
 }
-.avatar{
+
+.avatar {
     width: 32px;
     height: 32px;
     border-radius: 50%;

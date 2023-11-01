@@ -12,3 +12,16 @@ export const getAllProvincia = async (req, res) => {
         res.json ( {message: error.message} )
     }
 }
+
+export const getProvincia = async (req, res) => {
+    try {
+        const provincia = await Provincia.findAll({
+            where: { 
+                Id_Localidad: req.params.Id_Localidad
+            }
+        })
+        res.json(provincia[0])
+    } catch (error) {
+        res.json ( {message: error.message} )
+    }
+}
