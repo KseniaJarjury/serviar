@@ -15,7 +15,7 @@ function SeccionPerfil() {
             <img src={FotoPerfil} alt="" className="foto-perfil" />
           </div>
           <div className="contenedor-info">
-            <p>Reputacion: </p>
+            <p>Reputación: </p>
             <img src={Start} alt="" />
             <img src={Start} alt="" />
             <img src={Start} alt="" />
@@ -23,14 +23,15 @@ function SeccionPerfil() {
             <img src={Start1} alt="" />
           </div>
           <div className="contenedor-nombre">
+            <div className="nombre-header">
               <h3>Martin Romero</h3>
-              <p>#ELECTRICISTA</p>
-          </div> 
+            </div>
+            <p>#ELECTRICISTA</p>
+          </div>
         </div>
       </div>
     </>
   )
-
 }
 
-export default SeccionPerfil
+export default SeccionPerfil;
