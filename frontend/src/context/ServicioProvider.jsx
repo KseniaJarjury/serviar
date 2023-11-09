@@ -18,7 +18,7 @@ const ServicioProvider = ({ children }) => {
 
     useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch('/api/usuario')
+        fetch('/api/usuarios')
             .then((response) => response.json())
             .then((responseData) => setUsuario(responseData))
             .catch((error) => console.error(error));
@@ -26,14 +26,15 @@ const ServicioProvider = ({ children }) => {
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/provincias')
-            .then((response) => response.json())
-            .then((responseData) => setProvincia(responseData))
-            .catch((error) => console.error(error));
         fetch('/api/localidades')
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
+        fetch('/api/provincias')
+            .then((response) => response.json())
+            .then((responseData) => setProvincia(responseData))
+            .catch((error) => console.error(error));
+
     }, []);
 
     useEffect(() => {
@@ -45,17 +46,44 @@ const ServicioProvider = ({ children }) => {
     }, [usuarios]);
 
     // Realiza el filtrado de usuarios según la selección del usuario.
-    const datosUsuariosFiltrados = Array.isArray(usuarios)
-    ? usuarios.filter((usuario) => {
+    const datosUsuariosFiltrados = usuarios.filter((usuario) => {
+        const localidad = localidades.find((loc) => loc.Id_Localidad === usuario.Id_Localidad);
+
         return (
+            (localidad && localidad.Id_Provincia === selectedProvincia || selectedProvincia === "") &&
             (usuario.Id_Localidad === selectedLocalidad || selectedLocalidad === "") &&
-            (Array.isArray(usuario.Id_Servicio) && usuario.Id_Servicio.includes(selectedServicio) || selectedServicio === "")
+            (usuario.Id_Servicio === selectedServicio || selectedServicio === "")
         );
-    })
-    : [];
+    });
 
+    const login = async (email, password) => {
+        // Aquí debes hacer la solicitud a tu API o base de datos para verificar las credenciales.
+        // Si las credenciales son válidas, establece el usuario en el estado.
+        try {
+            const response = await fetch('/api/usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
+            if (response.ok) {
+                const userData = await response.json();
+                setUsuario(userData);
+            } else {
+                throw new Error('Credenciales incorrectas');
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            throw error;
+        }
+    };
 
+    const logout = () => {
+        // Aquí puedes limpiar el estado del usuario al cerrar sesión.
+        setUser(null);
+    };
     return (
         <ServicioContext.Provider
             value={{
@@ -65,9 +93,11 @@ const ServicioProvider = ({ children }) => {
                 localidades,
                 datosUsuariosFiltrados,
                 usuariosRecomendados,
+                login,
+                logout,
                 setSelectedProvincia,
-                setSelectedServicio,
-                setSelectedLocalidad
+                setSelectedLocalidad,
+                setSelectedServicio
             }}>
             {children}
         </ServicioContext.Provider>

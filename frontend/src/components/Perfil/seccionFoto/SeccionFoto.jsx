@@ -19,10 +19,9 @@ function SeccionPerfil() {
   const servicio = servicios.find(
     (servicio) => servicio.Id_Servicio === usuario.Id_Servicio
   );
-
   return (
     <>
-      <div className="cont-foto">
+      <div className="cont-foto text-[#001A29]">
         <div className="contenedor-perfil">
           <img src={FondoPerfil} alt="" className="fondo-perfil" />
           <div className="contenedor-foto-perfil">
@@ -36,11 +35,11 @@ function SeccionPerfil() {
             <img src={Start} alt="" />
             <img src={Start1} alt="" />
           </div>
-          <div className="contenedor-nombre">
+          <div className="text-left mt-24 ml-16">
           {usuario ? ( // Verifica si usuario no es undefined
             <>
-            <h3>{usuario.NombreApellido}</h3>
-            <p>#{servicio ? servicio.Servicio : "Servicio no encontrado"}</p>
+            <h3 className="text-3xl font-bold">{usuario.NombreApellido}</h3>
+            <p className="my-1 text-shadow text-gray-500 text-xl">#{servicio ? servicio.Servicio : "Servicio no encontrado"}</p>
             </>
           ) : (
             <p>Usuario no encontrado</p>

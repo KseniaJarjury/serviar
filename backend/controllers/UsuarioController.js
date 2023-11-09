@@ -41,7 +41,7 @@ export const getImg = async (req, res) => {
 }
 
 //Crear un Usuario
-export const createUsuario = async (resq, res) => {
+export const createUsuario = async (req, res) => {
     try {
         await Usuario.create(req.body)
         res.json({

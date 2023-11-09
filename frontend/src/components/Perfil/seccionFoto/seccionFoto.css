@@ -59,29 +59,6 @@
 
 }
 
-.contenedor-nombre h3 {
-    font-size: 35px;
-    font-weight: 700;
-}
-
-.contenedor-nombre p {
-    margin: 5px 0;
-    /* Ajusta el espaciado superior e inferior */
-    text-shadow: 2px 2px 4px #d5d5d5c4;
-    /* Aplica una sombra gris al párrafo */
-    font-size: 20px;
-}
-
-.contenedor-nombre {
-    text-align: left;
-    /* Centra el texto horizontalmente */
-    margin-top: 90px;
-    /* Ajusta el espaciado superior según tus necesidades */
-    margin-left: 60px;
-    color: #001A29;
-
-}
-
 .subtitulo {
     font-size: 22px;
 }

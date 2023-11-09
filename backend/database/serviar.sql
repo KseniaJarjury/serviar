@@ -17,6 +17,7 @@ CREATE TABLE Localidad (
   Id_Provincia int, 
   FOREIGN KEY (Id_Provincia) REFERENCES Provincia(Id_Provincia)
 );
+
 	
 CREATE TABLE Usuario (
   Id_Usuario int AUTO_INCREMENT PRIMARY KEY,
@@ -28,6 +29,8 @@ CREATE TABLE Usuario (
   `Telefono` int(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(8) NOT NULL,
+  `Latitud` decimal(12,8) NOT NULL,
+  `Longitud` decimal(12,8) NOT NULL,
   Id_Localidad int,
   Id_Servicio int, 
   FOREIGN KEY (Id_Servicio) REFERENCES Servicio(Id_Servicio),
@@ -108,60 +111,13 @@ INSERT INTO Localidad (Localidad, CP, Id_Provincia) VALUES
   ('Tafí Viejo', 4103, 5),
   ('Yerba Buena', 4107, 5);
   
+  --Usuario
 
-  INSERT INTO usuario (
-  Descripcion,
-  Foto_Perfil , 
-  Foto_Portada , 
-  CUIT,
-  NombreApellido,
-  Telefono,
-  email,
-  password,
-  Id_Localidad ,
-  Id_Servicio  ) values
-  (
-  'Plomero de confianza, más de 20 años en el rubro',
-  null,
-  null,
-  2112345437,
- 'Marcelo Gallardo',
- 1123243223,
- 'marcegall@gmail.com',
- 'mg123456',
- 1, 
- 3
-  );
-
-INSERT INTO usuario (
-  Descripcion,
-  Foto_Perfil , 
-  Foto_Portada , 
-  CUIT,
-  NombreApellido,
-  Telefono,
-  email,
-  password,
-  Id_Localidad ,
-  Id_Servicio  ) values
-  (
-  'Manicura. Hago esculpidas en gel',
-  null,
-  null,
-  242356787,
- 'Belen Dara',
- 1143526473,
- 'bd1997@gmail.com',
- 'dara1234',
- 3, 
- 5
-  );
-
-select * from usuario;
+INSERT INTO `usuario` (`Id_Usuario`, `Descripcion`, `Foto_Perfil`, `Foto_Portada`, `CUIT`, `NombreApellido`, `Telefono`, `email`, `password`, `Latitud`, `Longitud`, `Id_Localidad`, `Id_Servicio`) VALUES
+(1, 'Nuestro servicio de albañilería profesional está diseñado para atender todas tus necesidades de construcción y renovación en el hogar. Contamos con un equipo de albañiles altamente capacitados y experimentados que se encargarán de llevar a cabo una amplia', NULL, NULL, 763876328, 'Julian Notario', 1144645674, 'julianotario@gmail.com', 'Maseba12', -26.81198810, -65.30135290, 15, 2),
+(2, 'Plomero de confianza, más de 20 años en el rubro', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', -33.12315850, -64.34934410, 1, 3),
+(3, 'Manicura. Hago esculpidas en gel', NULL, NULL, 242356787, 'Belen Dara', 1143526473, 'bd1997@gmail.com', 'dara1234', -34.85373270, -58.52286190, 3, 5),
+(4, '¿Necesitas solucionar problemas eléctricos en tu hogar o negocio? ¡No busques más! Como electricista profesional, estoy listo para ayudarte. Ofrezco servicios de instalación, reparación y mantenimiento eléctrico de alta calidad. Tu seguridad y comodidad.', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', -34.76118230, -58.43024760, 2, 1),
+(5, ' Como carpintero experimentado, ofrezco servicios de diseño, fabricación y montaje de muebles y estructuras de madera a medida. Mi pasión es crear piezas de calidad que se adapten a tus necesidades y estilo. Contacta conmigo para convertir tus ideas en re', NULL, NULL, 2147483647, 'Sebastian Teran', 1144645674, 'sebastianteran@gmail.com', 'Sebas123', -26.80828480, -65.21759030, 13, 4);
 
 
-SELECT * FROM Localidad
-
--- Usuarios
-INSERT INTO `usuario` (`Id_Usuario`, `Descripcion`, `Foto_Perfil`, `Foto_Portada`, `CUIT`, `NombreApellido`, `Telefono`, `email`, `password`, `Id_Localidad`, `Id_Servicio`) VALUES
-(1, 'Soy un electricista con experiencia dedicado a brindar soluciones eléctricas seguras y eficientes para satisfacer las necesidades de mis clientes. Mi objetivo es garantizar que sus instalaciones eléctricas funcionen de manera óptima y cumplan con los más ', NULL, NULL, 0, 'Martin Romero', 13998709, 'martinromero@gmail.com', 'Invalid ', 3, 1);
