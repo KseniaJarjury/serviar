@@ -10,7 +10,13 @@ import SlideImagen2 from "./../../../assets/galeria/imagen2.png";
 import SlideImagen3 from "./../../../assets/galeria/imagen3.png";
 import SlideImagen4 from "./../../../assets/galeria/imagen4.png";
 
+
+
+
+
+
 function SeccionGaleria() {
+
     return (
         <>
             <div className="container-galeria">
@@ -48,9 +54,11 @@ function SeccionGaleria() {
                                 <div className="swiper-pagination"></div>
                             </div>
                         </Swiper>
+
                     </div>
                 </div>
-            </div>
+
+            </div >
 
         </>
     )

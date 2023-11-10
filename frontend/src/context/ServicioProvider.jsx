@@ -34,7 +34,6 @@ const ServicioProvider = ({ children }) => {
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
-
     }, []);
 
     useEffect(() => {
@@ -50,9 +49,9 @@ const ServicioProvider = ({ children }) => {
         const localidad = localidades.find((loc) => loc.Id_Localidad === usuario.Id_Localidad);
 
         return (
-            (localidad && localidad.Id_Provincia === selectedProvincia || selectedProvincia === "") &&
-            (usuario.Id_Localidad === selectedLocalidad || selectedLocalidad === "") &&
-            (usuario.Id_Servicio === selectedServicio || selectedServicio === "")
+            (localidad && localidad.Id_Provincia.toString() === selectedProvincia || selectedProvincia === "") &&
+            (usuario.Id_Localidad.toString() === selectedLocalidad || selectedLocalidad === "") &&
+            (usuario.Id_Servicio.toString() === selectedServicio || selectedServicio === "")
         );
     });
 

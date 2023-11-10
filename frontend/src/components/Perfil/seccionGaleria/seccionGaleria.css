@@ -1,9 +1,7 @@
-.container-galeria{
-    height: 500px;
-}
+
 /* SeccionGaleria.css */
 .swiper-container {
-    width: 100%; /* Opcional, ajusta el ancho del carrusel según tu diseño */
+    width: 500px; /* Opcional, ajusta el ancho del carrusel según tu diseño */
   }
   
   .icon-imagen {

@@ -7,14 +7,30 @@ import '../styles/Registrar.css';
 import { Navigate } from 'react-router-dom';
 
 function Registrar() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
-    const registrar = ()=>{
+    window.scrollTo(0, 0);
+    const [person, setPerson] = useState({
+        email: '',
+        password: ''
+    });
+
+    function handleEmailChange(e) {
+        setPerson({
+            ...person,
+            email: e.target.value
+        });
+    }
+    function handlePasswordChange(e) {
+        setPerson({
+            ...person,
+            password: e.target.value
+        });
+    }
+
+    const registrar = () => {
         axios.post("api/registrar", {
             email: email,
             password: password
-        }).then(()=>{
+        }).then(() => {
             alert("Usuario resgistrado");
             Navigate('/');
         });
@@ -32,23 +48,21 @@ function Registrar() {
                             <form className='form-login' action=''>
                                 <label htmlFor="email"></label>
                                 <input
-                                    type="email" 
-                                    id="email" 
-                                    name="email" 
-                                    placeholder="Email" 
-                                    onChange={(event)=>{
-                                        setEmail(event.target.value);
-                                    }}
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={person.email}
+                                    onChange={handleEmailChange}
                                     required />
                                 <label htmlFor="password"></label>
                                 <input
-                                    type="password" 
-                                    id="password" 
-                                    name="password" 
-                                    placeholder="Password" 
-                                    onChange={(event)=>{
-                                        setPassword(event.target.value);
-                                    }} 
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={person.password}
+                                    onChange={handlePasswordChange}
                                     required />
                                 <div className="link-olvidar">
                                     <a href="">¿Olvidó su contraseña?</a>

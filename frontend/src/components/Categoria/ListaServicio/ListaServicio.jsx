@@ -4,13 +4,14 @@ import Start from "./../../../assets/start.png";
 import Start1 from "./../../../assets/start1.png";
 import UseServicio from "../../../hooks/UseServicio";
 import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function ListaServicio() {
     window.scrollTo(0, 0);
 
     const { datosUsuariosFiltrados, localidades, servicios, provincias } = UseServicio();
     console.log(datosUsuariosFiltrados);
-
+    
     const datos = datosUsuariosFiltrados.length > 0;
 
     return (
