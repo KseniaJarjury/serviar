@@ -38,6 +38,7 @@ function SeccionPerfil() {
         <div className="contenedor-perfil">
           <img src={FondoPerfil} alt="" className="fondo-perfil" />
           <div className="contenedor-foto-perfil">
+
             <img src={selectedImage || FotoPerfil} alt="" className="foto-perfil" />
             <input
             type="file"
@@ -47,21 +48,21 @@ function SeccionPerfil() {
             id="fileInput"
           />
           
+ 
           </div>
           <label htmlFor="fileInput" className="upload-button">
             Cambiar Foto
           </label>
 
           <div className="contenedor-nombre">
-            <div className="nombre-header">
               <h3>Martin Romero</h3>
-            </div>
-            <p>#ELECTRICISTA</p>
-          </div>
+              <p>#ELECTRICISTA</p>
+          </div> 
         </div>
       </div>
     </>
   )
+
 }
 
-export default SeccionPerfil;
+export default SeccionPerfil
