@@ -19,7 +19,7 @@ function Perfil() {
       {/* SECCION GALERIA */}
       <SeccionGaleria/>
 
-      {/* SECCION UBICACION*/}
+      {/* SECCION UBICACION */}
       <SeccionUbicacion/>
 
       {/* FOOTER  */}
