@@ -5,22 +5,23 @@ const ServicioContext = createContext();
 
 const ServicioProvider = ({ children }) => {
 
-    const [usuarios, setUsuario] = useState([]);
-    const [usuariosRecomendados, setUsuariosRecomendados] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
+    const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
     const [servicios, setServicio] = useState([]);
     const [provincias, setProvincia] = useState([]);
     const [localidades, setLocalidad] = useState([]);
-    const defaultSelect = "";
-    const [selectedProvincia, setSelectedProvincia] = useState(defaultSelect);
-    const [selectedLocalidad, setSelectedLocalidad] = useState(defaultSelect);
-    const [selectedServicio, setSelectedServicio] = useState(defaultSelect);
+    const [center, setCenter] = useState({ lat: -32.966970, lng: -63.725497 });
+    const [zoom, setZoom] = useState(5);
 
 
     useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
         fetch('/api/usuarios')
             .then((response) => response.json())
-            .then((responseData) => setUsuario(responseData))
+            .then((responseData) => {
+                setUsuarios(responseData);
+                setUsuariosFiltrados(responseData);
+            })
             .catch((error) => console.error(error));
         fetch('/api/servicios')
             .then((response) => response.json())
@@ -36,25 +37,6 @@ const ServicioProvider = ({ children }) => {
             .catch((error) => console.error(error));
     }, []);
 
-    useEffect(() => {
-        // Actualiza los usuarios recomendados aleatorios cuando los datos de usuarios se cargan o cambian.
-        if (usuarios.length > 0) {
-            const randomUsers = usuarios.sort(() => Math.random() - 0.5).slice(0, 10);
-            setUsuariosRecomendados(randomUsers);
-        }
-    }, [usuarios]);
-
-    // Realiza el filtrado de usuarios según la selección del usuario.
-    const datosUsuariosFiltrados = usuarios.filter((usuario) => {
-        const localidad = localidades.find((loc) => loc.Id_Localidad === usuario.Id_Localidad);
-
-        return (
-            (localidad && localidad.Id_Provincia.toString() === selectedProvincia || selectedProvincia === "") &&
-            (usuario.Id_Localidad.toString() === selectedLocalidad || selectedLocalidad === "") &&
-            (usuario.Id_Servicio.toString() === selectedServicio || selectedServicio === "")
-        );
-    });
-
     const login = async (email, password) => {
         // Aquí debes hacer la solicitud a tu API o base de datos para verificar las credenciales.
         // Si las credenciales son válidas, establece el usuario en el estado.
@@ -69,7 +51,7 @@ const ServicioProvider = ({ children }) => {
 
             if (response.ok) {
                 const userData = await response.json();
-                setUsuario(userData);
+                setUsuarios(userData);
             } else {
                 throw new Error('Credenciales incorrectas');
             }
@@ -87,16 +69,18 @@ const ServicioProvider = ({ children }) => {
         <ServicioContext.Provider
             value={{
                 usuarios,
+                usuariosFiltrados,
                 servicios,
                 provincias,
                 localidades,
-                datosUsuariosFiltrados,
-                usuariosRecomendados,
+                center,
+                zoom,
                 login,
                 logout,
-                setSelectedProvincia,
-                setSelectedLocalidad,
-                setSelectedServicio
+                setUsuarios,
+                setUsuariosFiltrados,
+                setCenter,
+                setZoom,
             }}>
             {children}
         </ServicioContext.Provider>

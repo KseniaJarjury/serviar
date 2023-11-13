@@ -13,44 +13,51 @@ import { Link } from "react-router-dom";
 
 
 function Mapa() {
-  const { datosUsuariosFiltrados } = UseServicio();
-  const hayDatos = datosUsuariosFiltrados.length > 0;
+  const { usuarios, center,localidades, zoom } = UseServicio();
+  const hayDatos = usuarios.length > 0;
   const API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY;
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_KEY,
   });
 
   const [selectedUsuario, setSelectedUsuario] = useState(null);
+  const [selectedLatLng, setSelectedLatLng] = useState({lat:null,lng:null});
+
+  function setUserInfo(usuario, localidad){
+    setSelectedUsuario(usuario);
+    setSelectedLatLng({lat: parseFloat(localidad.LatitudL),lng:parseFloat(localidad.LongitudL)})
+  }
 
   if (loadError) return <div>Error al cargar el mapa</div>;
   if (!isLoaded) return <div>Cargando...</div>;
 
-  const center = { lat: -32.966970, lng: -63.725497  };
-
   return (
     <>
       {hayDatos ? (
-        <GoogleMap zoom={6} center={center} mapContainerClassName="h-screen w-full mb-20">
-          {datosUsuariosFiltrados.map((usuario) => (
-            <Marcador
+        <GoogleMap zoom={zoom} center={center} mapContainerClassName="h-screen w-full mb-20">
+          {usuarios.map((usuario) => {
+            const localidad = localidades.find(
+              (loc) => loc.Id_Localidad === usuario.Id_Localidad
+            );
+            return(<Marcador
               key={usuario.Id_Usuario}
               position={{
-                lat: parseFloat(usuario.Latitud),
-                lng: parseFloat(usuario.Longitud),
+                lat: parseFloat(localidad.LatitudL),
+                lng: parseFloat(localidad.LongitudL),
               }}
               icon={{
                 url: iconMaps,
                 scaledSize: new window.google.maps.Size(80, 80),
               }}
-              onClick={() => setSelectedUsuario(usuario)}
+              onClick={() => setUserInfo(usuario,localidad)}
             />
-          ))}
+          )})}
 
           {selectedUsuario && (
             <InfoWindow
               position={{
-                lat: parseFloat(selectedUsuario.Latitud),
-                lng: parseFloat(selectedUsuario.Longitud),
+                lat: parseFloat(selectedLatLng.lat),
+                lng: parseFloat(selectedLatLng.lng),
               }}
               onCloseClick={() => setSelectedUsuario(null)}
             >
@@ -69,7 +76,7 @@ function Mapa() {
           <h1 className="text-center m-8 text-2xl text-[#00729A]">
             No se encuentran Servicios
           </h1>
-          <GoogleMap zoom={6} center={center} mapContainerClassName="h-screen w-full">
+          <GoogleMap zoom={zoom} center={center} mapContainerClassName="h-screen w-full">
             <Marcador
               position={center}
               icon={{
