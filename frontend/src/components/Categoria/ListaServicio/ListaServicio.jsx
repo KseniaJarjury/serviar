@@ -9,10 +9,8 @@ import { useEffect } from "react";
 function ListaServicio() {
     window.scrollTo(0, 0);
 
-    const { datosUsuariosFiltrados, localidades, servicios, provincias } = UseServicio();
-    console.log(datosUsuariosFiltrados);
+    const { usuariosFiltrados, setUsuariosFiltrados ,localidades, servicios, provincias } = UseServicio();
     
-    const datos = datosUsuariosFiltrados.length > 0;
 
     return (
         <section className="w-full mb-24">
@@ -20,8 +18,8 @@ function ListaServicio() {
                 Servicios en esta zona
             </h1>
 
-            {datos ? (
-                datosUsuariosFiltrados.map((usuario) => {
+            {(usuariosFiltrados &&  usuariosFiltrados.length > 0) ? (
+                usuariosFiltrados.map((usuario) => {
                     // Buscar localidad relacionada
                     const localidad = localidades.find(
                         (loc) => loc.Id_Localidad === usuario.Id_Localidad

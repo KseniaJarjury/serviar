@@ -11,6 +11,8 @@ const Localidad = db.define('Localidad',{
     },
     Localidad: {type: DataTypes.STRING},
     CP: {type: DataTypes.INTEGER},
+    LatitudL: {type: DataTypes.DECIMAL},
+    LongitudL: {type: DataTypes.DECIMAL},
     Id_Provincia: { type: DataTypes.INTEGER },
 }, {
     timestamps: false,

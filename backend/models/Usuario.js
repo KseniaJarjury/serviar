@@ -16,8 +16,6 @@ const Usuario = db.define('Usuario',{
     Telefono: {type: DataTypes.NUMBER},
     email: {type: DataTypes.STRING},
     password: {type: DataTypes.DATEONLY},
-    Latitud: {type: DataTypes.DECIMAL},
-    Longitud: {type: DataTypes.DECIMAL},
     Id_Localidad: {type: DataTypes.INTEGER},
     Id_Servicio: {type: DataTypes.INTEGER},
 }, {

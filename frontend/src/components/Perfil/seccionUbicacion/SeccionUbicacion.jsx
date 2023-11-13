@@ -24,9 +24,8 @@ function SeccionUbicacion() {
     const center = { lat: -31.423746, lng: -63.373935 };
     return (
         <>
-            <div className="flex flex-column md:flex-row h-full">
-                < div className="max-w-600 mb-24 ml-10 md:w-1/2 ">
-
+            <div className="flex flex-column md:flex-row">
+                <div className="w-full mb-24 ml-10 mr-10 md:w-1/2">
                     <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4 ml-8 mb-2">
                         <h3 className="subtitulo text-left ">Ubicacion: </h3>
                     </div>
@@ -50,18 +49,18 @@ function SeccionUbicacion() {
                             }}
                         />
                     </GoogleMap>
-                    </div>
-                    <div className="md:w-1/2 flex flex-col items-center justify-center mt-6 md:mt-0">
-                        <div className="mb-14">
-                            <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg" >
-                                Contactar
-                            </button>
-                        </div>
-                        <div>
+                </div>
 
-                            <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg">Calificar</button>
-                        </div>
+                <div className="w-full md:w-1/2 flex flex-col md:flex-row items-center justify-center mt-6 md:mt-0">
+                    <div className="mb-14 md:mr-4">
+                        <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg">
+                            Contactar
+                        </button>
                     </div>
+                    <div>
+                        <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg">Calificar</button>
+                    </div>
+                </div>
             </div>
         </>
     );

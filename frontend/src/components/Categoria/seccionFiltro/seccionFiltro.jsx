@@ -7,7 +7,8 @@ function SeccionFiltro() {
   window.scrollTo(0, 0);
   const {
     provincias, localidades, servicios,
-    setSelectedProvincia, setSelectedLocalidad, setSelectedServicio
+    setUsuarios, usuarios, setCenter, usuariosFiltrados, setUsuariosFiltrados,
+    setZoom
   } = UseServicio();
 
 
@@ -35,12 +36,32 @@ function SeccionFiltro() {
       selectedValues.localidad ||
       selectedValues.servicio
     ) {
-      setOpen(false)
-      setSelectedProvincia(selectedValues.provincia);
-      setSelectedLocalidad(selectedValues.localidad);
-      setSelectedServicio(selectedValues.servicio);
+      setOpen(false);
+      console.log("Usuarios antes del filtrado:", usuarios);
+      const usuariosFiltrados = usuarios.filter((usuario) => {
+        const localidad = localidades.find((loc) => loc.Id_Localidad === usuario.Id_Localidad);
+
+        return (
+          (localidad.Id_Provincia.toString() === selectedValues.provincia || selectedValues.provincia === "") &&
+          (usuario.Id_Localidad.toString() === selectedValues.localidad || selectedValues.localidad === "") &&
+          (usuario.Id_Servicio.toString() === selectedValues.servicio || selectedValues.servicio === "")
+        );
+      });
+      console.log("Usuarios filtrados:", usuariosFiltrados);
+      
+      if (selectedValues.provincia !== "") {
+        const provincia = provincias.find((prov) => prov.Id_Provincia.toString() === selectedValues.provincia);
+        setCenter({ lat: parseFloat(provincia.LatitudP), lng: parseFloat(provincia.LongitudP) })
+        setZoom(8);
+      }
+      else {
+        setCenter({ lat: -32.966970, lng: -63.725497 });
+        setZoom(5);
+      }
+      setUsuariosFiltrados(usuariosFiltrados);
     } else {
       setOpen(true)
+      setUsuariosFiltrados(usuarios);
     }
   }
 

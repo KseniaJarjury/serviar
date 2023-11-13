@@ -9,6 +9,8 @@ const Provincia = db.define('Provincia',{
         primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
     },
     Provincia: {type: DataTypes.STRING},
+    LatitudP: {type: DataTypes.DECIMAL},
+    LongitudP: {type: DataTypes.DECIMAL},
 }, {
     timestamps: false,
     tableName: 'provincia'
