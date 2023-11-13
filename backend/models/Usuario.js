@@ -2,8 +2,9 @@
 import db from "../database/db.js";
 //Importamos sequelize
 import { DataTypes } from "sequelize";
-const express = require('express');
-const multer = require('multer');
+import express from 'express';
+import multer from 'multer';
+
 
 const app = express();
 

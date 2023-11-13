@@ -4,7 +4,6 @@ import cors from 'cors';
 import db from "./database/db.js"
 //Importamos nuestro enrutador
 import AppRoutes from './routes/Approutes.js';
-import Usuario from "./models/Usuario.js";
 const app = express();
 app.use(cors())
 app.use(express.json())
