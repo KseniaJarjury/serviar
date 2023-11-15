@@ -1,21 +1,21 @@
-//Importamos la conexion a la DB
+import express from 'express';
+// Importamos la conexion a la DB
 import db from "../database/db.js";
-//Importamos sequelize
+// Importamos sequelize
 import { DataTypes } from "sequelize";
-const express = require('express');
-const multer = require('multer');
 
-const app = express();
+const router = express.Router();
 
+// const multer = require('multer');
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 
 const Usuario = db.define('Usuario',{
     Id_Usuario: {
         type: DataTypes.INTEGER,
-        primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
+        primaryKey: true,
     },
     Descripcion: {type: DataTypes.STRING},
     Foto_Perfil: {type: DataTypes.BLOB('long')},
@@ -24,7 +24,7 @@ const Usuario = db.define('Usuario',{
     NombreApellido: {type: DataTypes.STRING},
     Telefono: {type: DataTypes.NUMBER},
     email: {type: DataTypes.STRING},
-    password: {type: DataTypes.DATEONLY},
+    password: {type: DataTypes.STRING},
     Id_Localidad: {type: DataTypes.INTEGER},
     Id_Servicio: {type: DataTypes.INTEGER},
 }, {
@@ -32,9 +32,4 @@ const Usuario = db.define('Usuario',{
     tableName: 'usuario'
 });
 
-
-
-  
 export default Usuario;
-
-

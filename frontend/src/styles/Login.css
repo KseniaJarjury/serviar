@@ -67,3 +67,8 @@
 .p-register{
     font-size: 14px;
 }
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+  }

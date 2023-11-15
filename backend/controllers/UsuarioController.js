@@ -1,9 +1,10 @@
 //Importamos el Model
 import Usuario from "../models/Usuario.js";
-import multer from 'multer';
+// import multer from 'multer';
+import bcrypt from 'bcrypt';
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 //  Metodos para el CRUD
 
@@ -122,3 +123,28 @@ export const cargarImagenPerfil = async (req, res) => {
       res.json({ message: 'Error al cargar la imagen en la base de datos' });
     }
   };
+
+
+
+  // Método para iniciar sesión
+  export const login = async (req, res) => {
+     const { email, password } = req.body;
+
+    try {
+        // Busca al usuario por su correo electrónico
+        const usuario = await Usuario.findOne({ where: { email, password } });
+
+        // Verifica si el usuario existe y si la contraseña es correcta
+        
+        if (usuario && password) {
+            res.json({ message: 'Inicio de sesión exitoso' });
+        } else {
+            res.status(401).json({ message: 'Credenciales incorrectas' });
+        }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al iniciar sesión' });
+    }
+
+};
