@@ -31,9 +31,9 @@ function ListaServicio() {
                     );
 
                     // Buscar servicio relacionado
-                    const servicio = servicios.find(
-                        (serv) => serv.Id_Servicio === usuario.Id_Servicio
-                    );
+                    // const servicio = servicios.find(
+                    //     (serv) => serv.Id_Servicio === usuario.Id_Servicio
+                    // );
 
                     return (
                         <div

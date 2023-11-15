@@ -24,10 +24,11 @@ function SeccionUbicacion() {
     const center = { lat: -31.423746, lng: -63.373935 };
     return (
         <>
-            <div className="flex flex-column md:flex-row">
-                <div className="w-full mb-24 ml-10 mr-10 md:w-1/2">
+            <div className="flex flex-col lg:flex-row">
+                {/* Sección de mapa y ubicación */}
+                <div className="w-full lg:w-1/2 mb-24 ml-10 mr-10">
                     <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4 ml-8 mb-2">
-                        <h3 className="subtitulo text-left ">Ubicacion: </h3>
+                        <h3 className="subtitulo text-left">Ubicacion: </h3>
                     </div>
                     <p className="text-xl md:text-2xl mt-6 mb-6 ml-12">{localidad && provincia
                         ? `${localidad.Localidad}, ${provincia.Provincia}`
@@ -51,17 +52,19 @@ function SeccionUbicacion() {
                     </GoogleMap>
                 </div>
 
-                <div className="w-full md:w-1/2 flex flex-col md:flex-row items-center justify-center mt-6 md:mt-0">
-                    <div className="mb-14 md:mr-4">
-                        <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg">
+                {/* Sección de botones */}
+                <div className="w-full lg:w-1/2 flex flex-col  items-center justify-center mt-6 space-y-4">
+                    <div className="mb-4">
+                        <button className="bg-blue-500 text-white text-2xl px-12 py-6 rounded-lg">
                             Contactar
                         </button>
                     </div>
                     <div>
-                        <button className="bg-blue-500 text-white text-2xl px-16 py-4 rounded-lg">Calificar</button>
+                        <button className="bg-blue-500 text-white text-2xl px-12 py-6 rounded-lg">Calificar</button>
                     </div>
                 </div>
             </div>
+            <div className="mb-16"></div>
         </>
     );
 }

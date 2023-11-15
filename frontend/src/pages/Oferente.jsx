@@ -5,12 +5,9 @@ import '../styles/Registrar.css';
 import SeccionFoto from '../components/Oferente/seccionFoto/SeccionFoto';
 import SeccionDescripcion from '../components/Oferente/seccionDescripcion/SeccionDescripcion';
 import SeccionGaleria from '../components/Oferente/seccionGaleria/SeccionGaleria';
-import SeccionUbicacion from '../components/Oferente/seccionUbicacion/SeccionUbicacion';
-
 function Oferente() {
   return (
     <>
-
       {/* NAVBAR  */}
       <Navbar />
 
@@ -22,9 +19,6 @@ function Oferente() {
 
       {/* SECCION GALERIA */}
       <SeccionGaleria/>
-
-      {/* SECCION UBICACION*/}
-      <SeccionUbicacion/>
 
       {/* FOOTER  */}
       <Footer />
