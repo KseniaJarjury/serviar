@@ -17,17 +17,6 @@ function SeccionPerfil() {
        // Crea un objeto FormData para enviar la imagen al servidor
        const formData = new FormData();
        formData.append("image", file);
- 
-       // Realiza una solicitud POST para cargar la imagen al servidor
-       axios.post("/cargar-imagen", formData)
-         .then((response) => {
-           // Maneja la respuesta del servidor (por ejemplo, muestra un mensaje de éxito)
-           console.log("Imagen cargada con éxito:", response.data);
-         })
-         .catch((error) => {
-           // Maneja errores (por ejemplo, muestra un mensaje de error)
-           console.error("Error al cargar la imagen:", error);
-         });
 
     }
   }
