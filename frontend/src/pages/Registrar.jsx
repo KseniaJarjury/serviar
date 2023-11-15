@@ -78,7 +78,7 @@ function Registrar() {
             <Navbar />
             <div className="bg-cover bg-center h-[60rem] flex flex-col items-center justify-center" style={{ backgroundImage: `url('/src/assets/fondopixe.png')` }}>
                 <h1 className="text-[#001A29] text-center text-[65px] font-bold mt-2 p-8">Registrate</h1>
-                <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[30%] h-[70%]'>
+                <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[60%] md:w-[40%] h-[70%]'>
                     <form className='flex flex-col justify-center mb-8 p-12' action=''>
                         <label htmlFor="NombreApellido">Nombre Completo:</label>
                         <input
@@ -183,7 +183,7 @@ function Registrar() {
                         <div className="w-12rem flex items-center justify-center bg-[#001A29] bg-opacity-85 text-white font-bold text-20 mt-10 mb-4 p-4 rounded-25 cursor-pointer">
                             <button type="button" onClick={registrar}
                                 disabled={registroEnProceso || registroExitoso}  // Deshabilitar el botón si el registro está en proceso o ya se ha completado
-                                className={`w-12rem flex items-center justify-center bg-[#001A29] bg-opacity-85 text-white font-bold text-20 mt-10 mb-4 p-4 rounded-25 cursor-pointer ${registroEnProceso || registroExitoso ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`${registroEnProceso || registroExitoso ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >Registrate</button>
                         </div>
                     </form>
