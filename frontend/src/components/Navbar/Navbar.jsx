@@ -44,8 +44,8 @@ function Navbar({ user }) {
 
           {window.innerWidth < 968 && Open && (
             <div className="mt-10">
-              <Link >Registrarse</Link>
-              <Link>Ingresar</Link>
+              <Link to="/registrar">Registrarse</Link>
+              <Link to="/login">Ingresar</Link>
             </div>
           )}
 

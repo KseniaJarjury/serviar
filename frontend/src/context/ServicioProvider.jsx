@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import axios from 'axios';
 
 const ServicioContext = createContext();
 
 const ServicioProvider = ({ children }) => {
 
+    const [usuario, setUsuario] = useState(null);
     const [usuarios, setUsuarios] = useState([]);
     const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
     const [servicios, setServicio] = useState([]);
@@ -38,9 +40,8 @@ const ServicioProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        // Aquí debes hacer la solicitud a tu API o base de datos para verificar las credenciales.
-        // Si las credenciales son válidas, establece el usuario en el estado.
         try {
+            // Lógica para iniciar sesión y obtener la información del usuario
             const response = await fetch('/api/usuario', {
                 method: 'POST',
                 headers: {
@@ -51,7 +52,7 @@ const ServicioProvider = ({ children }) => {
 
             if (response.ok) {
                 const userData = await response.json();
-                setUsuarios(userData);
+                setUsuario(userData);
             } else {
                 throw new Error('Credenciales incorrectas');
             }
@@ -62,13 +63,16 @@ const ServicioProvider = ({ children }) => {
     };
 
     const logout = () => {
-        // Aquí puedes limpiar el estado del usuario al cerrar sesión.
-        setUser(null);
+        // Lógica para cerrar sesión y actualizar el estado del usuario
+        setUsuario(null);
     };
+
+    // Función para registrar un nuevo usuario
     return (
         <ServicioContext.Provider
             value={{
                 usuarios,
+                usuario,
                 usuariosFiltrados,
                 servicios,
                 provincias,

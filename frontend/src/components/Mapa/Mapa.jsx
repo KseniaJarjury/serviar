@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 
 function Mapa() {
-  const { usuarios, center,localidades, zoom } = UseServicio();
+  const { usuarios, center, localidades, zoom } = UseServicio();
   const hayDatos = usuarios.length > 0;
   const API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY;
   const { isLoaded, loadError } = useLoadScript({

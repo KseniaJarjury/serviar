@@ -6,9 +6,8 @@ function SeccionFiltro() {
   // Dirigirme a la parte superior de la vista
   window.scrollTo(0, 0);
   const {
-    provincias, localidades, servicios,
-    setUsuarios, usuarios, setCenter, usuariosFiltrados, setUsuariosFiltrados,
-    setZoom
+    provincias, localidades, servicios, usuarios, 
+    setCenter, setUsuariosFiltrados,setZoom
   } = UseServicio();
 
 
@@ -48,7 +47,7 @@ function SeccionFiltro() {
         );
       });
       console.log("Usuarios filtrados:", usuariosFiltrados);
-      
+
       if (selectedValues.provincia !== "") {
         const provincia = provincias.find((prov) => prov.Id_Provincia.toString() === selectedValues.provincia);
         setCenter({ lat: parseFloat(provincia.LatitudP), lng: parseFloat(provincia.LongitudP) })

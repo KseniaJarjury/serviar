@@ -9,7 +9,6 @@ import SeccionGaleria from '../components/Oferente/seccionGaleria/SeccionGaleria
 function Oferente() {
   return (
     <>
-
       {/* NAVBAR  */}
       <Navbar />
 

@@ -1,5 +1,6 @@
 //Importamos la conexion a la DB
 import db from "../database/db.js";
+import bcrypt from 'bcrypt';
 //Importamos sequelize
 import { DataTypes } from "sequelize";
 import express from 'express';
@@ -24,15 +25,21 @@ const Usuario = db.define('Usuario',{
     CUIT: {type: DataTypes.NUMBER},
     NombreApellido: {type: DataTypes.STRING},
     Telefono: {type: DataTypes.NUMBER},
-    email: {type: DataTypes.STRING},
-    password: {type: DataTypes.DATEONLY},
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     Id_Localidad: {type: DataTypes.INTEGER},
     Id_Servicio: {type: DataTypes.INTEGER},
 }, {
     timestamps: false,
     tableName: 'usuario'
 });
-
 
 app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
     const imageBuffer = req.file.buffer;
@@ -55,8 +62,10 @@ app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
       res.status(500).json({ message: 'Error al cargar la imagen en la base de datos' });
     }
   });
-  
-  
+
+// Antes de crear un nuevo usuario, hashash la contraseña
+Usuario.beforeCreate(async (usuario) => {
+    const salt = await bcrypt.genSalt(10);
+    usuario.password = await bcrypt.hash(usuario.password, salt);
+});
 export default Usuario;
-
-
