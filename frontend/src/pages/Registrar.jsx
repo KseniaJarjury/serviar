@@ -30,7 +30,7 @@ function Registrar() {
             [e.target.name]: e.target.value,
         });
     };
-
+    const [apiResponse, setApiResponse] = useState(null);
     const registrar = async () => {
         try {
             setRegistroEnProceso(true);
@@ -41,6 +41,7 @@ function Registrar() {
                 Id_Localidad: person.localidad,
                 Id_Servicio: person.servicio,
             });
+            setApiResponse(response);
 
             if (response.status === 201) {
                 setPerson({
@@ -52,6 +53,7 @@ function Registrar() {
                     password: '',
                 });
                 setRegistroExitoso(true);
+                
             }
         } catch (error) {
             console.error('Error al registrar el usuario:', error.response?.data);
@@ -68,18 +70,22 @@ function Registrar() {
     };
 
     useEffect(() => {
-        if (registroExitoso) {
-            navigate('/oferente');
+        if (registroExitoso && apiResponse) {
+            // Extraer el ID del usuario de la respuesta de la API
+            const nuevoUsuarioId = apiResponse.data.usuario.Id_Usuario;
+
+            // Redirigir al perfil del usuario recién creado
+            navigate(`/oferente/${nuevoUsuarioId}`);
         }
-    }, [registroExitoso, navigate]);
+    }, [registroExitoso, apiResponse, navigate]);
 
     return (
         <>
             <Navbar />
-            <div className="bg-cover bg-center h-[60rem] flex flex-col items-center justify-center" style={{ backgroundImage: `url('/src/assets/fondopixe.png')` }}>
+            <div className="bg-cover bg-center h-[70rem] flex flex-col items-center justify-center" style={{ backgroundImage: `url('/src/assets/fondopixe.png')` }}>
                 <h1 className="text-[#001A29] text-center text-[65px] font-bold mt-2 p-8">Registrate</h1>
                 <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[60%] md:w-[40%] h-[70%]'>
-                    <form className='flex flex-col justify-center mb-8 p-12' action=''>
+                    <form className='flex flex-col justify-center text-xl mb-8 p-12' action=''>
                         <label htmlFor="NombreApellido">Nombre Completo:</label>
                         <input
                             type="text"
@@ -90,13 +96,13 @@ function Registrar() {
                             required
                             className="mb-4 p-2"
                         />
-                        <label htmlFor="provincia" className="block text-gray-600 text-base">
+                        <label htmlFor="provincia" className="block text-gray-600 text-xl">
                             Provincia:
                         </label>
                         {provincias && provincias.length > 0 && (
                             <select
                                 name="provincia"
-                                className="w-40 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.provincia}
@@ -109,13 +115,13 @@ function Registrar() {
                                 ))}
                             </select>
                         )}
-                        <label htmlFor="localidad" className="block text-gray-600 text-base">
+                        <label htmlFor="localidad" className="block text-gray-600 text-xl">
                             Localidad:
                         </label>
                         {localidades && localidades.length > 0 && provincias && provincias.length > 0 && (
                             <select
                                 name="localidad"
-                                className="w-40 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.localidad}
@@ -130,13 +136,13 @@ function Registrar() {
                                     ))}
                             </select>
                         )}
-                        <label htmlFor="servicio" className="block text-gray-600 text-base">
+                        <label htmlFor="servicio" className="block text-gray-600 text-xl">
                             Servicio:
                         </label>
                         {servicios && servicios.length > 0 && (
                             <select
                                 name="servicio"
-                                className="w-40 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.servicio}
@@ -180,7 +186,7 @@ function Registrar() {
                         <div className="text-center mt-8 text-26 font-semibold text-[#0A66C2]">
                             <a href="">¿Olvidó su contraseña?</a>
                         </div>
-                        <div className="w-12rem flex items-center justify-center bg-[#001A29] bg-opacity-85 text-white font-bold text-20 mt-10 mb-4 p-4 rounded-25 cursor-pointer">
+                        <div className="w-12rem flex items-center justify-center bg-[#001A29] bg-opacity-85 text-white font-bold text-2xl mt-10 mb-4 p-4 rounded-25 cursor-pointer">
                             <button type="button" onClick={registrar}
                                 disabled={registroEnProceso || registroExitoso}  // Deshabilitar el botón si el registro está en proceso o ya se ha completado
                                 className={`${registroEnProceso || registroExitoso ? 'opacity-50 cursor-not-allowed' : ''}`}
