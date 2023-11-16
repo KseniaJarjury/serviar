@@ -3,7 +3,7 @@ import multer from 'multer';
 import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, cargarImagenPerfil, login } from '../controllers/UsuarioController.js';
 import { getAllServicio, getServicio, createServicio, updateServicio, deleteServicio } from '../controllers/ServicioControllers.js';
 import { getAllProvincia, getProvincia } from '../controllers/ProvinciaControllers.js';
-import { getAllLocalidad } from '../controllers/LocalidadControllers.js';
+import { getAllLocalidad, getLocalidad, createLocalidad, updateLocalidad, deleteLocalidad } from '../controllers/LocalidadControllers.js';
 
 const router = express.Router(); // Asegúrate de descomentar esta línea
 const storage = multer.memoryStorage();
