@@ -1,24 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Footer from "../components/Footer/Footer"
 import Navbar from '../components/Navbar/Navbar';
-import '../styles/Registrar.css';
-import SeccionFoto from '../components/Oferente/seccionFoto/SeccionFoto';
-import SeccionDescripcion from '../components/Oferente/seccionDescripcion/SeccionDescripcion';
+import UseServicio from '../hooks/UseServicio';
 import SeccionGaleria from '../components/Oferente/seccionGaleria/SeccionGaleria';
+import SeccionOferente from '../components/Oferente/seccionEditar/SeccionEditar';
 function Oferente() {
+  // const { setUsuarios, setUsuariosFiltrados } = UseServicio();
+  // useEffect(() => {
+  //   fetch('/api/usuarios')
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       setUsuarios(responseData);
+  //       setUsuariosFiltrados(responseData);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, []);
   return (
     <>
       {/* NAVBAR  */}
       <Navbar />
 
       {/* SECCION FOTO */}
-      <SeccionFoto/>
-
-      {/* SECCION DESCRIPCION */}
-      <SeccionDescripcion/>
+      <SeccionOferente />
 
       {/* SECCION GALERIA */}
-      <SeccionGaleria/>
+      <SeccionGaleria />
 
       {/* FOOTER  */}
       <Footer />

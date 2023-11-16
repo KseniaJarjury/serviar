@@ -8,6 +8,7 @@ const Usuario = db.define('Usuario',{
     Id_Usuario: {
         type: DataTypes.INTEGER,
         primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
+        autoIncrement: true,
     },
     Descripcion: {type: DataTypes.STRING},
     Foto_Perfil: {type: DataTypes.STRING},
