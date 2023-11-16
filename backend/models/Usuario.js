@@ -4,7 +4,6 @@ import db from "../database/db.js";
 import bcrypt from 'bcrypt';
 //Importamos sequelize
 import { DataTypes } from "sequelize";
-import express from 'express';
 import multer from 'multer';
 
 
@@ -43,27 +42,27 @@ const Usuario = db.define('Usuario',{
     tableName: 'usuario'
 });
 
-app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
-    const imageBuffer = req.file.buffer;
+// app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
+//     const imageBuffer = req.file.buffer;
   
-    try {
-      // Guarda la imagen en la tabla Usuario
-      const usuarioId = req.body.usuarioId; // Asegúrate de pasar el ID del usuario desde el cliente
-      const usuario = await Usuario.findByPk(usuarioId);
+//     try {
+//       // Guarda la imagen en la tabla Usuario
+//       const usuarioId = req.body.usuarioId; // Asegúrate de pasar el ID del usuario desde el cliente
+//       const usuario = await Usuario.findByPk(usuarioId);
   
-      if (!usuario) {
-        return res.status(404).json({ message: 'Usuario no encontrado' });
-      }
+//       if (!usuario) {
+//         return res.status(404).json({ message: 'Usuario no encontrado' });
+//       }
   
-      usuario.Foto_Perfil = imageBuffer;
-      await usuario.save();
-      console.log('Imagen guardada en la base de datos');
-      res.status(201).json({ message: 'Imagen de perfil actualizada con éxito' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error al cargar la imagen en la base de datos' });
-    }
-  });
+//       usuario.Foto_Perfil = imageBuffer;
+//       await usuario.save();
+//       console.log('Imagen guardada en la base de datos');
+//       res.status(201).json({ message: 'Imagen de perfil actualizada con éxito' });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'Error al cargar la imagen en la base de datos' });
+//     }
+//   });
 
 // Antes de crear un nuevo usuario, hashash la contraseña
 Usuario.beforeCreate(async (usuario) => {
