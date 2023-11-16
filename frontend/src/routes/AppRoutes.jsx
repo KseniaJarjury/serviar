@@ -19,7 +19,7 @@ function AppRoutes() {
                         <Route path="/user" element={<Perfil />} />
                         <Route path="/categoria" element={<Categoria/> } />
                         <Route path="/perfil/:Id_Usuario" element={<Perfil/>}/>  
-                        <Route path="/oferente" element={<Oferente/>}/> 
+                        <Route path="/oferente/:Id_Usuario" element={<Oferente/>}/> 
                         <Route path="*" element={<Error/>}/>
                     </Routes>
             </Router>
