@@ -26,18 +26,18 @@ function SeccionPerfil() {
           <div className="contenedor-foto-perfil">
             <img src={FotoPerfil} alt="" className="foto-perfil" />
           </div>
-          <div className="flex flex-row justify-end items-center ml-16">
-            <p className="m-2 sm:text-xl">Reputacion: </p>
-            <img src={Start} alt="" className="w-3 sm:w-5 h-3 sm:h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 h-3 sm:w-5 h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 h-3 sm:w-5 h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 h-3 sm:w-5 h-5 mr-2"/>
-            <img src={Start1} alt="" className="w-3 h-3 sm:w-5 h-5 mr-2"/>
+          <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
+            <p className="m-2 text-xl md:text-2xl">Reputacion: </p>
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
+            <img src={Start1} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
           </div>
-          <div className="text-left mt-24 ml-16 mb-8">
+          <div className="text-left ml-4 md:ml-16 -mb-22">
             {usuario ? ( // Verifica si usuario no es undefined
               <>
-                <h3 className=" text-3xl md:text-4xl font-bold mb-2 mt-4">{usuario.NombreApellido}</h3>
+                <h3 className=" text-3xl md:text-4xl font-bold ">{usuario.NombreApellido}</h3>
                 <p className="my-1 text-shadow text-gray-500 text-xl  md:text-2xl">#{servicio ? servicio.Servicio : "Servicio no encontrado"}</p>
               </>
             ) : (
@@ -47,12 +47,12 @@ function SeccionPerfil() {
         </div>
       </div>
       <div >
-        <div className=" items-center h-30 ml-12 mr-12 mt-12 mb-12">
+        <div className=" items-center h-30 mt-16 md:ml-12">
           <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
-            <h3 className="text-2xl text-left font-bold">Descripcion: </h3>
+            <h3 className="text-[#001A29] text-2xl font-bold md:text-3xl text-left">Descripcion: </h3>
           </div>
           <div className="w-90 h-50 bg-[#E5E7EB] mt-8 ml-6 mr-6 mb-8">
-            <div className="text-center text-2xl">
+            <div className="text-center text-xl md:text-2xl">
               <p>
               {usuario ? (
                   usuario.Descripcion || "Sin descripción"

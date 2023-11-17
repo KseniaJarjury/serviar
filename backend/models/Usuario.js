@@ -3,7 +3,8 @@ import db from "../database/db.js";
 import bcrypt from 'bcrypt';
 //Importamos sequelize
 import { DataTypes } from "sequelize";
-import multer from 'multer';
+import Localidad from "./Localidad.js";
+
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -59,6 +60,8 @@ const Usuario = db.define('Usuario', {
 //     }
 //   });
 
+
+Usuario.belongsTo(Localidad, { foreignKey: 'Id_Localidad' });
 // Antes de crear un nuevo usuario, hashash la contraseña
 Usuario.beforeCreate(async (usuario) => {
     const salt = await bcrypt.genSalt(10);
