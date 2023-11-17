@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import logoPrincipal from './../../assets/logoPrincipal.png'
 import { Link } from "react-router-dom";
-import flecha from '../../assets/flecha-abajo.png';
 import avatar from '../../assets/avatar.png';
 import './Navbar.css';
 function Navbar({ user }) {

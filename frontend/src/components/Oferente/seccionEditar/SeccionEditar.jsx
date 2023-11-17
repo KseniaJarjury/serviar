@@ -99,8 +99,8 @@ function SeccionOferente() {
                       <img
                         alt="..."
                         src={FotoPerfil}
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-12 lg:-ml-24"
-                        style={{ maxWidth: "200px" }}
+                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-18 lg:-ml-24"
+                        style={{ maxWidth: "210px" }}
                       />
                       <MdAddAPhoto
                         className="text-2xl text-black-600 absolute top-14 -right-28 m-2 cursor-pointer"

@@ -3,6 +3,7 @@ import db from "../database/db.js";
 import bcrypt from 'bcrypt';
 //Importamos sequelize
 import { DataTypes } from "sequelize";
+import Localidad from "./Localidad.js";
 
 const Usuario = db.define('Usuario',{
     Id_Usuario: {
@@ -31,6 +32,7 @@ const Usuario = db.define('Usuario',{
     timestamps: false,
     tableName: 'usuario'
 });
+Usuario.belongsTo(Localidad, { foreignKey: 'Id_Localidad' });
 // Antes de crear un nuevo usuario, hashash la contraseña
 Usuario.beforeCreate(async (usuario) => {
     const salt = await bcrypt.genSalt(10);
