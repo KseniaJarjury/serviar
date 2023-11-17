@@ -6,8 +6,8 @@ import { DataTypes } from "sequelize";
 import Localidad from "./Localidad.js";
 
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 
 const Usuario = db.define('Usuario', {
