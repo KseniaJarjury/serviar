@@ -1,5 +1,4 @@
-import express from 'express';
-// Importamos la conexion a la DB
+//Importamos la conexion a la DB
 import db from "../database/db.js";
 import bcrypt from 'bcrypt';
 //Importamos sequelize
@@ -7,19 +6,21 @@ import { DataTypes } from "sequelize";
 import multer from 'multer';
 
 
-const router = express.Router();
+const app = express();
 
-// const multer = require('multer');
 
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 
 const Usuario = db.define('Usuario',{
     Id_Usuario: {
         type: DataTypes.INTEGER,
         primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
+<<<<<<< HEAD
         autoIncrement: true,
+=======
+>>>>>>> parent of 2300627 (Merge branch 'belen-branch' into develop)
     },
     Descripcion: {type: DataTypes.STRING},
     Foto_Perfil: {type: DataTypes.STRING},
