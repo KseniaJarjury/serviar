@@ -8,7 +8,8 @@ import Usuario from "./models/Usuario.js";
 const app = express();
 app.use(cors())
 app.use(express.json())
-app.use('/api', AppRoutes)
+app.use('/api', AppRoutes);
+
 try {
     await db.authenticate()
     console.log('Conexion exitosa a la DB')

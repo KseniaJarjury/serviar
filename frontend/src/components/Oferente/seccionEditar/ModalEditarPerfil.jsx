@@ -1,33 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 import UseServicio from "../../../hooks/UseServicio";
 
-function ModalEditarPerfil({  showModal, setShowModal, person = {}, handleInputChange  }) {
+function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
     const { provincias, localidades, servicios, usuario, setUsuario } = UseServicio();
-
-    // Tu lógica para manejar los cambios en los datos del usuario y realizar actualizaciones
-    const handleUpdateProfile = async (nuevosDatos) => {
-        try {
-            // Lógica para enviar los nuevos datos del usuario al backend y actualizar el contexto
-            const response = await fetch('/api/actualizar-usuario', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id: usuario.id, ...nuevosDatos }), // Ajusta según la estructura de tu backend
+    const [updateExitoso, setUpdateExitoso] = useState(false);
+    const [updateEnProceso, setUpdateEnProceso] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [person, setPerson] = useState({
+        NombreApellido: '',
+        Descripcion: '',
+        CUIT: '',
+        Telefono: '',
+        provincia: '',
+        localidad: '',
+        servicio: '',
+    });
+    const handleInputChange = (e) => {
+        setPerson({
+            ...person,
+            [e.target.name]: e.target.value,
+        });
+        // Verificar si el campo actual es requerido y está vacío
+        if (e.target.required) {
+            setErrors({
+                ...errors,
+                [e.target.name]: 'Este campo es obligatorio',
             });
-
-            if (response.ok) {
-                // Actualiza el contexto con los nuevos datos del usuario
-                setUsuario({ ...usuario, ...nuevosDatos });
-            } else {
-                throw new Error('Error al actualizar el perfil');
-            }
-        } catch (error) {
-            console.error('Error al actualizar el perfil:', error);
-            // Maneja el error según tus necesidades (por ejemplo, muestra un mensaje al usuario)
+        } else {
+            // Limpiar el error si el campo tiene un valor
+            setErrors({
+                ...errors,
+                [e.target.name]: '',
+            });
         }
     };
 
+    const UpdatePerfil = async () => {
+        try {
+
+            // Verificar si hay errores en los campos requeridos
+            const hasErrors = Object.values(errors).some((error) => error);
+            if (hasErrors) {
+                // Puedes mostrar un mensaje o realizar acciones adicionales
+                return;
+            }
+
+            setUpdateEnProceso(true);
+            const dataToUpdate = {
+                NombreApellido: person.NombreApellido,
+                Descripcion: person.Descripcion,
+                CUIT: person.CUIT,
+                Telefono: person.Telefono,
+                Id_Localidad: person.localidad,
+                Id_Servicio: person.servicio,
+            };
+            // Llamar a la función pasada como prop para realizar la solicitud a la API
+            await handleApiCall(dataToUpdate);
+            setUpdateExitoso(true);
+            // Cerrar el modal después de una actualización exitosa
+            setShowModal(false);
+            // Recargar la página o realizar otras acciones necesarias para mostrar el perfil actualizado
+            window.location.reload(); // Esto recarga la página, puedes usar otra lógica según tus necesidades
+        } catch (error) {
+            // Manejar errores según sea necesario
+        } finally {
+            setUpdateEnProceso(false);
+        }
+    };
+    // Verificar si todos los campos requeridos están completos
+    const isFormValid = () => {
+        return (
+            Object.values(person).every((value) => value.trim() !== '' || value === 0) &&
+            !Object.values(errors).some((error) => error)
+        );
+    };
+    const resetErrors = () => {
+        setErrors({
+            NombreApellido: '',
+            Descripcion: '',
+            CUIT: '',
+            Telefono: '',
+            provincia: '',
+            localidad: '',
+            servicio: '',
+        });
+    };
 
     return (
         <>
@@ -45,65 +102,64 @@ function ModalEditarPerfil({  showModal, setShowModal, person = {}, handleInputC
                                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-screen bg-white outline-none focus:outline-none">
                                             {/*header*/}
                                             <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                                                <h3 className="text-3xl font-semibold">
+                                                <h3 className="text-[#001A29] text-3xl font-bold">
                                                     Datos Personales
                                                 </h3>
                                                 <button
                                                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                                    onClick={() => setShowModal(false)}
+                                                    onClick={() => {
+                                                        setShowModal(false);
+                                                        resetErrors(); // Reiniciar errores al cerrar el modal
+                                                    }}
+
                                                 >
-                                                    <span className=" text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                                    <span className="text-black text-bold h-8 w-8 text-3xl block focus:outline-none">
                                                         ×
                                                     </span>
                                                 </button>
                                             </div>
                                             {/*body*/}
                                             <div className="w-full relative overflow-y-auto max-w-screen-lg">
-                                                <form className='flex flex-col text-left p-16' action='' onSubmit={(e) => {
-                                                    e.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
-                                                    handleUpdateProfile(/* Pasa aquí los nuevos datos del usuario */);
-                                                    setShowModal(false);
-                                                }}>
+                                                <form className='flex flex-col text-left text-xl p-16' action=''>
                                                     <label htmlFor="NombreApellido">Nombre Completo:</label>
                                                     <input
                                                         type="text"
                                                         id="NombreApellido"
                                                         name="NombreApellido"
-                                                        value={person?.NombreApellido}
+                                                        value={person.NombreApellido}
                                                         onChange={handleInputChange}
-                                                        required
-                                                        className="mb-4 p-2 max-w-full"
+                                                        className="mb-4 p-2 max-w-full border border-gray-300"
                                                     />
                                                     <label htmlFor="Descripcion">Descripcion:</label>
-                                                    <textarea name="Descripcion" id="Descripcion" cols="70" rows="6"></textarea>
+                                                    <textarea name="Descripcion" id="Descripcion" cols="70" rows="6" className="mb-4 border border-gray-300" value={person.Descripcion}
+                                                        onChange={handleInputChange} required></textarea>
                                                     <label htmlFor="cuit">CUIT:</label>
                                                     <input
                                                         type="text"
                                                         id="cuit"
-                                                        name="cuit"
-                                                        value={person?.CUIT}
+                                                        name="CUIT"
+                                                        value={person.CUIT}
                                                         onChange={handleInputChange}
                                                         required
-                                                        className="mb-4 p-2 max-w-full"
+                                                        className="mb-4 p-2 max-w-full border border-gray-300"
                                                     />
                                                     <label htmlFor="Telefono">Telefono:</label>
                                                     <input
                                                         type="text"
                                                         id="Telefono"
                                                         name="Telefono"
-                                                        value={person?.Telefono}
+                                                        value={person.Telefono}
                                                         onChange={handleInputChange}
                                                         required
-                                                        className="mb-4 p-2 max-w-full"
+                                                        className="mb-4 p-2 max-w-full border border-gray-300"
                                                     />
-                                                    <label htmlFor="provincia" className="block text-gray-600 text-base">
+                                                    <label htmlFor="provincia" className="block text-gray-600 text-xl">
                                                         Provincia:
                                                     </label>
                                                     {provincias && provincias.length > 0 && (
                                                         <select
                                                             name="provincia"
-                                                            className="w-60 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
-                                                            required
+                                                            className="w-80 px-4 mb-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
                                                             value={person?.provincia}
                                                         >
@@ -115,16 +171,15 @@ function ModalEditarPerfil({  showModal, setShowModal, person = {}, handleInputC
                                                             ))}
                                                         </select>
                                                     )}
-                                                    <label htmlFor="localidad" className="block text-gray-600 text-base">
+                                                    <label htmlFor="localidad" className="block text-gray-600 text-xl">
                                                         Localidad:
                                                     </label>
                                                     {localidades && localidades.length > 0 && provincias && provincias.length > 0 && (
                                                         <select
                                                             name="localidad"
-                                                            className="w-60 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
-                                                            required
+                                                            className="w-80 px-4 py-2 pl-6 mb-4 border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
-                                                            value={person?.localidad}
+                                                            value={person.localidad}
                                                         >
                                                             <option value="">Seleccione</option>
                                                             {localidades
@@ -136,14 +191,13 @@ function ModalEditarPerfil({  showModal, setShowModal, person = {}, handleInputC
                                                                 ))}
                                                         </select>
                                                     )}
-                                                    <label htmlFor="servicio" className="block text-gray-600 text-base">
+                                                    <label htmlFor="servicio" className="block text-gray-600 text-xl">
                                                         Servicio:
                                                     </label>
                                                     {servicios && servicios.length > 0 && (
                                                         <select
                                                             name="servicio"
-                                                            className="w-60 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
-                                                            required
+                                                            className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
                                                             value={person?.servicio}
                                                         >
@@ -162,13 +216,18 @@ function ModalEditarPerfil({  showModal, setShowModal, person = {}, handleInputC
                                                 <button
                                                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                     type="button"
-                                                    onClick={() => setShowModal(false)}
+                                                    onClick={() => {
+                                                        setShowModal(false);
+                                                        resetErrors(); // Reiniciar errores al cerrar el modal
+                                                    }}
                                                 >
                                                     Cerrar
                                                 </button>
                                                 <button
                                                     className="bg-[#00B0E4] active:bg-[#001A29] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                     type="button"
+                                                    onClick={UpdatePerfil}
+                                                    disabled={!isFormValid()}
                                                 >
                                                     Guardar
                                                 </button>

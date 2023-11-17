@@ -6,6 +6,7 @@ import FotoPerfil from "../../../assets/fotoPerfil.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdAddAPhoto } from "react-icons/md";
 import ModalEditarPerfil from "./ModalEditarPerfil";
+import axios from "axios";
 import "./seccionEditar.css";
 
 function SeccionOferente() {
@@ -29,14 +30,25 @@ function SeccionOferente() {
   const provincia = provinciaId
     ? provincias.find((p) => p.Id_Provincia === provinciaId) || {}
     : {};
-  // Buscar provincia relacionada
-  // const provincia = provincias.find(
-  //   (pro) => pro.Id_Provincia === localidad.Id_Provincia
-  // );
+    const handleApiCall = async (dataToUpdate) => {
+      try {
+        const response = await axios.put(`http://localhost:3000/api/usuario/${Id_Usuario}`, dataToUpdate);
+    
+        // Verificar si la respuesta de la API contiene datos
+        if (response && response.data) {
+          console.log('Respuesta de la API:', response.data);
+          // Puedes realizar acciones adicionales aquí según la respuesta de la API
+        } else {
+          console.error('Error al modificar el usuario: Respuesta de la API no contiene datos');
+        }
+      } catch (error) {
+        console.error('Error al modificar el usuario:', error.response?.data || error.message || error);
+        // Puedes manejar errores aquí
+      }
+    };
+    
+    
 
-  const handleInputChange = (e) => {
-    // Agrega la lógica de cambio si es necesario
-  };
 
   return (
     <>
@@ -108,8 +120,7 @@ function SeccionOferente() {
                       <ModalEditarPerfil
                         showModal={showModal}
                         setShowModal={setShowModal}
-                        usuario={usuario}
-                        handleInputChange={handleInputChange}
+                        handleApiCall={handleApiCall}
                       />
                     </div>
                   </div>
