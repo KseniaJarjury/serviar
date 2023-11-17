@@ -1,32 +1,29 @@
-import express from 'express';
-// Importamos la conexion a la DB
+//Importamos la conexion a la DB
 import db from "../database/db.js";
 import bcrypt from 'bcrypt';
 //Importamos sequelize
 import { DataTypes } from "sequelize";
-import multer from 'multer';
+
+import Localidad from "./Localidad.js";
 
 
-const router = express.Router();
-
-// const multer = require('multer');
 
 // const storage = multer.memoryStorage();
 // const upload = multer({ storage: storage });
 
 
-const Usuario = db.define('Usuario',{
+const Usuario = db.define('Usuario', {
     Id_Usuario: {
         type: DataTypes.INTEGER,
         primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
         autoIncrement: true,
     },
-    Descripcion: {type: DataTypes.STRING},
-    Foto_Perfil: {type: DataTypes.STRING},
-    Foto_Portada: {type: DataTypes.STRING},
-    CUIT: {type: DataTypes.NUMBER},
-    NombreApellido: {type: DataTypes.STRING},
-    Telefono: {type: DataTypes.NUMBER},
+    Descripcion: { type: DataTypes.STRING },
+    Foto_Perfil: { type: DataTypes.STRING },
+    Foto_Portada: { type: DataTypes.STRING },
+    CUIT: { type: DataTypes.NUMBER },
+    NombreApellido: { type: DataTypes.STRING },
+    Telefono: { type: DataTypes.NUMBER },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,8 +33,8 @@ const Usuario = db.define('Usuario',{
         type: DataTypes.STRING,
         allowNull: false,
     },
-    Id_Localidad: {type: DataTypes.INTEGER},
-    Id_Servicio: {type: DataTypes.INTEGER},
+    Id_Localidad: { type: DataTypes.INTEGER },
+    Id_Servicio: { type: DataTypes.INTEGER },
 }, {
     timestamps: false,
     tableName: 'usuario'
@@ -65,6 +62,27 @@ const Usuario = db.define('Usuario',{
 //     }
 //   });
 
+//     try {
+//       // Guarda la imagen en la tabla Usuario
+//       const usuarioId = req.body.usuarioId; // Asegúrate de pasar el ID del usuario desde el cliente
+//       const usuario = await Usuario.findByPk(usuarioId);
+
+//       if (!usuario) {
+//         return res.status(404).json({ message: 'Usuario no encontrado' });
+//       }
+
+//       usuario.Foto_Perfil = imageBuffer;
+//       await usuario.save();
+//       console.log('Imagen guardada en la base de datos');
+//       res.status(201).json({ message: 'Imagen de perfil actualizada con éxito' });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'Error al cargar la imagen en la base de datos' });
+//     }
+//   });
+
+
+Usuario.belongsTo(Localidad, { foreignKey: 'Id_Localidad' });
 // Antes de crear un nuevo usuario, hashash la contraseña
 Usuario.beforeCreate(async (usuario) => {
     const salt = await bcrypt.genSalt(10);

@@ -1,10 +1,6 @@
 //Importamos el Model
 import Usuario from "../models/Usuario.js";
-// import multer from 'multer';
 import bcrypt from 'bcrypt';
-
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
 
 //  Metodos para el CRUD
 
@@ -127,54 +123,3 @@ export const filterUsuario = async (req, res) => {
         res.json({ message: error.message })
     }
 }
-
-
-// Función para cargar una imagen de perfil
-export const cargarImagenPerfil = async (req, res) => {
-    try {
-      const imageBuffer = req.file.buffer;
-      
-      // Guarda la imagen en la tabla Usuario
-      const Id_Usuario = req.body.Id_Usuario;
-      const usuario = await Usuario.findByPk(Id_Usuario);
-  
-      if (!usuario) {
-        return res.json({ message: 'Usuario no encontrado' });
-      }
-  
-      usuario.Foto_Perfil = imageBuffer;
-      await usuario.save( {
-        where: { Id_Usuario:req.params.Id_Usuario}
-    });
-  
-      res.json({ message: 'Imagen de perfil actualizada con éxito' });
-    } catch (error) {
-      console.error(error);
-      res.json({ message: 'Error al cargar la imagen en la base de datos' });
-    }
-  };
-
-
-
-  // Método para iniciar sesión
-  export const login = async (req, res) => {
-     const { email, password } = req.body;
-
-    try {
-        // Busca al usuario por su correo electrónico
-        const usuario = await Usuario.findOne({ where: { email, password } });
-
-        // Verifica si el usuario existe y si la contraseña es correcta
-        
-        if (usuario && password) {
-            res.json({ message: 'Inicio de sesión exitoso' });
-        } else {
-            res.status(401).json({ message: 'Credenciales incorrectas' });
-        }
-        
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al iniciar sesión' });
-    }
-
-};
