@@ -54,7 +54,11 @@ function SeccionPerfil() {
           <div className="w-90 h-50 bg-[#E5E7EB] mt-8 ml-6 mr-6 mb-8">
             <div className="text-center text-2xl">
               <p>
-                {usuario.Descripcion}
+              {usuario ? (
+                  usuario.Descripcion || "Sin descripción"
+                ) : (
+                  "Usuario no encontrado"
+                )}
               </p>
             </div>
           </div>
