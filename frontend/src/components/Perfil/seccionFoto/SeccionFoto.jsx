@@ -24,15 +24,15 @@ function SeccionPerfil() {
         <div className="contenedor-perfil">
           <img src={FondoPerfil} alt="" className="fondo-perfil" />
           <div className="contenedor-foto-perfil">
-            <img src={FotoPerfil} alt="" className="foto-perfil" />
+            <img src={FotoPerfil} alt="" className="w-[11rem] h-[11rem] md:w-[14rem] md:h-[14rem] rounded-full absolute top-[-85px] left-0 shadow-img-shadow" />
           </div>
           <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
             <p className="m-2 text-xl md:text-2xl">Reputacion: </p>
-            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
-            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
-            <img src={Start1} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2"/>
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
+            <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
+            <img src={Start1} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
           </div>
           <div className="text-left ml-4 md:ml-16 -mb-22">
             {usuario ? ( // Verifica si usuario no es undefined
@@ -54,7 +54,7 @@ function SeccionPerfil() {
           <div className="w-90 h-50 bg-[#E5E7EB] mt-8 ml-6 mr-6 mb-8">
             <div className="text-center text-xl md:text-2xl">
               <p>
-                {usuario.Descripcion}
+                {usuario && usuario.Descripcion ? usuario.Descripcion : "Descripción no disponible"}
               </p>
             </div>
           </div>
