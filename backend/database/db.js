@@ -3,8 +3,7 @@ import { Sequelize } from "sequelize";
 
 const db = new Sequelize ('serviar', 'root', '',{
     host: 'localhost',
-    dialect: 'mysql',
-    port: 3307
+    dialect: 'mysql'
 });
 
 export default db
