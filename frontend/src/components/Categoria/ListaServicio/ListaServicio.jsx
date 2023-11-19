@@ -9,7 +9,7 @@ import { useEffect } from "react";
 function ListaServicio() {
     window.scrollTo(0, 0);
 
-    const { usuariosFiltrados, setUsuariosFiltrados ,localidades, servicios, provincias } = UseServicio();
+    const { usuariosFiltrados, setUsuariosFiltrados ,localidades, provincias } = UseServicio();
     
 
     return (

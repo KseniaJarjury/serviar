@@ -1,8 +1,9 @@
 import express from 'express';
-import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getImg, getUsuario, updateUsuario } from '../controllers/UsuarioController.js';
-import { getAllServicio, getServicio, createServicio, updateServicio, deleteServicio} from '../controllers/ServicioControllers.js';
-import { getAllProvincia, getProvincia} from '../controllers/ProvinciaControllers.js';
-import { createLocalidad, deleteLocalidad, getAllLocalidad, getLocalidad, updateLocalidad } from '../controllers/LocalidadControllers.js';
+import multer from 'multer';
+import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, login } from '../controllers/UsuarioController.js';
+import { getAllServicio, getServicio, createServicio, updateServicio, deleteServicio } from '../controllers/ServicioControllers.js';
+import { getAllProvincia, getProvincia } from '../controllers/ProvinciaControllers.js';
+import { getAllLocalidad, getLocalidad, createLocalidad, updateLocalidad, deleteLocalidad } from '../controllers/LocalidadControllers.js';
 
 const router = express.Router();
 
@@ -10,10 +11,10 @@ const router = express.Router();
 router.get('/usuarios', getAllUsuario);
 router.get('/usuario/:Id_Usuario', getUsuario);
 router.get('/usuario/:Id_Servicio/:Id_Localidad', filterUsuario);
-router.get('/imagen/:Id_Usuario', getImg);
 router.post('/registrar', createUsuario);
 router.put('/usuario/:Id_Usuario', updateUsuario);
 router.delete('/usuario/:Id_Usuario', deleteUsuario);
+router.post('/login', login);
 
 //Servicios
 router.get('/servicios', getAllServicio);

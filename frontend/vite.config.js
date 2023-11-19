@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:3000', // Cambia esto a la URL del servidor de Node.js del backend
     },
+    
   },
   build: {
     rollupOptions: {

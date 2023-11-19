@@ -55,6 +55,7 @@ function SeccionPerfil() {
             <div className="text-center text-xl md:text-2xl">
               <p>
                 {usuario && usuario.Descripcion ? usuario.Descripcion : "Descripción no disponible"}
+
               </p>
             </div>
           </div>
