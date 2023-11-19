@@ -126,7 +126,7 @@ export const filterUsuario = async (req, res) => {
 
 
   // Método para iniciar sesión
-export const login = async (req, res) => {
+  export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
       // Busca al usuario por su correo electrónico

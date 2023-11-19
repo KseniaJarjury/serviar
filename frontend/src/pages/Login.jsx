@@ -28,7 +28,7 @@ export default function Login() {
       });
       if (response.data && response.data.message === 'Inicio de sesión exitoso') {
         console.log('Inicio de sesión exitoso');
-        // Redirige al usuario a la ruta '/oferente'
+        // Redirige al usuario a la ruta '/'
         navigate('/');
       } else {
         console.error(
