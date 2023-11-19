@@ -11,7 +11,7 @@ function SeccionUbicacion() {
     const [showModal, setShowModal] = useState(false);
     const [showModalContactar, setShowModalContactar] = useState(false);
 
-    const { usuarios, localidades, provincias } = UseServicio();
+    const { usuarios, localidades, provincias, servicios } = UseServicio();
 
     let { Id_Usuario } = useParams();
     const usuario = usuarios.find(
@@ -20,6 +20,7 @@ function SeccionUbicacion() {
 
     const localidad = usuario && localidades.find((loc) => loc.Id_Localidad === usuario.Id_Localidad);
     const provincia = localidad && provincias.find((pro) => pro.Id_Provincia === localidad.Id_Provincia);
+    const servicio = usuario && servicios.find((ser) => ser.Id_Servicio === usuario.Id_Servicio);
 
     // Acceder a las propiedades de localidad de manera segura
     const latitudL = localidad ? parseFloat(localidad.LatitudL) : 0;
@@ -34,6 +35,9 @@ function SeccionUbicacion() {
 
     if (loadError) return <div>Error al cargar el mapa</div>;
     if (!isLoaded) return <div>Cargando...</div>;
+
+    console.log("Información del usuario:", usuario);
+
 
     return (
         <>
@@ -78,6 +82,7 @@ function SeccionUbicacion() {
                     </GoogleMap>
                 </div>
 
+
                 {/* Sección de botones */}
                 <div className="w-full lg:w-1/2 flex flex-col items-center justify-center mt-6 space-y-4">
                     <div className="mb-4">
@@ -90,6 +95,10 @@ function SeccionUbicacion() {
                         <ModalContactar
                             showModalContactar={showModalContactar}
                             setShowModalContactar={setShowModalContactar}
+                            usuario={usuario}
+                            localidad={localidad}
+                            provincia={provincia}
+                            servicio={servicio}
                         />
                     </div>
                     <div>

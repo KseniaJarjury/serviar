@@ -24,7 +24,7 @@ function SeccionPerfil() {
         <div className="contenedor-perfil">
           <img src={FondoPerfil} alt="" className="fondo-perfil" />
           <div className="contenedor-foto-perfil">
-            <img src={FotoPerfil} alt="" className="w-[11rem] h-[11rem] md:w-[14rem] md:h-[14rem] rounded-full absolute top-[-85px] left-0 shadow-img-shadow" />
+            <img src={FotoPerfil} alt="" className="w-[11rem] h-[11rem] md:w-[24rem] md:h-[14.5rem] -ml-16 rounded-full absolute top-[-85px] left-0 shadow-img-shadow" />
           </div>
           <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
             <p className="m-2 text-xl md:text-2xl">Reputacion: </p>

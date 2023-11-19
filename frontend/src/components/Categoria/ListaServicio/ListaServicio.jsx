@@ -46,7 +46,7 @@ function ListaServicio() {
                                     <img
                                         src={fotoPerfil}
                                         alt={"Imagen"}
-                                        className="w-90 h-72 rounded-md"
+                                        className="w-[50vh] h-70 rounded-md"
                                     />
                                 </div>
                             </div>

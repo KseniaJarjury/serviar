@@ -36,7 +36,7 @@ function ModalCalificar({ showModal, setShowModal }) {
                                                 </button>
                                             </div>
                                             {/*body*/}
-                                            <div className="flex flex-col md:flex-row h-[50vh]">
+                                            <div className="flex flex-col md:flex-row h-[35vh]">
                                                 <div className="mx-2">
                                                     <img
                                                         alt="..."
@@ -45,7 +45,7 @@ function ModalCalificar({ showModal, setShowModal }) {
                                                         style={{ maxWidth: "300px" }}
                                                     />
                                                 </div>
-                                                <div className="flex flex-col items-center mx-2 md:mx-[4rem] mt-[1rem] md:mt-[3rem]">
+                                                <div className="flex flex-col items-center mx-2 md:mx-[4rem] mt-[1rem] md:mt-[2rem]">
                                                     <div className="flex flex-row items-center space-x-3 md:space-x-10 mb-8">
                                                         {[...Array(5)].map((star, index) => {
                                                             const currentRating = index + 1;
