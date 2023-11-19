@@ -43,9 +43,11 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrors(Validation(values));
+    // Usa la función de devolución de llamada para asegurarte de que los errores se han establecido
+    await setErrors(Validation(values));
+
     // Si no hay errores de validación, intenta iniciar sesión
     if (Object.keys(errors).length === 0) {
       // Resetea el mensaje de error al intentar iniciar sesión nuevamente
