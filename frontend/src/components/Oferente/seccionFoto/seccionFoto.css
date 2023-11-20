@@ -24,15 +24,14 @@
 }
 /* Estilos CSS para el botón de carga de imágenes */
 .upload-button {
-  display: block; /* Cambiar a bloque para que ocupe todo el ancho disponible */
-  margin-top: 10px; /* Espacio superior para separarlo de la imagen */
-  text-align: center; /* Alineación centrada del texto del botón */
-  cursor: pointer; /* Cambiar el cursor al pasar el ratón por encima */
-  color: #ffffff; /* Color del texto del botón */
-  background-color: #007bff; /* Color de fondo del botón */
-  padding: 10px 20px; /* Relleno interno para darle forma al botón */
-  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #ffffff;
+  display: inline-block;  
 }
+
 
 .upload-button:hover {
   background-color: #0056b3; /* Color de fondo al pasar el ratón por encima */

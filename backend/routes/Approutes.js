@@ -1,9 +1,12 @@
 import express from 'express';
 import multer from 'multer';
-import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, login } from '../controllers/UsuarioController.js';
+import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, login, uploadProfileImage } from '../controllers/UsuarioController.js';
 import { getAllServicio, getServicio, createServicio, updateServicio, deleteServicio } from '../controllers/ServicioControllers.js';
 import { getAllProvincia, getProvincia } from '../controllers/ProvinciaControllers.js';
 import { getAllLocalidad, getLocalidad, createLocalidad, updateLocalidad, deleteLocalidad } from '../controllers/LocalidadControllers.js';
+
+const storage = multer.memoryStorage(); // Puedes ajustar esto según tus necesidades
+const upload = multer({ storage: storage });
 
 
 const router = express.Router();
@@ -16,6 +19,7 @@ router.post('/registrar', createUsuario);
 router.put('/usuario/:Id_Usuario', updateUsuario);
 router.delete('/usuario/:Id_Usuario', deleteUsuario);
 router.post('/login', login);
+router.post('/usuario/perfil/:Id_Usuario', upload.single('image'), uploadProfileImage);
 
 //Servicios
 router.get('/servicios', getAllServicio);

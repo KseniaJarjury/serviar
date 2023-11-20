@@ -19,6 +19,7 @@ const Usuario = db.define('Usuario', {
         autoIncrement: true,
     },
     Descripcion: { type: DataTypes.STRING },
+    // Foto_Perfil: { type: DataTypes.STRING },
     Foto_Perfil: { type: DataTypes.STRING },
     Foto_Portada: { type: DataTypes.STRING },
     CUIT: { type: DataTypes.NUMBER },

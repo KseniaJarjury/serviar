@@ -1,6 +1,21 @@
 //Importamos el Model
+import multer from 'multer';
 import Usuario from "../models/Usuario.js";
 import bcrypt from 'bcrypt';
+
+//Cloudinary API Externa para imagenes
+import {v2 as cloudinary} from 'cloudinary';
+          
+// Configura multer para manejar la carga de archivos
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
+cloudinary.config({ 
+  cloud_name: 'dkf1japx9', 
+  api_key: '571633349329286', 
+  api_secret: 'jStoOWVFO8P4fW61fkNA9kfBjJI' 
+});
 
 //  Metodos para el CRUD
 
@@ -66,21 +81,21 @@ export const createUsuario = async (req, res) => {
 };
 
 
-// Mostrar imagenes usuario
-export const getImg = async (req, res) => {
-    try {
-        const usuario = await Usuario.findByPk(req.params.id); // Encuentra el usuario por ID o el identificador de imagen
-        if (!usuario || !usuario.Foto_Perfil) {
-            return res.status(404).json({ message: 'Imagen no encontrada' });
-        }
-        // Enviar la imagen al cliente
-        res.setHeader('Content-Type', 'image/jpeg'); // Establecer el tipo de contenido como imagen JPEG
-        res.end(usuario.Foto_Perfil); // Envía la imagen JPEG al cliente
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al servir la imagen' });
-    }
-}
+// // Mostrar imagenes usuario
+// export const getImg = async (req, res) => {
+//     try {
+//         const usuario = await Usuario.findByPk(req.params.id); // Encuentra el usuario por ID o el identificador de imagen
+//         if (!usuario || !usuario.Foto_Perfil) {
+//             return res.status(404).json({ message: 'Imagen no encontrada' });
+//         }
+//         // Enviar la imagen al cliente
+//         res.setHeader('Content-Type', 'image/jpeg'); // Establecer el tipo de contenido como imagen JPEG
+//         res.end(usuario.Foto_Perfil); // Envía la imagen JPEG al cliente
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Error al servir la imagen' });
+//     }
+// }
 
 //Actualizar un Usuario
 export const updateUsuario = async (req, res) => {
@@ -143,3 +158,51 @@ export const filterUsuario = async (req, res) => {
       res.status(500).json({ message: 'Error al iniciar sesión' });
     }
   }  
+
+
+  import { writeFileSync } from 'fs';
+
+
+
+// Método para subir imagen de perfil
+export const uploadProfileImage = async (req, res, next) => {
+    const usuarioId = req.params.Id_Usuario;
+
+    try {
+        const usuario = await Usuario.findByPk(usuarioId);
+
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ message: 'No se proporcionó ninguna imagen' });
+        }
+
+        // Sube la imagen a Cloudinary
+        const result = await cloudinary.uploader.upload_stream(
+            { folder: `serviar/usuarios/${usuarioId}/perfil` },
+            async (error, result) => {
+                if (error) {
+                    console.error(error);
+                    return res.status(500).json({ message: 'Error al cargar la foto de perfil', error: error.message });
+                }
+
+                // Actualiza la URL de la foto de perfil en la base de datos
+                usuario.Foto_Perfil = result.secure_url;
+
+                // Guarda los cambios en la base de datos
+                await usuario.save();
+
+                res.status(201).json({
+                    message: 'Foto de perfil cargada correctamente',
+                    profileImageURL: result.secure_url,
+                });
+            }
+        ).end(req.file.buffer);
+    } catch (error) {
+        console.error(error);
+        console.log('URL de retorno:', result.secure_url);
+        return res.status(500).json({ message: 'Error al cargar la foto de perfil', error: error.message });
+    }
+};
