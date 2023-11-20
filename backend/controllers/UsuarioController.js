@@ -81,21 +81,6 @@ export const createUsuario = async (req, res) => {
 };
 
 
-// // Mostrar imagenes usuario
-// export const getImg = async (req, res) => {
-//     try {
-//         const usuario = await Usuario.findByPk(req.params.id); // Encuentra el usuario por ID o el identificador de imagen
-//         if (!usuario || !usuario.Foto_Perfil) {
-//             return res.status(404).json({ message: 'Imagen no encontrada' });
-//         }
-//         // Enviar la imagen al cliente
-//         res.setHeader('Content-Type', 'image/jpeg'); // Establecer el tipo de contenido como imagen JPEG
-//         res.end(usuario.Foto_Perfil); // Envía la imagen JPEG al cliente
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Error al servir la imagen' });
-//     }
-// }
 
 //Actualizar un Usuario
 export const updateUsuario = async (req, res) => {
@@ -204,5 +189,26 @@ export const uploadProfileImage = async (req, res, next) => {
         console.error(error);
         console.log('URL de retorno:', result.secure_url);
         return res.status(500).json({ message: 'Error al cargar la foto de perfil', error: error.message });
+    }
+};
+
+
+
+
+// Mostrar imágenes de usuario desde Cloudinary
+export const getImg = async (req, res) => {
+    const usuarioId = req.params.Id_Usuario;
+
+    try {
+        const usuario = await Usuario.findByPk(usuarioId);
+        if (!usuario || !usuario.Foto_Perfil) {
+            return res.status(404).json({ message: 'Imagen no encontrada' });
+        }
+
+        // Devuelve la URL de Cloudinary
+        res.json({ profileImageURL: usuario.Foto_Perfil });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener la URL de la imagen' });
     }
 };

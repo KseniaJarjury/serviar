@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import UseServicio from "../../../hooks/UseServicio";
 import FondoPerfil from "../../../assets/fondoPerfil.png";
@@ -46,10 +46,77 @@ function SeccionOferente() {
         // Puedes manejar errores aquí
       }
     };
-    
-    
 
+    const [profileImageURL, setProfileImageURL] = useState(null);
+ 
+    const obtenerURLImagenUsuario = async () => {
+      try {
+        const storedProfileImageURL = localStorage.getItem('profileImageURL');
+    
+        if (storedProfileImageURL) {
+          console.log('URL almacenada en localStorage:', storedProfileImageURL);
+          setProfileImageURL(storedProfileImageURL);
+        } else {
+          const response = await axios.get(`http://localhost:3000/api/usuario/perfil/${Id_Usuario}`);
+          if (response && response.data) {
+            const imageURL = response.data.profileImageURL;
+            console.log('Nueva URL obtenida:', imageURL);
+            setProfileImageURL(imageURL || null); // Si no hay imagen, establece profileImageURL en null
+            localStorage.setItem('profileImageURL', imageURL || null);
+            console.log('profileImageURL después de la actualización:', imageURL);
+          }
+          console.log('Respuesta completa:', response);
+        }
+      } catch (error) {
+        console.error('Error al obtener la URL de la imagen:', error);
+      }
+    };
 
+  useEffect(() => {
+    console.log('Entrando en useEffect');
+    obtenerURLImagenUsuario();
+  }, [Id_Usuario]);
+
+  const handleImageUpload = (event) => {
+    console.log("Inicio de la función handleImageUpload");
+    const file = event.target.files[0];
+  
+    if (file) {
+      // Actualiza la vista previa de la imagen
+      console.log("Archivo seleccionado:", file);
+  
+      // Crea un objeto FormData para enviar el archivo al servidor
+      const formData = new FormData();
+      formData.append("image", file);
+  
+      // Realiza una solicitud POST para cargar la imagen al servidor
+      axios.post(`http://localhost:3000/api/usuario/perfil/${Id_Usuario}`, formData)
+        .then((response) => {
+          console.log('Respuesta del servidor:', response.data);
+          // Maneja la respuesta del servidor (por ejemplo, muestra un mensaje de éxito)
+          console.log("Imagen cargada con éxito:", response.data);
+  
+          // Actualiza el estado con la URL de la imagen cargada
+          setProfileImageURL(response.data.profileImageURL || null);
+          // Actualiza también la URL en localStorage
+          localStorage.setItem('profileImageURL', response.data.profileImageURL || null);
+          console.log('profileImageURL después de la actualización:', response.data.profileImageURL || null);
+  
+        })
+        .catch((error) => {
+          // Maneja errores (por ejemplo, muestra un mensaje de error)
+          console.error("Error al cargar la imagen:", error);
+        });
+    }
+    console.log("Fin de la función handleImageUpload");
+  };
+  
+  const cloudinaryBaseUrl = "https://res.cloudinary.com/dkf1japx9/image/upload/";
+  const fullImageUrl = profileImageURL ? `${cloudinaryBaseUrl}${profileImageURL}` : null;
+
+  console.log('profileImageURL:', profileImageURL);
+
+    
   return (
     <>
       <main className="w-full">
@@ -96,14 +163,27 @@ function SeccionOferente() {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative">
-                      <img
-                        alt="..."
-                        src={FotoPerfil}
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-18 lg:-ml-24"
-                        style={{ maxWidth: "210px" }}
-                      />
-                      <MdAddAPhoto
+
+                    <img
+                      alt="..."
+                      src={profileImageURL}
+                      className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-18 lg:-ml-24"
+                      style={{ maxWidth: "210px" }}
+                    />
+
+                      <button
                         className="text-2xl text-black-600 absolute top-14 -right-28 m-2 cursor-pointer"
+                        onClick={() => document.getElementById("fileInput").click()} // Simular clic en el input de tipo file
+                      >
+                        <MdAddAPhoto />
+                      </button>
+
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        style={{ display: "none" }}
+                        id="fileInput"
                       />
                     </div>
                   </div>

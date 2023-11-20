@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, login, uploadProfileImage } from '../controllers/UsuarioController.js';
+import { createUsuario, deleteUsuario, filterUsuario, getAllUsuario, getUsuario, updateUsuario, login, uploadProfileImage, getImg } from '../controllers/UsuarioController.js';
 import { getAllServicio, getServicio, createServicio, updateServicio, deleteServicio } from '../controllers/ServicioControllers.js';
 import { getAllProvincia, getProvincia } from '../controllers/ProvinciaControllers.js';
 import { getAllLocalidad, getLocalidad, createLocalidad, updateLocalidad, deleteLocalidad } from '../controllers/LocalidadControllers.js';
@@ -20,6 +20,8 @@ router.put('/usuario/:Id_Usuario', updateUsuario);
 router.delete('/usuario/:Id_Usuario', deleteUsuario);
 router.post('/login', login);
 router.post('/usuario/perfil/:Id_Usuario', upload.single('image'), uploadProfileImage);
+router.get('/usuario/perfil/:Id_Usuario', getImg);
+
 
 //Servicios
 router.get('/servicios', getAllServicio);
