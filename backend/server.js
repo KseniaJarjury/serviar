@@ -18,5 +18,5 @@ try {
 }
 
 app.listen(PORT, () => {
-    console.log('Server UP running in http://localhost:3000/')
+    console.log(`'Server UP running in: ${PORT}`)
 })
