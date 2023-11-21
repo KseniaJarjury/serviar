@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "node src/index.jsx"
+    "start": "server dist"
   },
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.22.5",

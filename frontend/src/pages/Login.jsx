@@ -22,7 +22,7 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post('https://serviar-production.up.railway.app/api/login', {
         email,
         password,
       });
