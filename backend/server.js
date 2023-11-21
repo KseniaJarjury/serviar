@@ -5,6 +5,7 @@ import db from "./database/db.js"
 //Importamos nuestro enrutador
 import AppRoutes from './routes/Approutes.js';
 const app = express();
+const PORT = process.env.PORT || 3000;
 app.use(cors())
 app.use(express.json())
 app.use('/api', AppRoutes);
@@ -16,6 +17,6 @@ try {
     console.log(`El error de conexion es: ${error}`)
 }
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('Server UP running in http://localhost:3000/')
 })
