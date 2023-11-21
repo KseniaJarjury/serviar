@@ -13,7 +13,7 @@ const Provincia = db.define('Provincia',{
     LongitudP: {type: DataTypes.DECIMAL},
 }, {
     timestamps: false,
-    tableName: 'provincia'
+    tableName: 'Provincia'
 });
 
 export default Provincia;

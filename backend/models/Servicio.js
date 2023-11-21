@@ -11,7 +11,7 @@ const Servicio = db.define('Servicio',{
     Servicio: {type: DataTypes.STRING},
 }, {
     timestamps: false,
-    tableName: 'servicio'
+    tableName: 'Servicio'
 });
 
 export default Servicio;

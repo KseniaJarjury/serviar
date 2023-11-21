@@ -16,7 +16,7 @@ const Localidad = db.define('Localidad',{
     Id_Provincia: { type: DataTypes.INTEGER },
 }, {
     timestamps: false,
-    tableName: 'localidad'
+    tableName: 'Localidad'
 });
 Provincia.hasMany(Localidad, { foreignKey: 'Id_Provincia' });
 Localidad.belongsTo(Provincia, { foreignKey: 'Id_Provincia' });
