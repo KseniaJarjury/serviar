@@ -41,7 +41,7 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE Usuario_Imagenes (
-   int AUTO_INCREMENT PRIMARY KEY,
+  Id_UsImagenes int AUTO_INCREMENT PRIMARY KEY,
   Imagen LONGBLOB, 
   Id_Usuario int, 
   FOREIGN KEY (Id_Usuario) REFERENCES Usuario(Id_Usuario)
