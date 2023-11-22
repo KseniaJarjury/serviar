@@ -7,7 +7,7 @@ import AppRoutes from './routes/Approutes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-    origin: 'https://serviar-i9zqm9zsq-ksenia-jarjurys-projects.vercel.app/',
+    origin: 'https://serviar-i9zqm9zsq-ksenia-jarjurys-projects.vercel.app',
     // ... otras opciones según sea necesario
 };
 
