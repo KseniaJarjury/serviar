@@ -1,5 +1,5 @@
 import SliderComentarios from "./swiperComentarios/SliderComentarios"
-import "./components/Inicio/seccionComentario/swiperComentarios/SeccionComentario.css"
+import "./SeccionComentario.css"
 
 export default function SeccionComentario() {
     return (
