@@ -8,10 +8,10 @@ export default defineConfig({
     proxy: {
       '/api':
       { 
-        target: 'https://serviar-production.up.railway.app', // Cambia esto a la URL del servidor de Node.js del backend
+        target: 'https://serviar-production.up.railway.app:3000', // Cambia esto a la URL del servidor de Node.js del backend
         changeOrigin: true,
         secure: false,
-        ws: true
+        ws: true,
       }
     },
   },
