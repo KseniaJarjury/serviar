@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "server dist -s -n -L"
+    "start": "server dist"
   },
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.22.5",
