@@ -7,9 +7,9 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://serviar-production.up.railway.app', // Cambia esto a la URL del servidor de Node.js del backend
-        changeOrigin: false,
+        changeOrigin: true,
         secure: false, // Ajusta a true para habilitar la verificación SSL en producción
-        ws: false, // Habilita si tu backend utiliza WebSocket
+        ws: true, // Habilita si tu backend utiliza WebSocket
       },
     },
   },
