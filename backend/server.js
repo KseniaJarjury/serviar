@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
     origin: 'https://serviar-i9zqm9zsq-ksenia-jarjurys-projects.vercel.app',
-    // ... otras opciones según sea necesario
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
