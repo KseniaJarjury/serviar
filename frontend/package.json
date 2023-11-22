@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "server dist"
+    "start": "serve build -s -n -L -p $PORT"
   },
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.22.5",
@@ -30,6 +30,7 @@
     "react-simple-star-rating": "^5.1.7",
     "react-views": "^1.0.4",
     "sequelize": "^6.33.0",
+    "serve": "^14.2.1",
     "star-rating-react": "^0.0.1",
     "styled-components": "^6.0.8",
     "swiper": "^10.3.1",
