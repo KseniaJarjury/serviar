@@ -25,15 +25,15 @@ const ServicioProvider = ({ children }) => {
                 setUsuariosFiltrados(responseData);
             })
             .catch((error) => console.error(error));
-        fetch('/api/servicios')
+        fetch('https://serviar-production.up.railway.app/api/servicios')
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/localidades')
+        fetch('https://serviar-production.up.railway.app/api/localidades')
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/provincias')
+        fetch('https://serviar-production.up.railway.app/api/provincias')
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
