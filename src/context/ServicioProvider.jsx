@@ -18,22 +18,22 @@ const ServicioProvider = ({ children }) => {
 
     useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch('https://serviar-production.up.railway.app/api/usuarios')
+        fetch('/api/usuarios')
             .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);
                 setUsuariosFiltrados(responseData);
             })
             .catch((error) => console.error(error));
-        fetch('https://serviar-production.up.railway.app/api/servicios')
+        fetch('/api/servicios')
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch('https://serviar-production.up.railway.app/api/localidades')
+        fetch('/api/localidades')
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
-        fetch('https://serviar-production.up.railway.app/api/provincias')
+        fetch('/api/provincias')
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
