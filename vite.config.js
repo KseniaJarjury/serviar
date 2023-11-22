@@ -9,7 +9,9 @@ export default defineConfig({
       '/api':
       { 
         target: 'https://serviar-production.up.railway.app', // Cambia esto a la URL del servidor de Node.js del backend
-        changeOrigin: true
+        changeOrigin: true,
+        secure: false,
+        ws: true
       }
     },
   },
