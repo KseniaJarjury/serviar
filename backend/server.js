@@ -6,7 +6,12 @@ import db from "./database/db.js"
 import AppRoutes from './routes/Approutes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors())
+const corsOptions = {
+    origin: 'https://serviar-i9zqm9zsq-ksenia-jarjurys-projects.vercel.app/',
+    // ... otras opciones según sea necesario
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use('/api', AppRoutes);
 
