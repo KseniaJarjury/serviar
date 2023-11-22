@@ -13,6 +13,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: 'src/index.jsx' // Aquí debes especificar tu punto de entrada
-    }
+    },
+    outDir: 'dist'
   }
 })
