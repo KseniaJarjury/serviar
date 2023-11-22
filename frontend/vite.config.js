@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: 'https://serviar-production.up.railway.app',
     proxy: {
       '/api': 'https://serviar-production.up.railway.app', // Cambia esto a la URL del servidor de Node.js del backend
     },
