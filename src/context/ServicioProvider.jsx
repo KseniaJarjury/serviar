@@ -18,7 +18,7 @@ const ServicioProvider = ({ children }) => {
 
     useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch('/api/usuarios')
+        fetch('https://serviar-production.up.railway.app/api/usuarios')
             .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);
