@@ -32,7 +32,7 @@ function SeccionOferente() {
     : {};
     const handleApiCall = async (dataToUpdate) => {
       try {
-        const response = await axios.put(`http://localhost:3000/api/usuario/${Id_Usuario}`, dataToUpdate);
+        const response = await axios.put(`https://serviar-production.up.railway.app/api/usuario/${Id_Usuario}`, dataToUpdate);
     
         // Verificar si la respuesta de la API contiene datos
         if (response && response.data) {
