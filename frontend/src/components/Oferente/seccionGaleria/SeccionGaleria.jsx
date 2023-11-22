@@ -1,33 +1,90 @@
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useParams } from "react-router-dom";
+import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import SlideImagen1 from "./../../../assets/galeria/imagen1.png";
-import SlideImagen2 from "./../../../assets/galeria/imagen2.png";
-import SlideImagen3 from "./../../../assets/galeria/imagen3.png";
-import SlideImagen4 from "./../../../assets/galeria/imagen4.png";
-import "./seccionGaleria.css";
+import axios from "axios";
 
-function SeccionGaleria() {
-  const [images, setImages] = useState([
-    SlideImagen1,
-    SlideImagen2,
-    SlideImagen3,
-    SlideImagen4,
-  ]);
+const SeccionGaleria = () => {
+  const { Id_Usuario } = useParams();
+  const [images, setImages] = useState([]);
 
-  const deleteImage = (index) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImages(newImages);
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      try {
+       
+        // Obtén las imágenes del localStorage
+        const localStorageImages = JSON.parse(localStorage.getItem(`galleryImages_${Id_Usuario}`)) || [];
+
+        // Combina las imágenes del servidor y del localStorage
+        const allImages = [...localStorageImages];
+
+        // Actualiza el estado con todas las imágenes
+        setImages(allImages);
+      } catch (error) {
+        console.error("Error al obtener imágenes de la galería:", error.message);
+      }
+    };
+
+    fetchGalleryImages();
+  }, [Id_Usuario]);
+
+  const handleImageUpload = async () => {
+    try {
+      const inputElement = document.getElementById("fileInput");
+      const file = inputElement.files[0];
+
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        // Almacena la imagen en el localStorage
+        saveImageToLocalStorage(base64Image);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      console.error("Error al cargar la imagen:", error.message);
+    }
   };
 
-  const addImage = (imageURL) => {
-    // Lógica para agregar nuevas imágenes, por ejemplo, cargar desde una URL
-    const newImages = [...images];
-    newImages.push(imageURL);
-    setImages(newImages);
+  const saveImageToLocalStorage = (base64Image) => {
+    try {
+      // Obtén las imágenes existentes desde el localStorage
+      const existingImages = JSON.parse(localStorage.getItem(`galleryImages_${Id_Usuario}`)) || [];
+
+      // Agrega la nueva imagen al array
+      existingImages.push(base64Image);
+
+      // Actualiza el localStorage con las imágenes actualizadas
+      localStorage.setItem(`galleryImages_${Id_Usuario}`, JSON.stringify(existingImages));
+
+      // Actualiza el estado del componente con las nuevas imágenes
+      setImages(existingImages);
+    } catch (error) {
+      console.error("Error al guardar la imagen en localStorage:", error.message);
+    }
+  };
+
+  const handleImageDelete = (index) => {
+    try {
+      // Obtiene las imágenes existentes desde el localStorage
+      const existingImages = JSON.parse(localStorage.getItem(`galleryImages_${Id_Usuario}`)) || [];
+
+      // Elimina la imagen del array
+      existingImages.splice(index, 1);
+
+      // Actualiza el localStorage con las imágenes actualizadas
+      localStorage.setItem(`galleryImages_${Id_Usuario}`, JSON.stringify(existingImages));
+
+      // Actualiza el estado del componente con las nuevas imágenes
+      setImages(existingImages);
+    } catch (error) {
+      console.error("Error al eliminar la imagen de localStorage:", error.message);
+    }
   };
 
   return (
@@ -41,9 +98,9 @@ function SeccionGaleria() {
             <Swiper
               spaceBetween={50}
               slidesPerView={3}
-              onSlideChange={() => console.log('slide change')}
+              onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
-              navigation={{   // Habilitar la navegación
+              navigation={{
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
               }}
@@ -63,14 +120,15 @@ function SeccionGaleria() {
                       alignItems: "center",
                       cursor: "pointer",
                     }}
-                    onClick={() => deleteImage(index)}
+                    onClick={() => handleImageDelete(index)}
                   >
                     <ion-icon name="close-outline"></ion-icon>
                   </button>
-                  <img src={image} alt="imagen_servicio" className="icon-imagen" />
+                  <img src={image} alt={`imagen_${index}`} className="icon-imagen" />
                 </SwiperSlide>
               ))}
               <SwiperSlide>
+                <input type="file" id="fileInput" style={{ display: "none" }} onChange={handleImageUpload} />
                 <button
                   style={{
                     backgroundColor: "green",
@@ -84,26 +142,26 @@ function SeccionGaleria() {
                     alignItems: "center",
                     cursor: "pointer",
                   }}
-                  onClick={() => addImage("URL_DE_LA_IMAGEN")} // Cambia la URL por la que desees agregar
+                  onClick={() => document.getElementById("fileInput").click()}
                 >
                   <ion-icon name="add-outline"></ion-icon>
                 </button>
               </SwiperSlide>
               <div className="slider-controler">
-                                <div className="swiper-button-prev slider-arrow">
-                                    <ion-icon name="arrow-back-outline"></ion-icon>
-                                </div>
-                                <div className="swiper-button-next slider-arrow">
-                                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                                </div>
-                                <div className="swiper-pagination"></div>
-                            </div>
+                <div className="swiper-button-prev slider-arrow">
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                </div>
+                <div className="swiper-button-next slider-arrow">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </div>
+                <div className="swiper-pagination"></div>
+              </div>
             </Swiper>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default SeccionGaleria;

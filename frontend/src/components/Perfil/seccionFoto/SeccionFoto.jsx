@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import FondoPerfil from "../../../assets/fondoPerfil.png";
 import FotoPerfil from "../../../assets/fotoPerfil.png";
 import Start from "../../../assets/start.png";
@@ -6,8 +6,13 @@ import Start1 from "../../../assets/start1.png";
 import "./seccionFoto.css"
 import { useParams } from "react-router-dom";
 import UseServicio from "../../../hooks/UseServicio";
+import axios from "axios";
+import "./seccionFoto.css";
+
 
 function SeccionPerfil() {
+  const [profileImageURL, setProfileImageURL] = useState('');
+
   // Dirigirme a la parte superior de la vista
   window.scrollTo(0, 0);
   const { usuarios, servicios } = UseServicio();
@@ -18,14 +23,56 @@ function SeccionPerfil() {
   const servicio = servicios.find(
     (servicio) => servicio.Id_Servicio === usuario.Id_Servicio
   );
+  const obtenerURLImagenUsuario = async () => {
+    try {
+      const storedProfileImageURL = localStorage.getItem('profileImageURL');
+  
+      if (storedProfileImageURL) {
+        console.log('URL almacenada en localStorage:', storedProfileImageURL);
+        setProfileImageURL(storedProfileImageURL);
+      } else {
+        const response = await axios.get(`http://localhost:3000/api/usuario/perfil/${Id_Usuario}`);
+        if (response && response.data) {
+          const imageURL = response.data.profileImageURL;
+          console.log('Nueva URL obtenida:', imageURL);
+          setProfileImageURL(imageURL || FotoPerfil); // Si no hay imagen, establece profileImageURL en foto predeterminada
+          localStorage.setItem('profileImageURL', imageURL || FotoPerfil);
+          console.log('profileImageURL después de la actualización:', imageURL);
+        }
+        console.log('Respuesta completa:', response);
+      }
+    } catch (error) {
+      console.error('Error al obtener la URL de la imagen:', error);
+    }
+  };
+
+useEffect(() => {
+  console.log('Entrando en useEffect');
+  obtenerURLImagenUsuario();
+}, [Id_Usuario]);
+
+
+  
+//   // const cloudinaryBaseUrl = "https://res.cloudinary.com/dkf1japx9/image/upload/";
+//   const cloudinaryCloudName = 'dkf1japx9'; // Reemplaza esto con tu cloud_name
+//   const cloudinaryVersion = 'v1700575199'; // Reemplaza esto con la versión específica o etiqueta temporal
+//   const cloudinaryPath = `serviar/usuarios/${Id_Usuario}/perfil`; // Estructura de carpetas en Cloudinary
+  
+// const imageURL = profileImageURL ? `https://res.cloudinary.com/${cloudinaryCloudName}/image/upload/${cloudinaryVersion}/${cloudinaryPath}/${profileImageURL}` : FotoPerfil;
+  
   return (
     <>
       <div className="cont-foto text-[#001A29]">
         <div className="contenedor-perfil">
           <img src={FondoPerfil} alt="" className="fondo-perfil" />
           <div className="contenedor-foto-perfil">
-            <img src={FotoPerfil} alt="" className="w-[11rem] h-[11rem] md:w-[24rem] md:h-[14.5rem] -ml-16 rounded-full absolute top-[-85px] left-0 shadow-img-shadow" />
-          </div>
+          <img
+              alt="..."
+              src={profileImageURL}
+              className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-18 lg:-ml-24"
+              style={{ maxWidth: "250px"}}
+            />
+            </div>
           <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
             <p className="m-2 text-xl md:text-2xl">Reputacion: </p>
             <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />

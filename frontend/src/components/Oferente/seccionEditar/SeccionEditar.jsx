@@ -61,8 +61,8 @@ function SeccionOferente() {
           if (response && response.data) {
             const imageURL = response.data.profileImageURL;
             console.log('Nueva URL obtenida:', imageURL);
-            setProfileImageURL(imageURL || null); // Si no hay imagen, establece profileImageURL en null
-            localStorage.setItem('profileImageURL', imageURL || null);
+            setProfileImageURL(imageURL || FotoPerfil); // Si no hay imagen, establece profileImageURL en foto predeterminada
+            localStorage.setItem('profileImageURL', imageURL || FotoPerfil);
             console.log('profileImageURL después de la actualización:', imageURL);
           }
           console.log('Respuesta completa:', response);

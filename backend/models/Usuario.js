@@ -41,6 +41,31 @@ const Usuario = db.define('Usuario', {
     tableName: 'usuario'
 });
 
+const Usuario_Imagenes = db.define('Usuario_Imagenes', {
+    Id_UsImagenes: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    Imagen: {
+        type: DataTypes.BLOB('long'),
+        allowNull: false,
+    },
+    Id_Usuario: {
+        type: DataTypes.INTEGER,
+        primaryKey: true, // Esto define la columna Id_Usuario como clave primaria
+       
+    }
+    
+}, {
+    timestamps: false,
+    tableName: 'Usuario_Imagenes'
+});
+
+Usuario.hasMany(Usuario_Imagenes, { foreignKey: 'Id_Usuario' });
+Usuario_Imagenes.belongsTo(Usuario, { foreignKey: 'Id_Usuario' });
+
+export { Usuario, Usuario_Imagenes };
 // app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
 //     const imageBuffer = req.file.buffer;
   
