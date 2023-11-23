@@ -34,7 +34,7 @@ function SeccionGaleria() {
     <>
       <div className="container-galeria">
         <div className=" items-center h-20 ml-12 mb-12">
-          <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
+          <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4 mt-10">
             <h3 className="subtitulo text-left">Galeria: </h3>
           </div>
           <div className="m-16">

@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    height: 120vh;
+    height: 110vh;
     position: relative;
     width: 100%;
     flex-direction: column;
@@ -16,39 +16,41 @@
 
 .conteiner-login-form {
     display: flex;
-    height: 350px;
+    height: 400px;
     justify-content: center;
     align-items: center; /* Centrar verticalmente */
-    width: 60%;
+    width: 400px;
 }
 .login-fondo {
     background-color: #e6e6e6c7;
     border-radius: 5px;
     box-shadow: 0 0 8px 0 #000;
-    padding-bottom: 40px;
-    padding-top: 20px;
-    width: 300px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    width: 500px;
+    
 }
 .form-login {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
     align-items: center;
-}
-.form-login{
     background-color: initial;
     border: none;
-    width: 300px;
+    width: 500px;
+    height: 400px;
 }
+
 .titulo-login{
     margin: 1rem;
+    margin-bottom: 6rem;
     font-size: 4rem;
     color: #001a29;
     font-weight: 600;
 }
 .btn-login{
-    width:8rem;
-    height: 2rem;
+    width:10rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,16 +58,16 @@
     opacity: 85%;
     color: white;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     margin: 0;
     border-radius: 20px; /* Agrega bordes redondeados */
     cursor: pointer;
 }
 .link-olvidar{
-    font-size: 14px;
+    font-size: 18px;
 }
 .p-register{
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .error-message {

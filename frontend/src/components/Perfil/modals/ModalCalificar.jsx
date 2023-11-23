@@ -2,10 +2,25 @@ import React, { useState } from "react";
 import FotoPerfil from "./../../../assets/fotoPerfil.png";
 import { FaStar } from 'react-icons/fa';
 import "./ModalCalificar.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function ModalCalificar({ showModal, setShowModal }) {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
+    function enviarCalificacion(){
+        setShowModal(false);
+        toast.success('¡Gracias por calificar!', {
+            position: "top-right",
+            autoClose: 3000, // Se cerrará automáticamente después de 3 segundos
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,});
+        showToast();
+    }
     return (
         <>
             {showModal ? (
@@ -74,7 +89,7 @@ function ModalCalificar({ showModal, setShowModal }) {
                                                     <textarea
                                                         name="Comentario"
                                                         id="Comentario"
-                                                        cols="50"
+                                                        cols="40"
                                                         rows="7"
                                                         placeholder="Me parece un profesional......."
                                                         className="bg-gray-300 mt-2 md:mt-8 text-sm md:text-2xl md:resize-none"
@@ -93,7 +108,7 @@ function ModalCalificar({ showModal, setShowModal }) {
                                                 <button
                                                     className="text-4xl bg-[#00B0E4] active:bg-[#001A29] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                     type="button"
-                                                    onClick={() => setShowModal(false)}
+                                                    onClick={() => enviarCalificacion()}
                                                 >
                                                     Guardar
                                                 </button>
