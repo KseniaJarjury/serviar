@@ -5,48 +5,85 @@ import Footer from '../components/Footer/Footer';
 import Validation from '../validators/LoginValidation.js';
 import '../styles/Login.css';
 import { useNavigate } from 'react-router-dom';
+import UseServicio from '../hooks/UseServicio.js';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setUsuario } = UseServicio();
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
-
+  function showAlert (msg, type){
+    if(type === true){
+      toast.success(msg, {
+      position: "top-right",
+      autoClose: 3000, // Se cerrará automáticamente después de 3 segundos
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,});
+    }
+    else{
+      toast.error(msg, {
+        position: "top-right",
+        autoClose: 3000, // Se cerrará automáticamente después de 3 segundos
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,});
+    }
+  }
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post('api/login', {
         email,
         password,
       });
-      if (response.data && response.data.message === 'Inicio de sesión exitoso') {
+      console.log(response.data)
+      if (response.data && response.data.auth === true) {
         console.log('Inicio de sesión exitoso');
+        setUsuario(response.data.usuario);
         // Redirige al usuario a la ruta '/'
         navigate('/');
+        showAlert('Inicio de sesión exitoso',true);
       } else {
         console.error(
           'Error al iniciar sesión. Mensaje:',
           response.data?.message || 'No hay mensaje de error'
         );
         // Muestra el mensaje de error
+        
         setErrorMessage('Credenciales incorrectas');
       }
     } catch (error) {
-      console.error('Error al enviar la solicitud de inicio de sesión', error);
+      if (error.response.status === 401) {
+        // Manejar el error 401 (credenciales incorrectas)
+        showAlert('Credenciales incorrectas',false);
+        console.error('Credenciales incorrectas');
+      } else {
+        // Otro tipo de error
+        console.error('Error en la solicitud:', error.message);
+      }
+      
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Usa la función de devolución de llamada para asegurarte de que los errores se han establecido
-    await setErrors(Validation(values));
+    //await setErrors(Validation(values));
 
     // Si no hay errores de validación, intenta iniciar sesión
     if (Object.keys(errors).length === 0) {
@@ -72,6 +109,7 @@ export default function Login() {
                   name="email"
                   placeholder="Email"
                   onChange={handleInput}
+                  className='w-80 p-2 text-xl'
                   required
                 />
                 <span>{errors.email && <span className="text-danger"> {errors.email} </span>}</span>
@@ -82,7 +120,9 @@ export default function Login() {
                   name="password"
                   placeholder="Contraseña"
                   onChange={handleInput}
+                  className='w-80 p-2 text-xl'
                   required
+                  
                 />
                 <span>{errors.password && <span className="text-danger"> {errors.password} </span>}</span>
                 <div className="link-olvidar">

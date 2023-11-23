@@ -4,10 +4,12 @@ import cors from 'cors';
 import db from "./database/db.js"
 //Importamos nuestro enrutador
 import AppRoutes from './routes/Approutes.js';
+import { config } from 'dotenv';
 const app = express();
 app.use(cors())
 app.use(express.json())
 app.use('/api', AppRoutes);
+config();
 
 try {
     await db.authenticate()

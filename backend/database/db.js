@@ -7,4 +7,5 @@ const db = new Sequelize ('serviar', 'root', '',{
     
 });
 
+
 export default db

@@ -33,7 +33,7 @@ CREATE TABLE Usuario (
   `NombreApellido` varchar(255) NOT NULL,
   `Telefono` int(15) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(8) NOT NULL,
+  `password` varchar(60) NOT NULL,
   Id_Localidad int,
   Id_Servicio int, 
   FOREIGN KEY (Id_Servicio) REFERENCES Servicio(Id_Servicio),

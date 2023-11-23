@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import UseServicio from "../../../hooks/UseServicio";
 import FondoPerfil from "../../../assets/fondoPerfil.png";
@@ -6,18 +6,30 @@ import FotoPerfil from "../../../assets/fotoPerfil.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdAddAPhoto } from "react-icons/md";
 import ModalEditarPerfil from "./ModalEditarPerfil";
-import axios from "axios";
 import "./seccionEditar.css";
 
 function SeccionOferente() {
   // Dirigirme a la parte superior de la vista
   window.scrollTo(0, 0);
   const [showModal, setShowModal] = useState(false);
-  const { usuarios, servicios, localidades, provincias } = UseServicio();
+  const { usuarios, servicios, localidades, provincias, setUsuario } = UseServicio();
   const { Id_Usuario } = useParams();
+
+  // Verificar si usuarios está definido y no está vacío
+  useEffect(() => {
+    if (usuarios && usuarios.length > 0) {
+      const usuarioEncontrado = usuarios.find(
+        (usuario) => usuario.Id_Usuario === Number.parseInt(Id_Usuario)
+      );
+      setUsuario(usuarioEncontrado);
+    }
+  }, [usuarios, Id_Usuario]);
+
+  // Verificar si usuario está definido antes de intentar acceder a sus propiedades
   const usuario = usuarios.find(
     (usuario) => usuario.Id_Usuario === Number.parseInt(Id_Usuario)
   );
+
   const servicio = servicios.find(
     (servicio) => servicio.Id_Servicio === (usuario && usuario.Id_Servicio)
   );
@@ -30,25 +42,10 @@ function SeccionOferente() {
   const provincia = provinciaId
     ? provincias.find((p) => p.Id_Provincia === provinciaId) || {}
     : {};
-    const handleApiCall = async (dataToUpdate) => {
-      try {
-        const response = await axios.put(`http://localhost:3000/api/usuario/${Id_Usuario}`, dataToUpdate);
-    
-        // Verificar si la respuesta de la API contiene datos
-        if (response && response.data) {
-          console.log('Respuesta de la API:', response.data);
-          // Puedes realizar acciones adicionales aquí según la respuesta de la API
-        } else {
-          console.error('Error al modificar el usuario: Respuesta de la API no contiene datos');
-        }
-      } catch (error) {
-        console.error('Error al modificar el usuario:', error.response?.data || error.message || error);
-        // Puedes manejar errores aquí
-      }
-    };
-    
-    
-
+  // Función para actualizar el estado del usuario
+  const updateUsuario = (updatedUsuario) => {
+    setUsuario(updatedUsuario);
+  };
 
   return (
     <>
@@ -95,22 +92,22 @@ function SeccionOferente() {
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div className="relative">
+                    <div className="flex justify-center relative">
                       <img
                         alt="..."
                         src={FotoPerfil}
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-18 lg:-ml-24"
-                        style={{ maxWidth: "210px" }}
+                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-16 lg:-ml-[8rem]"
+                        style={{ maxWidth: "280px" }}
                       />
                       <MdAddAPhoto
-                        className="text-2xl text-black-600 absolute top-14 -right-28 m-2 cursor-pointer"
+                        className="text-2xl text-black-600 absolute top-14 md:top-12 lg:top-14 -right-14 lg:-right-18 m-2 cursor-pointer"
                       />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                    <div className="py-6 px-3 mt-32 sm:mt-0">
+                    <div className=" flex justify-center  lg:py-6 lg:px-3 lg:mt-32 lg:mt-0 lg:mr-16">
                       <button
-                        className="bg-[#00B0E4] active:bg-[#001A29] uppercase text-white font-bold hover:shadow-md shadow text-lg px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                        className="mt-28 lg:mt-4 ml-18 lg:ml-40 bg-[#00B0E4] active:bg-[#001A29] uppercase text-white font-bold hover:shadow-md shadow text-lg px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                         type="button"
                         onClick={() => setShowModal(true)}
                         style={{ transition: "all .15s ease" }}
@@ -120,14 +117,19 @@ function SeccionOferente() {
                       <ModalEditarPerfil
                         showModal={showModal}
                         setShowModal={setShowModal}
-                        handleApiCall={handleApiCall}
+                        localidad={localidad}
+                        provincia={provincia}
+                        servicio={servicio}
+                        usuario={usuario}
+                        setUsuario={setUsuario}
+                        updateUsuario={updateUsuario}
                       />
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
+                        {/* <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
                           10
                         </span>
                         <span className="text-sm md:text-lg text-gray-500">
@@ -140,12 +142,12 @@ function SeccionOferente() {
                         </span>
                         <span className="text-sm md:text-lg text-gray-500">
                           Comentarios
-                        </span>
+                        </span> */}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-center mt-12">
+                <div className="text-center mt-12 lg:mt-16 lg:mr-16">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
                     {usuario ? usuario.NombreApellido : "Usuario no encontrado"}
                   </h3>

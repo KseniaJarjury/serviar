@@ -8,7 +8,6 @@ import axios from 'axios';
 
 function Registrar() {
     window.scrollTo(0, 0);
-
     const { provincias, localidades, servicios, setUsuario, login } = UseServicio();
     const navigate = useNavigate();
 
@@ -52,8 +51,9 @@ function Registrar() {
                     email: '',
                     password: '',
                 });
+                console.log(response.data.usuario);
                 setRegistroExitoso(true);
-                
+                setUsuario(response.data.usuario)
             }
         } catch (error) {
             console.error('Error al registrar el usuario:', error.response?.data);
@@ -84,7 +84,7 @@ function Registrar() {
             <Navbar />
             <div className="bg-cover bg-center h-[70rem] flex flex-col items-center justify-center" style={{ backgroundImage: `url('/src/assets/fondopixe.png')` }}>
                 <h1 className="text-[#001A29] text-center text-[65px] font-bold mt-2 p-8">Registrate</h1>
-                <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[60%] md:w-[40%] h-[70%]'>
+                <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[40vh] md:w-[60vh] lg:w-[90vh] h-[70%]'>
                     <form className='flex flex-col justify-center text-xl mb-8 p-12' action=''>
                         <label htmlFor="NombreApellido">Nombre Completo:</label>
                         <input
@@ -102,7 +102,7 @@ function Registrar() {
                         {provincias && provincias.length > 0 && (
                             <select
                                 name="provincia"
-                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-50 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.provincia}
@@ -121,7 +121,7 @@ function Registrar() {
                         {localidades && localidades.length > 0 && provincias && provincias.length > 0 && (
                             <select
                                 name="localidad"
-                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-50 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.localidad}
@@ -142,7 +142,7 @@ function Registrar() {
                         {servicios && servicios.length > 0 && (
                             <select
                                 name="servicio"
-                                className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                className="w-50 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
                                 required
                                 onChange={handleInputChange}
                                 value={person.servicio}
