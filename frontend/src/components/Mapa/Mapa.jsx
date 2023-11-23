@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 
 function Mapa() {
-  const { usuarios, center, localidades, zoom } = UseServicio();
+  const { usuarios, center, localidades, zoom,usuariosFiltrados } = UseServicio();
   const hayDatos = usuarios.length > 0;
   const API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY;
   const { isLoaded, loadError } = useLoadScript({
@@ -35,10 +35,10 @@ function Mapa() {
     <>
       {hayDatos ? (
         <GoogleMap zoom={zoom} center={center} mapContainerClassName="h-screen w-full mb-20">
-          {usuarios.map((usuario) => {
+          {usuariosFiltrados.map((usuario) => {
             const localidad = localidades.find(
               (loc) => loc.Id_Localidad === usuario.Id_Localidad
-            );
+              );
             return(<Marcador
               key={usuario.Id_Usuario}
               position={{
