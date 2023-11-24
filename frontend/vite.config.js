@@ -4,12 +4,6 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api': 'http://localhost:3000', // Cambia esto a la URL del servidor de Node.js del backend
-    },
-    
-  },
   build: {
     rollupOptions: {
       input: 'src/index.jsx' // Aquí debes especificar tu punto de entrada

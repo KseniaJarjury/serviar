@@ -102,11 +102,11 @@ INSERT INTO Localidad (Localidad, CP, LatitudL, LongitudL, Id_Provincia) VALUES
   ('Yerba Buena', 4107, -26.8119881,	-65.3013529, 5);
 
 
-INSERT INTO `usuario` (`Id_Usuario`, `Descripcion`, `Foto_Perfil`, `Foto_Portada`, `CUIT`, `NombreApellido`, `Telefono`, `email`, `password`, `Id_Localidad`, `Id_Servicio`) VALUES
-(1, 'Nuestro servicio de albañilería profesional está diseñado para atender todas tus necesidades de construcción y renovación en el hogar. Contamos con un equipo de albañiles altamente capacitados y experimentados que se encargarán de llevar a cabo una amplia', NULL, NULL, 763876328, 'Julian Notario', 1144645674, 'julianotario@gmail.com', 'Maseba12', 15, 2),
-(2, 'Plomero de confianza, más de 20 años en el rubro', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', 1, 3),
-(3, 'Manicura. Hago esculpidas en gel', NULL, NULL, 242356787, 'Belen Dara', 1143526473, 'bd1997@gmail.com', 'dara1234', 3, 5),
-(4, '¿Necesitas solucionar problemas eléctricos en tu hogar o negocio? ¡No busques más! Como electricista profesional, estoy listo para ayudarte. Ofrezco servicios de instalación, reparación y mantenimiento eléctrico de alta calidad. Tu seguridad y comodidad.', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', 2, 1),
-(5, ' Como carpintero experimentado, ofrezco servicios de diseño, fabricación y montaje de muebles y estructuras de madera a medida. Mi pasión es crear piezas de calidad que se adapten a tus necesidades y estilo. Contacta conmigo para convertir tus ideas en re', NULL, NULL, 2147483647, 'Sebastian Teran', 1144645674, 'sebastianteran@gmail.com', 'Sebas123', 13, 4);
+INSERT INTO `usuario` (`Descripcion`, `Foto_Perfil`, `Foto_Portada`, `CUIT`, `NombreApellido`, `Telefono`, `email`, `password`, `Id_Localidad`, `Id_Servicio`) VALUES
+('Nuestro servicio de albañilería profesional está diseñado para atender todas tus necesidades de construcción y renovación en el hogar. Contamos con un equipo de albañiles altamente capacitados y experimentados que se encargarán de llevar a cabo una amplia', NULL, NULL, 763876328, 'Julian Notario', 1144645674, 'julianotario@gmail.com', 'Maseba12', 15, 2),
+('Plomero de confianza, más de 20 años en el rubro', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', 1, 3),
+('Manicura. Hago esculpidas en gel', NULL, NULL, 242356787, 'Belen Dara', 1143526473, 'bd1997@gmail.com', 'dara1234', 3, 5),
+('¿Necesitas solucionar problemas eléctricos en tu hogar o negocio? ¡No busques más! Como electricista profesional, estoy listo para ayudarte. Ofrezco servicios de instalación, reparación y mantenimiento eléctrico de alta calidad. Tu seguridad y comodidad.', NULL, NULL, 2112345437, 'Marcelo Gallardo', 1123243223, 'marcegall@gmail.com', 'mg123456', 2, 1),
+('Como carpintero experimentado, ofrezco servicios de diseño, fabricación y montaje de muebles y estructuras de madera a medida. Mi pasión es crear piezas de calidad que se adapten a tus necesidades y estilo. Contacta conmigo para convertir tus ideas en re', NULL, NULL, 2147483647, 'Sebastian Teran', 1144645674, 'sebastianteran@gmail.com', 'Sebas123', 13, 4);
 
 

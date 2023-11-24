@@ -6,6 +6,9 @@ const ServicioContext = createContext();
 
 const ServicioProvider = ({ children }) => {
 
+    const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
+
     const [usuario, setUsuario] = useState(null);
     const [usuarios, setUsuarios] = useState([]);
     const [usuariosFiltrados, setUsuariosFiltrados] = useState([]);
@@ -20,22 +23,22 @@ const ServicioProvider = ({ children }) => {
 
     useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch('/api/usuarios')
+        fetch(`${backendUrl}/api/usuarios`)
             .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);
                 setUsuariosFiltrados(responseData);
             })
             .catch((error) => console.error(error));
-        fetch('/api/servicios')
+        fetch(`${backendUrl}/api/servicios`)
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/localidades')
+        fetch(`${backendUrl}/api/localidades`)
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/provincias')
+        fetch(`${backendUrl}/api/provincias`)
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
@@ -43,12 +46,12 @@ const ServicioProvider = ({ children }) => {
     const login = (usuario) => {
         // Lógica para iniciar sesión
         setUsuario(usuario);
-      };
-    
-      const logout = () => {
+    };
+
+    const logout = () => {
         // Lógica para cerrar sesión
         setUsuario(null);
-      };
+    };
 
     // const login = async (email, password) => {
     //     try {
