@@ -7,8 +7,9 @@ import UseServicio from "../../hooks/UseServicio";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 function Navbar() {
-  const { usuario, setUsuario } = UseServicio();
+  const { usuario, setUsuario, iconImg, setIconImg } = UseServicio();
   const [Open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -22,16 +23,27 @@ function Navbar() {
         setScrolling(false);
       }
     };
-
+    if(usuario?.Foto_Perfil){
+      axios.get(`http://localhost:3000/api/getImg/${usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
+        .then(response => {
+          const blob = new Blob([response.data], { type: 'image/jpeg' });
+          console.log(URL.createObjectURL(blob))
+          setIconImg(URL.createObjectURL(blob));
+        })
+        .catch(error => {
+            console.error('Error al obtener la imagen:', error);
+          });
+    }
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [setIconImg]);
 
   function cerrarSesion(){
     setUsuario(null);
+    setIconImg(null);
     navigate('/');
     toast.success('Sesion Cerrada', {
       position: "top-right",
@@ -70,7 +82,7 @@ function Navbar() {
         <div className={`items justify-center gap-5 text-center items-center flex`}>
           {usuario ? (
             <>
-              <img src={avatar} alt="" className="avatar ml-2" />
+              <img src={iconImg ? iconImg : avatar} alt="" className="avatar ml-2" />
               <Link className="text-xl text-center" to={`/oferente/${usuario?.Id_Usuario}`}>{usuario?.NombreApellido}</Link>
               <button className="text-xl mr-8" onClick={() => cerrarSesion()}>Cerrar Sesión</button>
             </>

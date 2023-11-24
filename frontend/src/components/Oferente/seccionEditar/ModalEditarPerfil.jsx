@@ -51,8 +51,6 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
         resetErrors();
     };
     useEffect(() => {
-        console.log('Usuario en useEffect:', usuario);
-
         if (usuario) {
             setUser({
                 NombreApellido: usuario?.NombreApellido || '',
@@ -65,7 +63,6 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
             });
         }
         setUpdateEnProceso(false);
-        console.log('Usuario en SeccionEditar:', usuario);
     }, [usuario]);
     const handleInputChange = (e) => {
         const { name, value } = e.target;

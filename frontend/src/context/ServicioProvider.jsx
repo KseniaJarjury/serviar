@@ -14,6 +14,7 @@ const ServicioProvider = ({ children }) => {
     const [localidades, setLocalidad] = useState([]);
     const [center, setCenter] = useState({ lat: -32.966970, lng: -63.725497 });
     const [zoom, setZoom] = useState(5);
+    const [iconImg, setIconImg] = useState(null);
 
 
 
@@ -90,6 +91,7 @@ const ServicioProvider = ({ children }) => {
                 localidades,
                 center,
                 zoom,
+                iconImg,
                 login,
                 logout,
                 setUsuario,
@@ -97,6 +99,7 @@ const ServicioProvider = ({ children }) => {
                 setUsuariosFiltrados,
                 setCenter,
                 setZoom,
+                setIconImg
             }}>
             {children}
         </ServicioContext.Provider>

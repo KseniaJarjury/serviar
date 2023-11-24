@@ -6,10 +6,6 @@ import { DataTypes } from "sequelize";
 import Localidad from "./Localidad.js";
 
 
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
-
-
 const Usuario = db.define('Usuario', {
     Id_Usuario: {
         type: DataTypes.INTEGER,
@@ -17,8 +13,8 @@ const Usuario = db.define('Usuario', {
         autoIncrement: true,
     },
     Descripcion: { type: DataTypes.STRING },
-    Foto_Perfil: { type: DataTypes.STRING },
-    Foto_Portada: { type: DataTypes.STRING },
+    Foto_Perfil: { type: DataTypes.BLOB },
+    Foto_Portada: { type: DataTypes.BLOB },
     CUIT: { type: DataTypes.NUMBER },
     NombreApellido: { type: DataTypes.STRING },
     Telefono: { type: DataTypes.NUMBER },
@@ -56,9 +52,7 @@ Usuario.beforeCreate(async (usuario) => {
 // Método para que los usuarios verifiquen la contraseña
 Usuario.prototype.authenticate = async function (password) {
     try {
-        console.log('Comparando contraseñas:', password, this.password);
         const isMatch = await bcrypt.compare(password, this.password);
-        console.log('Resultado de la comparación:', isMatch);
         return isMatch;
     } catch (error) {
         console.error('Error al autenticar:', error);
