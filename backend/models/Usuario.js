@@ -38,7 +38,7 @@ const Usuario = db.define('Usuario', {
     Id_Servicio: { type: DataTypes.INTEGER },
 }, {
     timestamps: false,
-    tableName: 'usuario'
+    tableName: 'Usuario'
 });
 
 Usuario.belongsTo(Localidad, { foreignKey: 'Id_Localidad' });
