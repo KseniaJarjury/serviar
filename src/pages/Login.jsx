@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: '',
@@ -22,7 +23,7 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('https://serviar-production.up.railway.app/api/login', {
+      const response = await axios.post(`${apiUrl}/api/login`, {
         email,
         password,
       });

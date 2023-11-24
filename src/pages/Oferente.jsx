@@ -6,8 +6,9 @@ import SeccionGaleria from '../components/Oferente/seccionGaleria/SeccionGaleria
 import SeccionOferente from '../components/Oferente/seccionEditar/SeccionEditar';
 function Oferente() {
   const { setUsuarios,  setUsuariosFiltrados} = UseServicio();
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   useEffect (() =>{
-    fetch('/api/usuarios')
+    fetch(`${apiUrl}/api/usuarios`)
             .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);

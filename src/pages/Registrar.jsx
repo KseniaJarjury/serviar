@@ -10,6 +10,7 @@ function Registrar() {
     window.scrollTo(0, 0);
 
     const { provincias, localidades, servicios, setUsuario, login } = UseServicio();
+    const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
     const navigate = useNavigate();
 
     const [registroExitoso, setRegistroExitoso] = useState(false);
@@ -34,7 +35,7 @@ function Registrar() {
     const registrar = async () => {
         try {
             setRegistroEnProceso(true);
-            const response = await axios.post('api/registrar', {
+            const response = await axios.post(`${apiUrl}/api/registrar`, {
                 email: person.email,
                 password: person.password,
                 NombreApellido: person.NombreApellido,

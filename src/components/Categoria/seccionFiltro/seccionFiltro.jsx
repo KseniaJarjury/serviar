@@ -66,13 +66,13 @@ function SeccionFiltro() {
 
   return (
     <>
-      <div className="flex items-center h-40 mt-16 ml-12">
-        <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-2 px-4">
-          <h3 className=" subtitulo text-left">Encuentre su servicio</h3>
+      <div className="flex items-center h-20 md:h-40  mt-20 md:mt-16 ml-2 md:ml-12">
+        <div className="bg-[#00B0E4] bg-opacity-20 rounded-full inline-block py-1 md:py-2 px-3 md:px-4">
+          <h3 className=" subtitulo text-xl md:text-3xl text-left">Encuentre su servicio</h3>
         </div>
       </div>
       <form action="">
-        <div className="flex items-center space-x-16 ml-12 mb-16">
+        <div className="flex flex-col md:flex-row md:items-center gap-2 md:space-x-16 ml-6 md:ml-12 md:mb-16">
           {/* Buscador de Provincia */}
           <div className="relative">
             <label htmlFor="provincia" className="block text-gray-600 text-base">Provincia</label>
@@ -127,7 +127,7 @@ function SeccionFiltro() {
             )}
           </div>
 
-          <button className="btn-buscar bg-blue-500 text-white px-4 py-2 rounded-lg mt-4" type="submit" onClick={handleSearch}>Buscar</button>
+          <button className="btn-buscar bg-blue-500 text-white w-36 md:w-50  md:px-4 py-1 md:py-2 rounded-lg mt-4" type="submit" onClick={handleSearch}>Buscar</button>
         </div>
       </form>
     </>
