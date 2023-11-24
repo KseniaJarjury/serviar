@@ -3,18 +3,31 @@ import "./ModalContactar.css";
 import ubicacion from "./../../../assets/Contactar/Ubicacion.png";
 import email from "./../../../assets/Contactar/email.png";
 import telefono from "./../../../assets/Contactar/telefono.png";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ModalContactar({ showModalContactar, setShowModalContactar,
     usuario, localidad, provincia, servicio }) {
+    function enviarConsulta(){
+        setShowModalContactar(false);
+        toast.success('¡Consulta Enviada!', {
+            position: "top-right",
+            autoClose: 3000, // Se cerrará automáticamente después de 3 segundos
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,});
+    }
     return (
         <>
             {showModalContactar ? (
                 <>
-                    <div className="md:max-h-[80rem] justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="md:max-h-[90rem] justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
                         {showModalContactar ? (
                             <>
                                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                                    <div className="relative my-8 mx-[16rem] w-[70vh] md:w-[90vh]">
+                                    <div className="relative my-8 mx-[16rem] w-[70vh] md:w-[55vw] md:h-[70vh]">
                                         <div className="rounded-lg  relative flex flex-col md:flex-row md:max-h-[100rem] bg-white outline-none focus:outline-none">
 
                                             {/* Sección de información */}
@@ -70,7 +83,7 @@ function ModalContactar({ showModalContactar, setShowModalContactar,
                                                     <button
                                                         className="text-2xl  bg-[#00B0E4] active:bg-[#001A29] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                         type="button"
-                                                        onClick={() => setShowModalContactar(false)}
+                                                        onClick={() => enviarConsulta()}
                                                     >
                                                         Enviar
                                                     </button>

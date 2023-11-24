@@ -17,6 +17,7 @@ const ServicioProvider = ({ children }) => {
     const [center, setCenter] = useState({ lat: -32.966970, lng: -63.725497 });
     const [zoom, setZoom] = useState(5);
 
+
     useEffect(() => {
 
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
@@ -44,35 +45,44 @@ const ServicioProvider = ({ children }) => {
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
-    }, [apiUrl]);
-
-    const login = async (email, password) => {
-        try {
-            // Lógica para iniciar sesión y obtener la información del usuario
-            const response = await fetch('/api/usuario', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            if (response.ok) {
-                const userData = await response.json();
-                setUsuario(userData);
-            } else {
-                throw new Error('Credenciales incorrectas');
-            }
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            throw error;
-        }
-    };
-
-    const logout = () => {
-        // Lógica para cerrar sesión y actualizar el estado del usuario
+    }, []);
+    const login = (usuario) => {
+        // Lógica para iniciar sesión
+        setUsuario(usuario);
+      };
+    
+      const logout = () => {
+        // Lógica para cerrar sesión
         setUsuario(null);
-    };
+      };
+
+    // const login = async (email, password) => {
+    //     try {
+    //         // Lógica para iniciar sesión y obtener la información del usuario
+    //         const response = await fetch('/api/usuario', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ email, password }),
+    //         });
+
+    //         if (response.ok) {
+    //             const userData = await response.json();
+    //             setUsuario(userData);
+    //         } else {
+    //             throw new Error('Credenciales incorrectas');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error al iniciar sesión:', error);
+    //         throw error;
+    //     }
+    // };
+
+    // const logout = () => {
+    //     // Lógica para cerrar sesión y actualizar el estado del usuario
+    //     setUsuario(null);
+    // };
 
     // Función para registrar un nuevo usuario
     return (
@@ -88,6 +98,7 @@ const ServicioProvider = ({ children }) => {
                 zoom,
                 login,
                 logout,
+                setUsuario,
                 setUsuarios,
                 setUsuariosFiltrados,
                 setCenter,

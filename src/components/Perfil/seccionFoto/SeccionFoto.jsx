@@ -26,14 +26,14 @@ function SeccionPerfil() {
           <div className="contenedor-foto-perfil">
             <img src={FotoPerfil} alt="" className="w-[11rem] h-[11rem] md:w-[24rem] md:h-[14.5rem] -ml-16 rounded-full absolute top-[-85px] left-0 shadow-img-shadow" />
           </div>
-          <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
+          {/* <div className="flex flex-row justify-end items-center ml-16 md:mr-12">
             <p className="m-2 text-xl md:text-2xl">Reputacion: </p>
             <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
             <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
             <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
             <img src={Start} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
             <img src={Start1} alt="" className="w-3 md:w-5 h-3 md:h-5 mr-2" />
-          </div>
+          </div> */}
           <div className="text-left ml-4 md:ml-16 -mb-22">
             {usuario ? ( // Verifica si usuario no es undefined
               <>

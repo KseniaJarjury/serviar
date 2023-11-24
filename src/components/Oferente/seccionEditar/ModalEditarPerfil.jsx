@@ -1,79 +1,161 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UseServicio from "../../../hooks/UseServicio";
+import { IoClose } from "react-icons/io5";
+import axios from "axios";
 
-function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
-    const { provincias, localidades, servicios, usuario, setUsuario } = UseServicio();
+function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updateUsuario, usuario, setUsuario }) {
+    const { provincias, localidades, servicios } = UseServicio();
     const [updateExitoso, setUpdateExitoso] = useState(false);
     const [updateEnProceso, setUpdateEnProceso] = useState(false);
     const [errors, setErrors] = useState({});
-    const [person, setPerson] = useState({
-        NombreApellido: '',
-        Descripcion: '',
-        CUIT: '',
-        Telefono: '',
-        provincia: '',
-        localidad: '',
-        servicio: '',
+    const [localidad, setLocalidad] = useState(usuario?.localidad || {});
+    const [user, setUser] = useState({
+        NombreApellido: usuario?.NombreApellido || '',
+        Descripcion: usuario?.Descripcion || '',
+        CUIT: usuario?.CUIT || '',
+        Telefono: usuario?.Telefono || '',
+        provincia: usuario?.provincia || '',  // Asegúrate de que los nombres coincidan con los campos en tu objeto usuario
+        localidad: usuario?.localidad || '',
+        servicio: usuario?.servicio || '',
     });
-    const handleInputChange = (e) => {
-        setPerson({
-            ...person,
-            [e.target.name]: e.target.value,
+
+    async function actualizarUsuario(dataToUpdate) {
+        try {
+            const response = await axios.put(`http://localhost:3000/api/usuario/${usuario.Id_Usuario}`, dataToUpdate);
+            // Verificar si la respuesta de la API contiene datos
+            if (response && response.data) {
+                console.log('Respuesta de la API:', response.data);
+                // Puedes realizar acciones adicionales aquí según la respuesta de la API
+            } else {
+                console.error('Error al modificar el usuario: Respuesta de la API no contiene datos');
+            }
+        } catch (error) {
+            console.error('Error al modificar el usuario:', error.response?.data || error.message || error);
+            // Puedes manejar errores aquí
+        }
+    };
+
+    const handleCloseModal = () => {
+        // Restaurar los datos originales y cerrar el modal
+        setUser({
+            NombreApellido: usuario?.NombreApellido || '',
+            Descripcion: usuario?.Descripcion || '',
+            CUIT: usuario?.CUIT || '',
+            Telefono: usuario?.Telefono || '',
+            provincia: provincia?.Id_Provincia || '',
+            localidad: localidad?.Id_Localidad || '',
+            servicio: servicio?.Id_Servicio || '',
         });
-        // Verificar si el campo actual es requerido y está vacío
+        setShowModal(false);
+        // Reiniciar errores al cerrar el modal
+        resetErrors();
+    };
+    useEffect(() => {
+        console.log('Usuario en useEffect:', usuario);
+
+        if (usuario) {
+            setUser({
+                NombreApellido: usuario?.NombreApellido || '',
+                Descripcion: usuario?.Descripcion || '',
+                CUIT: usuario?.CUIT || '',
+                Telefono: usuario?.Telefono || '',
+                provincia: usuario?.provincia || '',
+                localidad: usuario?.localidad || '',
+                servicio: usuario?.servicio || '',
+            });
+        }
+        setUpdateEnProceso(false);
+        console.log('Usuario en SeccionEditar:', usuario);
+    }, [usuario]);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: value,
+        }));
+
         if (e.target.required) {
             setErrors({
                 ...errors,
                 [e.target.name]: 'Este campo es obligatorio',
             });
         } else {
-            // Limpiar el error si el campo tiene un valor
             setErrors({
                 ...errors,
                 [e.target.name]: '',
             });
         }
+
+        if (e.target.name === 'provincia') {
+            const provinciaSeleccionada = provincias.find(p => p.Id_Provincia === value);
+            const localidadesDeProvincia = provinciaSeleccionada ? localidades.filter(local => local.Id_Provincia === provinciaSeleccionada.Id_Provincia) : [];
+
+            // Limpiar la localidad al cambiar la provincia
+            setUser((prevUser) => ({
+                ...prevUser,
+                localidad: '',
+            }));
+
+            // Limpiar la localidad en el estado
+            setLocalidad('');
+        }
+
+        // Actualizar localidad cuando cambia
+        if (e.target.name === 'localidad') {
+            setLocalidad(e.target.value);
+        }
     };
-
-    const UpdatePerfil = async () => {
+    async function UpdatePerfil() {
         try {
-
-            // Verificar si hay errores en los campos requeridos
-            const hasErrors = Object.values(errors).some((error) => error);
-            if (hasErrors) {
-                // Puedes mostrar un mensaje o realizar acciones adicionales
-                return;
-            }
-
             setUpdateEnProceso(true);
             const dataToUpdate = {
-                NombreApellido: person.NombreApellido,
-                Descripcion: person.Descripcion,
-                CUIT: person.CUIT,
-                Telefono: person.Telefono,
-                Id_Localidad: person.localidad,
-                Id_Servicio: person.servicio,
+                NombreApellido: user.NombreApellido,
+                Descripcion: user.Descripcion,
+                CUIT: user.CUIT,
+                Telefono: user.Telefono,
+                Id_Localidad: user.localidad,
+                Id_Servicio: user.servicio,
             };
-            // Llamar a la función pasada como prop para realizar la solicitud a la API
-            await handleApiCall(dataToUpdate);
+
+            Object.keys(dataToUpdate).forEach(key => {
+                if (dataToUpdate[key] === '' || dataToUpdate[key] === null) {
+                    delete dataToUpdate[key];
+                }
+            });
+
+            await actualizarUsuario(dataToUpdate);
             setUpdateExitoso(true);
-            // Cerrar el modal después de una actualización exitosa
-            setShowModal(false);
-            // Recargar la página o realizar otras acciones necesarias para mostrar el perfil actualizado
-            window.location.reload(); // Esto recarga la página, puedes usar otra lógica según tus necesidades
+
+            // Actualizar los datos del usuario llamando a la función de actualización
+            updateUsuario((prevUsuario) => ({
+                ...prevUsuario,
+                ...dataToUpdate,
+            }));
         } catch (error) {
-            // Manejar errores según sea necesario
+            console.error("Error al actualizar perfil:", error);
         } finally {
             setUpdateEnProceso(false);
         }
-    };
+    }
+
+    useEffect(() => {
+        if (updateExitoso) {
+            // Cerrar el modal después de una actualización exitosa
+            setShowModal(false);
+            // Recargar la página para reflejar los cambios
+            window.location.reload();
+        }
+    }, [updateExitoso]);
+
     // Verificar si todos los campos requeridos están completos
     const isFormValid = () => {
         return (
-            Object.values(person).every((value) => value.trim() !== '' || value === 0) &&
+            Object.values(user).every((value) => (typeof value === 'string' ? value.trim() !== '' : true) || value === 0) &&
             !Object.values(errors).some((error) => error)
         );
     };
+
     const resetErrors = () => {
         setErrors({
             NombreApellido: '',
@@ -103,65 +185,66 @@ function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
                                             {/*header*/}
                                             <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                                                 <h3 className="text-[#001A29] text-3xl font-bold">
-                                                    Datos Personales
+                                                    Editar Datos Personales
                                                 </h3>
-                                                <button
-                                                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+
+                                                <IoClose className="ml-auto border-0 text-black  float-right text-3xl font-semibold "
                                                     onClick={() => {
                                                         setShowModal(false);
+                                                        handleCloseModal();
                                                         resetErrors(); // Reiniciar errores al cerrar el modal
-                                                    }}
-
-                                                >
-                                                    <span className="text-black text-bold h-8 w-8 text-3xl block focus:outline-none">
-                                                        ×
-                                                    </span>
-                                                </button>
+                                                    }} />
                                             </div>
+                                            <p className="text-md text-left ml-8 mt-6">* El asterisco indica que es obligatorio</p>
                                             {/*body*/}
                                             <div className="w-full relative overflow-y-auto max-w-screen-lg">
-                                                <form className='flex flex-col text-left text-xl p-16' action=''>
-                                                    <label htmlFor="NombreApellido">Nombre Completo:</label>
+                                                <form className='flex flex-col text-left text-xl p-12' action=''>
+                                                    <h3 className="text-left text-[#001A29] text-3xl font-bold mb-4">
+                                                        Información Básica
+                                                    </h3>
+                                                    <label htmlFor="NombreApellido">Nombre Completo*</label>
                                                     <input
                                                         type="text"
                                                         id="NombreApellido"
                                                         name="NombreApellido"
-                                                        value={person.NombreApellido}
+                                                        value={user.NombreApellido}
                                                         onChange={handleInputChange}
-                                                        className="mb-4 p-2 max-w-full border border-gray-300"
+                                                        className="mb-4 mt-2 p-2 max-w-full text-black font-semibold border border-gray-300"
                                                     />
-                                                    <label htmlFor="Descripcion">Descripcion:</label>
-                                                    <textarea name="Descripcion" id="Descripcion" cols="70" rows="6" className="mb-4 border border-gray-300" value={person.Descripcion}
+                                                    <label htmlFor="Descripcion">Descripcion*</label>
+                                                    <textarea
+                                                        name="Descripcion"
+                                                        id="Descripcion"
+                                                        value={user.Descripcion}
+                                                        cols="70" rows="6"
+                                                        className="mb-4 mt-2 text-black font-semibold border border-gray-300"
                                                         onChange={handleInputChange} required></textarea>
-                                                    <label htmlFor="cuit">CUIT:</label>
+                                                    <label htmlFor="cuit">CUIT*</label>
                                                     <input
                                                         type="text"
                                                         id="cuit"
                                                         name="CUIT"
-                                                        value={person.CUIT}
+                                                        value={user.CUIT}
                                                         onChange={handleInputChange}
                                                         required
-                                                        className="mb-4 p-2 max-w-full border border-gray-300"
+                                                        className="mb-4 mt-2 p-2 text-black font-semibold max-w-full border border-gray-300"
                                                     />
-                                                    <label htmlFor="Telefono">Telefono:</label>
+                                                    <label htmlFor="Telefono">Telefono*</label>
                                                     <input
                                                         type="text"
                                                         id="Telefono"
                                                         name="Telefono"
-                                                        value={person.Telefono}
+                                                        value={user.Telefono}
                                                         onChange={handleInputChange}
                                                         required
-                                                        className="mb-4 p-2 max-w-full border border-gray-300"
+                                                        className="mb-4 mt-2 p-2 text-black font-semibold max-w-full border border-gray-300"
                                                     />
-                                                    <label htmlFor="provincia" className="block text-gray-600 text-xl">
-                                                        Provincia:
-                                                    </label>
-                                                    {provincias && provincias.length > 0 && (
+                                                    {/* {provincias && provincias.length > 0 && (
                                                         <select
                                                             name="provincia"
-                                                            className="w-80 px-4 mb-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                                            className="w-80 px-4 mb-4 mt-2 py-2 pl-6 text-black font-semibold border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
-                                                            value={person?.provincia}
+                                                            defaultValue={provincia?.Id_Provincia}
                                                         >
                                                             <option value="">Seleccione</option>
                                                             {provincias.map((provincia) => (
@@ -171,35 +254,36 @@ function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
                                                             ))}
                                                         </select>
                                                     )}
+
                                                     <label htmlFor="localidad" className="block text-gray-600 text-xl">
-                                                        Localidad:
+                                                        Localidad*
                                                     </label>
                                                     {localidades && localidades.length > 0 && provincias && provincias.length > 0 && (
                                                         <select
                                                             name="localidad"
-                                                            className="w-80 px-4 py-2 pl-6 mb-4 border border-gray-300 rounded-lg placeholder-gray-500"
+                                                            className="w-80 px-4 py-2 mt-2 pl-6 text-black font-semibold mb-4 border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
-                                                            value={person.localidad}
+                                                            value={user.localidad}
                                                         >
                                                             <option value="">Seleccione</option>
                                                             {localidades
-                                                                .filter((localidad) => localidad.Id_Provincia.toString() === person.provincia)
+                                                                .filter((localidad) => user?.provincia ? localidad.Id_Provincia === user?.provincia : false)
                                                                 .map((localidad) => (
                                                                     <option key={localidad.Id_Localidad} value={localidad.Id_Localidad}>
                                                                         {localidad.Localidad}
                                                                     </option>
                                                                 ))}
                                                         </select>
-                                                    )}
+                                                    )} */}
                                                     <label htmlFor="servicio" className="block text-gray-600 text-xl">
-                                                        Servicio:
+                                                        Servicio*
                                                     </label>
                                                     {servicios && servicios.length > 0 && (
                                                         <select
                                                             name="servicio"
-                                                            className="w-80 px-4 py-2 pl-6 border border-gray-300 rounded-lg placeholder-gray-500"
+                                                            className="w-80 px-4 py-2 mt-2 pl-6 text-black font-semibold border border-gray-300 rounded-lg placeholder-gray-500"
                                                             onChange={handleInputChange}
-                                                            value={person?.servicio}
+                                                            defaultValue={servicio?.Id_Servicio}
                                                         >
                                                             <option value="">Seleccione</option>
                                                             {servicios.map((servicio) => (
@@ -218,6 +302,7 @@ function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
                                                     type="button"
                                                     onClick={() => {
                                                         setShowModal(false);
+                                                        handleCloseModal();
                                                         resetErrors(); // Reiniciar errores al cerrar el modal
                                                     }}
                                                 >
@@ -226,8 +311,8 @@ function ModalEditarPerfil({ showModal, setShowModal, handleApiCall }) {
                                                 <button
                                                     className="bg-[#00B0E4] active:bg-[#001A29] text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                     type="button"
-                                                    onClick={UpdatePerfil}
-                                                    disabled={!isFormValid()}
+                                                    onClick={() => UpdatePerfil()}
+                                                    disabled={updateEnProceso}
                                                 >
                                                     Guardar
                                                 </button>
