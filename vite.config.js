@@ -6,7 +6,12 @@ export default defineConfig({
   server: {
     server: {
       proxy: {
-        '/api': 'https://serviar-production.up.railway.app',
+        '/api': {
+          target: 'https://serviar-production.up.railway.app',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
       },
     },
   },

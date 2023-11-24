@@ -5,6 +5,8 @@ import axios from 'axios';
 const ServicioContext = createContext();
 
 const ServicioProvider = ({ children }) => {
+    const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
+    
 
     const [usuario, setUsuario] = useState(null);
     const [usuarios, setUsuarios] = useState([]);
@@ -16,33 +18,33 @@ const ServicioProvider = ({ children }) => {
     const [zoom, setZoom] = useState(5);
 
     useEffect(() => {
-        
+
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch('/api/usuarios')
-        .then(response => {
-            if (!response.ok) {
-              throw new Error('Error en la solicitud');
-            }
-            return response.json();
-          })
+        fetch(`${apiUrl}/api/usuarios`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
             .then((responseData) => {
                 setUsuarios(responseData);
                 setUsuariosFiltrados(responseData);
             })
             .catch((error) => console.error(error));
-        fetch('/api/servicios')
+        fetch(`${apiUrl}/api/servicios`)
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/localidades')
+        fetch(`${apiUrl}/api/localidades`)
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
-        fetch('/api/provincias')
+        fetch(`${apiUrl}/api/provincias`)
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));
-    }, []);
+    }, [apiUrl]);
 
     const login = async (email, password) => {
         try {
