@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: 'https://serviar-i9zqm9zsq-ksenia-jarjurys-projects.vercel.app',  // Reemplaza con tu dominio frontend
+    origin: 'https://serviar-git-main-ksenia-jarjurys-projects.vercel.app',  // Reemplaza con tu dominio frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }));
