@@ -15,11 +15,16 @@ const ServicioProvider = ({ children }) => {
     const [center, setCenter] = useState({ lat: -32.966970, lng: -63.725497 });
     const [zoom, setZoom] = useState(5);
 
-
     useEffect(() => {
+        
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
         fetch('/api/usuarios')
-            .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) {
+              throw new Error('Error en la solicitud');
+            }
+            return response.json();
+          })
             .then((responseData) => {
                 setUsuarios(responseData);
                 setUsuariosFiltrados(responseData);
