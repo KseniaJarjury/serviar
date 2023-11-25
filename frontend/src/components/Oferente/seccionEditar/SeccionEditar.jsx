@@ -16,6 +16,7 @@ function SeccionEditar() {
   const { usuarios, servicios, localidades, provincias, setUsuario,setIconImg } = UseServicio();
   const { Id_Usuario } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   
   // Verificar si usuarios está definido y no está vacío
   useEffect(() => {
@@ -25,7 +26,7 @@ function SeccionEditar() {
       );
       setUsuario(usuarioEncontrado);
       if(usuarioEncontrado?.Foto_Perfil){
-        axios.get(`http://localhost:3000/api/getImg/${usuarioEncontrado.Id_Usuario}`, { responseType: 'arraybuffer' })
+        axios.get(`${apiUrl}/api/getImg/${usuarioEncontrado.Id_Usuario}`, { responseType: 'arraybuffer' })
           .then(response => {
             const blob = new Blob([response.data], { type: 'image/jpeg' });
             console.log(URL.createObjectURL(blob))

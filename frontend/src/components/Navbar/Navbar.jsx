@@ -12,7 +12,7 @@ function Navbar() {
   const { usuario, setUsuario, iconImg, setIconImg } = UseServicio();
   const [Open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [scrolling, setScrolling] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Navbar() {
       }
     };
     if(usuario?.Foto_Perfil){
-      axios.get(`http://localhost:3000/api/getImg/${usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
+      axios.get(`${apiUrl}/api/getImg/${usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
         .then(response => {
           const blob = new Blob([response.data], { type: 'image/jpeg' });
           console.log(URL.createObjectURL(blob))
