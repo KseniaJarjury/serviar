@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
   const navigate = useNavigate();
   const { setUsuario,setIconImg } = UseServicio();
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -46,14 +47,14 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-        const response = await axios.post('api/login', {
+        const response = await axios.post(`${apiUrl}/api/login`, {
           email,
           password,
         });
       if (response.data && response.data.auth === true) {
         console.log('Inicio de sesión exitoso');
         setUsuario(response.data.usuario);
-        axios.get(`http://localhost:3000/api/getImg/${response.data.usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
+        axios.get(`${apiUrl}/api/getImg/${response.data.usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
           .then(response => {
             const blob = new Blob([response.data], { type: 'image/jpeg' });
             setIconImg(URL.createObjectURL(blob));

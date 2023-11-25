@@ -82,7 +82,7 @@ function SeccionEditar() {
         // .then(res => console.log(res))
         // .catch(err => console.error(err))
 
-        const response = await axios.post("http://localhost:3000/api/updateImgPerf", formData, {
+        const response = await axios.post(`${apiUrl}/api/updateImgPerf`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
