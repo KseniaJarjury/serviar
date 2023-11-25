@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import Validation from '../validators/LoginValidation.js';
 import '../styles/Login.css';
@@ -12,8 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
-  const { setUsuario } = UseServicio();
+  const { setUsuario,setIconImg } = UseServicio();
+  const backendUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -48,14 +48,21 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${backendUrl}/api/login`, {
-        email,
-        password,
-      });
-      console.log(response.data)
+        const response = await axios.post(`${apiUrl}/api/login`, {
+          email,
+          password,
+        });
       if (response.data && response.data.auth === true) {
         console.log('Inicio de sesión exitoso');
         setUsuario(response.data.usuario);
+        axios.get(`${apiUrl}/api/getImg/${response.data.usuario.Id_Usuario}`, { responseType: 'arraybuffer' })
+          .then(response => {
+            const blob = new Blob([response.data], { type: 'image/jpeg' });
+            setIconImg(URL.createObjectURL(blob));
+          })
+          .catch(error => {
+              console.error('Error al obtener la imagen:', error);
+            });
         // Redirige al usuario a la ruta '/'
         navigate('/');
         showAlert('Inicio de sesión exitoso',true);
@@ -96,7 +103,6 @@ export default function Login() {
 
   return (
     <>
-      <Navbar />
       <div className="conteiner-login">
         <h1 className="titulo-login">Inicia Sesión</h1>
         <div className="conteiner-login-form">

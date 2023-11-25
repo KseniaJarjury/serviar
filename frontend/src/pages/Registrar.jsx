@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import Validation from '../validators/LoginValidation.js';
 import UseServicio from '../hooks/UseServicio.js';
@@ -10,7 +9,7 @@ function Registrar() {
     const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
     const { provincias, localidades, servicios, setUsuario, login } = UseServicio();
     const navigate = useNavigate();
-
+    const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
     const [registroExitoso, setRegistroExitoso] = useState(false);
     const [registroEnProceso, setRegistroEnProceso] = useState(false);
     const [errors, setErrors] = useState({});
@@ -40,6 +39,7 @@ function Registrar() {
                 Id_Localidad: person.localidad,
                 Id_Servicio: person.servicio,
             });
+            console.log(person.password);
             setApiResponse(response);
 
             if (response.status === 201) {
@@ -81,7 +81,6 @@ function Registrar() {
 
     return (
         <>
-            <Navbar />
             <div className="bg-cover bg-center h-[70rem] flex flex-col items-center justify-center" style={{ backgroundImage: `url('/src/assets/fondopixe.png')` }}>
                 <h1 className="text-[#001A29] text-center text-[65px] font-bold mt-2 p-8">Registrate</h1>
                 <div className='bg-[#e6e6e6c7] rounded-5 shadow-lg shadow-gray-300 w-[40vh] md:w-[60vh] lg:w-[90vh] h-[70%]'>

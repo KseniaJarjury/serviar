@@ -6,6 +6,7 @@ import Start1 from "../../../assets/start1.png";
 import "./seccionFoto.css"
 import { useParams } from "react-router-dom";
 import UseServicio from "../../../hooks/UseServicio";
+import axios from 'axios';
 
 function SeccionPerfil() {
   // Dirigirme a la parte superior de la vista
@@ -18,6 +19,7 @@ function SeccionPerfil() {
   const servicio = servicios.find(
     (servicio) => servicio.Id_Servicio === usuario.Id_Servicio
   );
+
   return (
     <>
       <div className="cont-foto text-[#001A29]">

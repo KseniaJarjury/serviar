@@ -6,7 +6,6 @@ import { datosComentarios } from '../../../../data/data';
 // STYLES 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import "./sliderComentarios.css"
 
 // MODULOS 
 import { Pagination } from 'swiper/modules';

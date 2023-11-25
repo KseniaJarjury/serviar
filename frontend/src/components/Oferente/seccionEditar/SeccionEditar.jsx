@@ -7,14 +7,17 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdAddAPhoto } from "react-icons/md";
 import ModalEditarPerfil from "./ModalEditarPerfil";
 import "./seccionEditar.css";
+import axios from 'axios';
 
-function SeccionOferente() {
+function SeccionEditar() {
   // Dirigirme a la parte superior de la vista
   window.scrollTo(0, 0);
   const [showModal, setShowModal] = useState(false);
-  const { usuarios, servicios, localidades, provincias, setUsuario } = UseServicio();
+  const { usuarios, servicios, localidades, provincias, setUsuario,setIconImg } = UseServicio();
   const { Id_Usuario } = useParams();
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
+  
   // Verificar si usuarios está definido y no está vacío
   useEffect(() => {
     if (usuarios && usuarios.length > 0) {
@@ -22,6 +25,17 @@ function SeccionOferente() {
         (usuario) => usuario.Id_Usuario === Number.parseInt(Id_Usuario)
       );
       setUsuario(usuarioEncontrado);
+      if(usuarioEncontrado?.Foto_Perfil){
+        axios.get(`${apiUrl}/api/getImg/${usuarioEncontrado.Id_Usuario}`, { responseType: 'arraybuffer' })
+          .then(response => {
+            const blob = new Blob([response.data], { type: 'image/jpeg' });
+            console.log(URL.createObjectURL(blob))
+            setSelectedImage(URL.createObjectURL(blob));
+          })
+          .catch(error => {
+              console.error('Error al obtener la imagen:', error);
+            });
+      }
     }
   }, [usuarios, Id_Usuario]);
 
@@ -46,6 +60,44 @@ function SeccionOferente() {
   const updateUsuario = (updatedUsuario) => {
     setUsuario(updatedUsuario);
   };
+
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+
+      try {
+        const datos = {
+          Id_Usuario: Id_Usuario
+        };
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append('datos', JSON.stringify(datos)); // Agrega los datos en formato JSON
+        //Guardo la imagen en una carpeta local temporalmente
+        // fetch('http://localhost:3000/api/updateImgPerf',{
+        //   method: 'POST',
+        //   body: formData,
+        // }).then(res => res.text())
+        // .then(res => console.log(res))
+        // .catch(err => console.error(err))
+
+        const response = await axios.post(`${apiUrl}/api/updateImgPerf`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(response)
+        setIconImg(URL.createObjectURL(file));
+        // Maneja la respuesta del servidor (por ejemplo, muestra un mensaje de éxito)
+        console.log("Imagen cargada con éxito");
+      } catch (error) {
+        // Maneja errores (por ejemplo, muestra un mensaje de error)
+        console.error("Error al cargar la imagen:", error);
+      }
+    }
+  };
+
 
   return (
     <>
@@ -93,21 +145,31 @@ function SeccionOferente() {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="flex justify-center relative">
+                      <label
+                        htmlFor="fileInput"
+                        className="text-2xl text-black-600 cursor-pointer"
+                      >
                       <img
                         alt="..."
-                        src={FotoPerfil}
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-16 lg:-ml-[8rem]"
-                        style={{ maxWidth: "280px" }}
+                        src={selectedImage ? selectedImage : FotoPerfil}
+                        className="shadow-xl rounded-full h-auto w-auto align-middle border-none absolute -m-16 -ml-16 lg:-ml-[8rem]"
+                        style={{ maxWidth: "200px", height:"auto", aspectRatio: "initial" }}
                       />
-                      <MdAddAPhoto
-                        className="text-2xl text-black-600 absolute top-14 md:top-12 lg:top-14 -right-14 lg:-right-18 m-2 cursor-pointer"
-                      />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: 'none' }}
+                          id="fileInput"
+                          name="image"
+                          onChange={handleImageUpload}
+                        />
+                    </label>
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className=" flex justify-center  lg:py-6 lg:px-3 lg:mt-32 lg:mt-0 lg:mr-16">
                       <button
-                        className="mt-28 lg:mt-4 ml-18 lg:ml-40 bg-[#00B0E4] active:bg-[#001A29] uppercase text-white font-bold hover:shadow-md shadow text-lg px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                        className="mt-10 lg:mt-0 ml-18 lg:ml-20 bg-[#00B0E4] active:bg-[#001A29] uppercase text-white font-bold hover:shadow-md shadow text-lg px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                         type="button"
                         onClick={() => setShowModal(true)}
                         style={{ transition: "all .15s ease" }}
@@ -184,4 +246,4 @@ function SeccionOferente() {
 }
 
 
-export default SeccionOferente;
+export default SeccionEditar;

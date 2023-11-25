@@ -7,6 +7,7 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
     const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
     
     const { provincias, localidades, servicios } = UseServicio();
+    const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
     const [updateExitoso, setUpdateExitoso] = useState(false);
     const [updateEnProceso, setUpdateEnProceso] = useState(false);
     const [errors, setErrors] = useState({});
@@ -53,8 +54,6 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
         resetErrors();
     };
     useEffect(() => {
-        console.log('Usuario en useEffect:', usuario);
-
         if (usuario) {
             setUser({
                 NombreApellido: usuario?.NombreApellido || '',
@@ -67,7 +66,6 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
             });
         }
         setUpdateEnProceso(false);
-        console.log('Usuario en SeccionEditar:', usuario);
     }, [usuario]);
     const handleInputChange = (e) => {
         const { name, value } = e.target;

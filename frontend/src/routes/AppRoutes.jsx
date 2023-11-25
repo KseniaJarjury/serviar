@@ -7,11 +7,13 @@ import Oferente from "../pages/Oferente"
 import Categoria from "../pages/Categoria";
 import Error from "../pages/Error";
 import React from "react";
+import Navbar from '../components/Navbar/Navbar';
 
 function AppRoutes() {
     return (
         <>
             <Router>
+            <Navbar/>
                     <Routes>
                         <Route path="/" element={<Inicio />} />
                         <Route path="/registrar" element={<Registrar />} />

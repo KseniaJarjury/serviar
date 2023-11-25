@@ -1,6 +1,5 @@
 //Importamos el Model
 import Usuario from "../models/Usuario.js";
-import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
 //  Metodos para el CRUD
@@ -38,10 +37,6 @@ export const createUsuario = async (req, res) => {
             });
         }
 
-        // Hashear la contraseña antes de almacenarla en la base de datos
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log(hashedPassword)
         // Crear un nuevo usuario
         const nuevoUsuario = await Usuario.create({
             NombreApellido: req.body.NombreApellido,
@@ -63,26 +58,10 @@ export const createUsuario = async (req, res) => {
             },
         });
     } catch (error) {
+        console.error(error)
         res.status(500).json({ message: error.message });
     }
 };
-
-
-// Mostrar imagenes usuario
-export const getImg = async (req, res) => {
-    try {
-        const usuario = await Usuario.findByPk(req.params.id); // Encuentra el usuario por ID o el identificador de imagen
-        if (!usuario || !usuario.Foto_Perfil) {
-            return res.status(404).json({ message: 'Imagen no encontrada' });
-        }
-        // Enviar la imagen al cliente
-        res.setHeader('Content-Type', 'image/jpeg'); // Establecer el tipo de contenido como imagen JPEG
-        res.end(usuario.Foto_Perfil); // Envía la imagen JPEG al cliente
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al servir la imagen' });
-    }
-}
 
 //Actualizar un Usuario
 export const updateUsuario = async (req, res) => {
@@ -133,18 +112,10 @@ export const login = async (req, res) => {
     try {
         // Busca al usuario por su correo electrónico
         const usuario = await Usuario.findOne({ where: { email } });
-        console.log(usuario)
         if (usuario) {
-            console.log('Usuario encontrado:', usuario.email);
-
-            console.log('Comparando contraseñas:', password, usuario.password);
-            const isPasswordValid = await usuario.authenticate(password.toString().trim());//await bcrypt.compare(password.toString().trim(), usuario.password.toString());
-            //console.log('Longitud de contraseñas:', password.length, usuario.password.length);
-            //console.log('Resultado de la comparación:', isPasswordValid);
-            //console.log('isPasswordValid:', isPasswordValid);
+            const isPasswordValid = await usuario.authenticate(password.toString().trim());
 
             if (isPasswordValid) {
-                console.log('Secret:', "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");
                 const token = jwt.sign({ Id_Usuario: usuario.Id_Usuario }, "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", {
                     expiresIn: 36000
                 });
