@@ -7,7 +7,7 @@ import UseServicio from '../hooks/UseServicio.js';
 import axios from 'axios';
 
 function Registrar() {
-    window.scrollTo(0, 0);
+    const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
     const { provincias, localidades, servicios, setUsuario, login } = UseServicio();
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function Registrar() {
     const registrar = async () => {
         try {
             setRegistroEnProceso(true);
-            const response = await axios.post('api/registrar', {
+            const response = await axios.post(`${backendUrl}/api/registrar`, {
                 email: person.email,
                 password: person.password,
                 NombreApellido: person.NombreApellido,

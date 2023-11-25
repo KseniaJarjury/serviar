@@ -4,6 +4,8 @@ import { IoClose } from "react-icons/io5";
 import axios from "axios";
 
 function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updateUsuario, usuario, setUsuario }) {
+    const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+    
     const { provincias, localidades, servicios } = UseServicio();
     const [updateExitoso, setUpdateExitoso] = useState(false);
     const [updateEnProceso, setUpdateEnProceso] = useState(false);
@@ -21,7 +23,7 @@ function ModalEditarPerfil({ showModal, setShowModal, provincia, servicio, updat
 
     async function actualizarUsuario(dataToUpdate) {
         try {
-            const response = await axios.put(`http://localhost:3000/api/usuario/${usuario.Id_Usuario}`, dataToUpdate);
+            const response = await axios.put(`${backendUrl}/api/usuario/${usuario.Id_Usuario}`, dataToUpdate);
             // Verificar si la respuesta de la API contiene datos
             if (response && response.data) {
                 console.log('Respuesta de la API:', response.data);

@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const { setUsuario } = UseServicio();
   const [values, setValues] = useState({
     email: '',
@@ -47,7 +48,7 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('api/login', {
+      const response = await axios.post(`${backendUrl}/api/login`, {
         email,
         password,
       });

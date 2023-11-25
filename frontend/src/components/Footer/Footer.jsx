@@ -7,7 +7,7 @@ function Footer() {
     <>
       <div id="footer" className='bg-[#001A29]'>
         <div className='footer w-full h-500 flex flex-row gap-2 px-6 py-2 bg-[#001A29]'>
-          <div className='flex flex-wrap justify-evenly gap-y-6 m-auto w-full md:w-2/3'>
+          <div className='flex flex-wrap justify-evenly gap-y-6 m-auto w-full md:w-2/3 text-white text-semibold'>
             {/* Lista de contacto */}
             <FooterLink title={"Contacto"} links={["serviar@gmail.com", "11-1234-5678"]} />
             {/* Lista de redes sociales */}
