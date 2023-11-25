@@ -35,7 +35,7 @@ const Usuario = db.define('Usuario', {
     Id_Servicio: { type: DataTypes.INTEGER },
 }, {
     timestamps: false,
-    tableName: 'Usuario'
+    tableName: 'usuario'
 });
 
 // app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
