@@ -32,7 +32,7 @@ function Registrar() {
     const registrar = async () => {
         try {
             setRegistroEnProceso(true);
-            const response = await axios.post(`${apiUrl}api/registrar`, {
+            const response = await axios.post(`${apiUrl}/api/registrar`, {
                 email: person.email,
                 password: person.password,
                 NombreApellido: person.NombreApellido,

@@ -8,7 +8,7 @@ function Categoria() {
   const { setUsuarios,  setUsuariosFiltrados} = UseServicio();
   const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   useEffect (() =>{
-    fetch(`${apiUrl}/usuarios`)
+    fetch(`${apiUrl}/api/usuarios`)
             .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);
