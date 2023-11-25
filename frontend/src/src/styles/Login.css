@@ -1,0 +1,76 @@
+.conteiner-login {
+    background-attachment: fixed;
+    background-image: url(/src/assets/fondopixe.png);
+    object-fit: cover;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    height: 110vh;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+}
+
+.conteiner-login-form {
+    display: flex;
+    height: 400px;
+    justify-content: center;
+    align-items: center; /* Centrar verticalmente */
+    width: 400px;
+}
+.login-fondo {
+    background-color: #e6e6e6c7;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 0 #000;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    width: 500px;
+    
+}
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    background-color: initial;
+    border: none;
+    width: 500px;
+    height: 400px;
+}
+
+.titulo-login{
+    margin: 1rem;
+    margin-bottom: 6rem;
+    font-size: 4rem;
+    color: #001a29;
+    font-weight: 600;
+}
+.btn-login{
+    width:10rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #001A29;
+    opacity: 85%;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+    border-radius: 20px; /* Agrega bordes redondeados */
+    cursor: pointer;
+}
+.link-olvidar{
+    font-size: 18px;
+}
+.p-register{
+    font-size: 18px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+  }

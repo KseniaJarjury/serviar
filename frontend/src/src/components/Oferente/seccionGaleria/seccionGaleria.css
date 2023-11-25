@@ -1,0 +1,52 @@
+.container-galeria{
+    height:600px;
+}
+/* SeccionGaleria.css */
+.swiper-container {
+    width: 100%; /* Opcional, ajusta el ancho del carrusel según tu diseño */
+  }
+  
+  .icon-imagen {
+    width: 100%; /* Ajusta el ancho de las imágenes según tu diseño */
+    height: auto; /* Mantén la relación de aspecto */
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    font-size: 15px; /* Tamaño de fuente de los botones de navegación */
+    color: #001A29; /* Color de los botones de navegación */
+    margin-top: 10px;
+  }
+  
+  
+  .swiper-pagination-bullet {
+    background-color: #001A29; /* Color de fondo de los puntos de paginación */
+    width: 15px; /* Ancho de los puntos de paginación */
+    height: 15px; /* Altura de los puntos de paginación */
+    margin: 0 5px; /* Espacio entre los puntos de paginación */
+    border-radius: 50%; /* Forma redonda de los puntos de paginación */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón por encima */
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #001A29; /* Color de fondo de los puntos de paginación activos */
+  }
+  /* SeccionGaleria.css */
+.icon-imagen {
+    width: 65%; /* Ajusta el ancho de las imágenes según tu diseño */
+    height: auto; /* Mantén la relación de aspecto */
+    margin: 0 70px; /* Ajusta la separación entre las imágenes */
+  }
+  
+  .swiper-pagination {
+    margin-top: 10px; /* Ajusta la separación entre las imágenes y la paginación */
+    text-align: center; /* Centra los puntos de paginación */
+  }
+  /* Estilos para las flechas de navegación */
+.slider-arrow {
+    font-size: 24px; /* Ajusta el tamaño de fuente según tus preferencias */
+    cursor: pointer;
+    color: #000; /* Cambia el color de las flechas si es necesario */
+  }
+  
+  

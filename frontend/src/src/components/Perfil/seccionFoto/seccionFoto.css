@@ -1,0 +1,43 @@
+.cont-foto {
+    height: 800px;
+}
+
+.contenedor-perfil {
+    height: 300px;
+}
+
+.contenedor-foto-perfil {
+    position: relative;
+
+    /* Ajusta el margen izquierdo según tus necesidades */
+}
+
+.fondo-perfil {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ajusta la imagen al contenedor sin distorsionarla */
+}
+
+.contenedor-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 80px;
+    /* Ajusta el margen izquierdo según tus necesidades */
+}
+
+.contenedor-info p {
+    margin: 5px 0;
+}
+
+.contenedor-info img {
+    width: 20px;
+    /* Ajusta el ancho deseado para las imágenes de reputación */
+    height: 20px;
+    /* Ajusta la altura deseada para las imágenes de reputación */
+    margin-right: 5px;
+    /* Ajusta el margen derecho entre las imágenes y el texto */
+
+}
