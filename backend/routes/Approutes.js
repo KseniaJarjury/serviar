@@ -35,4 +35,4 @@ router.put('/localidades/:Id_Localidad', updateLocalidad);
 router.delete('/localidades/:Id_Localidad', deleteLocalidad);
 
 
-export default router
+export default router

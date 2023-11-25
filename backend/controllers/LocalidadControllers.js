@@ -59,6 +59,6 @@ export const deleteLocalidad = async (req, res) => {
             "message": "Localidad eliminado correctamente!"
         })
     } catch (error) {
-        res.json( {message: error.message} )
-    }
+        res.json( {message: error.message} )
+    }
 }

@@ -30,9 +30,6 @@ const Usuario = db.define('Usuario', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate:{
-            len: [0,60],
-        }
     },
     Id_Localidad: { type: DataTypes.INTEGER },
     Id_Servicio: { type: DataTypes.INTEGER },
@@ -41,29 +38,33 @@ const Usuario = db.define('Usuario', {
     tableName: 'Usuario'
 });
 
+// app.post('/cargar-imagen', upload.single('image'), async (req, res) => {
+//     const imageBuffer = req.file.buffer;
+
+//     try {
+//       // Guarda la imagen en la tabla Usuario
+//       const usuarioId = req.body.usuarioId; // Asegúrate de pasar el ID del usuario desde el cliente
+//       const usuario = await Usuario.findByPk(usuarioId);
+
+//       if (!usuario) {
+//         return res.status(404).json({ message: 'Usuario no encontrado' });
+//       }
+
+//       usuario.Foto_Perfil = imageBuffer;
+//       await usuario.save();
+//       console.log('Imagen guardada en la base de datos');
+//       res.status(201).json({ message: 'Imagen de perfil actualizada con éxito' });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'Error al cargar la imagen en la base de datos' });
+//     }
+//   });
+
+
 Usuario.belongsTo(Localidad, { foreignKey: 'Id_Localidad' });
 // Antes de crear un nuevo usuario, hashash la contraseña
 Usuario.beforeCreate(async (usuario) => {
-    try {
-        usuario.password = usuario.password.trim();
-        const salt = await bcrypt.genSalt(10);
-        usuario.password = await bcrypt.hash(usuario.password, salt);
-    } catch (error) {
-        console.error('Error al hashear la contraseña:', error);
-        throw error;
-    }
+    const salt = await bcrypt.genSalt(10);
+    usuario.password = await bcrypt.hash(usuario.password, salt);
 });
-// Método para que los usuarios verifiquen la contraseña
-Usuario.prototype.authenticate = async function (password) {
-    try {
-        console.log('Comparando contraseñas:', password, this.password);
-        const isMatch = await bcrypt.compare(password, this.password);
-        console.log('Resultado de la comparación:', isMatch);
-        return isMatch;
-    } catch (error) {
-        console.error('Error al autenticar:', error);
-        throw error;
-    }
-};
-
 export default Usuario;

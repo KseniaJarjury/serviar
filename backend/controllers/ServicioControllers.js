@@ -60,6 +60,6 @@ export const deleteServicio = async (req, res) => {
             "message": "Servicio eliminado correctamente!"
         })
     } catch (error) {
-        res.json( {message: error.message} )
-    }
+        res.json( {message: error.message} )
+    }
 }

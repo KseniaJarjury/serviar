@@ -22,6 +22,6 @@ export const getProvincia = async (req, res) => {
         })
         res.json(provincia[0])
     } catch (error) {
-        res.json ( {message: error.message} )
-    }
+        res.json ( {message: error.message} )
+    }
 }

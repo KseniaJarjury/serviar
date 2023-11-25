@@ -1,7 +1,6 @@
 //Importamos el Model
 import Usuario from "../models/Usuario.js";
 import bcrypt from 'bcrypt';
-import jwt from "jsonwebtoken";
 
 //  Metodos para el CRUD
 
@@ -41,12 +40,12 @@ export const createUsuario = async (req, res) => {
         // Hashear la contraseña antes de almacenarla en la base de datos
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log(hashedPassword)
+
         // Crear un nuevo usuario
         const nuevoUsuario = await Usuario.create({
             NombreApellido: req.body.NombreApellido,
             email: req.body.email,
-            password: req.body.password,
+            password: hashedPassword,
             Id_Localidad: req.body.Id_Localidad,
             Id_Servicio: req.body.Id_Servicio
         });
@@ -55,7 +54,6 @@ export const createUsuario = async (req, res) => {
             message: 'Usuario creado correctamente!',
             usuario: {
                 Id_Usuario: nuevoUsuario.Id_Usuario,
-                NombreApellido: nuevoUsuario.NombreApellido,
                 email: nuevoUsuario.email,
                 password: nuevoUsuario.password,
                 Id_Localidad: nuevoUsuario.Id_Localidad,
@@ -127,50 +125,21 @@ export const filterUsuario = async (req, res) => {
 }
 
 
-// Método para iniciar sesión
-export const login = async (req, res) => {
+  // Método para iniciar sesión
+  export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        // Busca al usuario por su correo electrónico
-        const usuario = await Usuario.findOne({ where: { email } });
-        console.log(usuario)
-        if (usuario) {
-            console.log('Usuario encontrado:', usuario.email);
-
-            console.log('Comparando contraseñas:', password, usuario.password);
-            const isPasswordValid = await usuario.authenticate(password.toString().trim());//await bcrypt.compare(password.toString().trim(), usuario.password.toString());
-            //console.log('Longitud de contraseñas:', password.length, usuario.password.length);
-            //console.log('Resultado de la comparación:', isPasswordValid);
-            //console.log('isPasswordValid:', isPasswordValid);
-
-            if (isPasswordValid) {
-                console.log('Secret:', "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");
-                const token = jwt.sign({ Id_Usuario: usuario.Id_Usuario }, "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", {
-                    expiresIn: 36000
-                });
-
-                res.json({
-                    token: token,
-                    expiresIn: 36000,
-                    msg: '¡Bienvenido!',
-                    usuario: usuario,
-                    error: false,
-                    auth: true
-                });
-            } else {
-                res.status(401).json({
-                    error: 'Credenciales incorrectas',
-                    auth: false
-                });
-            }
-        } else {
-            res.status(401).json({
-                error: 'Credenciales incorrectas',
-                auth: false
-            });
-        }
+      // Busca al usuario por su correo electrónico
+      const usuario = await Usuario.findOne({ where: { email, password } });
+      // Verifica si el usuario existe y si la contraseña es correcta
+  
+      if (usuario && password) {
+        res.json({ message: 'Inicio de sesión exitoso' });
+      } else {
+        res.status(401).json({ message: 'Credenciales incorrectas' });
+      }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al iniciar sesión' });
+      console.error(error);
+      res.status(500).json({ message: 'Error al iniciar sesión' });
     }
-};
+  }  
