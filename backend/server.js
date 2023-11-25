@@ -5,7 +5,14 @@ import db from "./database/db.js"
 //Importamos nuestro enrutador
 import AppRoutes from './routes/Approutes.js';
 const app = express();
-app.use(cors())
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+    origin: 'https://serviar-git-main-ksenia-jarjurys-projects.vercel.app',  // Reemplaza con tu dominio frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
+
 app.use(express.json())
 app.use('/api', AppRoutes);
 
@@ -16,6 +23,6 @@ try {
     console.log(`El error de conexion es: ${error}`)
 }
 
-app.listen(3000, () => {
-    console.log('Server UP running in http://localhost:3000/')
+app.listen(PORT, () => {
+    console.log(`'Server UP running in: ${PORT}`)
 })
