@@ -6,8 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:3000', // Cambia esto a la URL del servidor de Node.js del backend
+      '/api': {
+        target: 'https://serviar-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
     },
-    
+  }
   }
 })
