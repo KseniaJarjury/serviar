@@ -5,8 +5,6 @@ import axios from 'axios';
 const ServicioContext = createContext();
 
 const ServicioProvider = ({ children }) => {
-    const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
-    
 
     const [usuario, setUsuario] = useState(null);
     const [usuarios, setUsuarios] = useState([]);
@@ -18,30 +16,26 @@ const ServicioProvider = ({ children }) => {
     const [zoom, setZoom] = useState(5);
 
 
-    useEffect(() => {
 
+
+    useEffect(() => {
         // Realiza una solicitud a tu backend para obtener los datos y actualiza el estado del contexto.
-        fetch(`${apiUrl}/api/usuarios`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud');
-                }
-                return response.json();
-            })
+        fetch('/api/usuarios')
+            .then((response) => response.json())
             .then((responseData) => {
                 setUsuarios(responseData);
                 setUsuariosFiltrados(responseData);
             })
             .catch((error) => console.error(error));
-        fetch(`${apiUrl}/api/servicios`)
+        fetch('/api/servicios')
             .then((response) => response.json())
             .then((responseData) => setServicio(responseData))
             .catch((error) => console.error(error));
-        fetch(`${apiUrl}/api/localidades`)
+        fetch('/api/localidades')
             .then((response) => response.json())
             .then((responseData) => setLocalidad(responseData))
             .catch((error) => console.error(error));
-        fetch(`${apiUrl}/api/provincias`)
+        fetch('/api/provincias')
             .then((response) => response.json())
             .then((responseData) => setProvincia(responseData))
             .catch((error) => console.error(error));

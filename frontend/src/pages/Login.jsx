@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
-  const apiUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
   const { setUsuario } = UseServicio();
   const [values, setValues] = useState({
@@ -48,7 +47,10 @@ export default function Login() {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${apiUrl}/api/login`, {
+      // const response = await axios.post('https://serviar-production.up.railway.app/api/login', {
+
+      const response = await axios.post('api/login', {
+
         email,
         password,
       });

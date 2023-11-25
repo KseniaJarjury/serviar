@@ -1,0 +1,78 @@
+.container_presentacion{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container_imagen,
+.container_frase{
+    width: 50%; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+.imagen1{
+    object-fit: cover;
+    width: 620px;
+    height: 340px;
+}
+
+.presentacion{
+    width: 500px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.5;  
+}
+
+@media screen and (max-width: 992px){
+    .container_presentacion{
+        width: 100%; /* Ancho máximo del contenedor */
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container_imagen,
+    .container_frase{
+        width: 100%;
+        height: 350px;
+        padding: 0.5rem;
+    }
+    .imagen1{
+        width: 600px;
+        height: 300px;
+        margin: 0%;
+        left: 30%;
+        top: 5%;
+        z-index: 0; 
+    }
+    .presentacion{
+        width: 700px;
+        font-size: 24px;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .presentacion{
+        width: 350px;
+        font-size: 20px;
+    }
+} 
+/*Pantallas sm Smartphones*/
+@media screen and (max-width: 576px) {
+    
+    .imagen1{
+        width: auto;
+        height: auto;
+        left: 20%;
+        top: 5%;
+    }
+    .presentacion{
+        width: auto;
+        font-size: 16px;
+    }
+}
